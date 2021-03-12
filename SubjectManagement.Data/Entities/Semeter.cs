@@ -6,9 +6,12 @@ namespace SubjectManagement.Data.Entities
 {
     public class Semeter
     {
-        public string ID { get; set; }
+        public int ID { get; set; }
         public string Term { get; set; }
         public string Year { get; set; }
+
+
+        public List<SubjectInSemeter> SubjectInSemeters { get; set; }
 
     }
 }

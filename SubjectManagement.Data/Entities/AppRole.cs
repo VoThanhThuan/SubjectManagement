@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SubjectManagement.Data.Entities
 {
-    class AppRole
+    public class AppRole
     {
         public string ID { get; set; }
         public string Name { get; set; }

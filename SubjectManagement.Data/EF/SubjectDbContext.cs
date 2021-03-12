@@ -2,6 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Dashboard.Data.Configurations;
+using Dashboard.Data.Entities;
+using SubjectManagement.Data.Configurations;
+using SubjectManagement.Data.Entities;
 
 namespace SubjectManagement.Data.EF
 {
@@ -13,6 +17,39 @@ namespace SubjectManagement.Data.EF
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.ApplyConfiguration(new AppUserConfiguration());
+            modelBuilder.ApplyConfiguration(new AppRoleConfiguration());
+            modelBuilder.ApplyConfiguration(new AppUserRoleConfiguration());
+
+            modelBuilder.ApplyConfiguration(new AlternativeSubjectConfiguration());
+
+            modelBuilder.ApplyConfiguration(new KnowledgeGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectInKnowledgeGroupConfiguration());
+
+            modelBuilder.ApplyConfiguration(new SubjectConfiguration());
+            modelBuilder.ApplyConfiguration(new ElectiveGroupConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectInElectiveGroupConfiguration());
+
+            modelBuilder.ApplyConfiguration(new SemeterConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectInSemeterConfiguration());
+
+
+
+            //modelBuilder.Seed();
         }
+
+        public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<AppRole> AppRoles { get; set; }
+        public DbSet<AppUserRole> AppUserRoles { get; set; }
+        public DbSet<AlternativeSubject> AlternativeSubjects { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<ElectiveGroup> ElectiveGroups { get; set; }
+        public DbSet<SubjectInElectiveGroup> SubjectInElectiveGroups { get; set; }
+        public DbSet<Semeter> Semeters { get; set; }
+        public DbSet<SubjectInSemeter> SubjectInSemeters { get; set; }
+        public DbSet<KnowledgeGroup> KnowledgeGroups { get; set; }
+        public DbSet<SubjectInKnowledgeGroup> SubjectInKnowledgeGroups { get; set; }
+
+
     }
 }

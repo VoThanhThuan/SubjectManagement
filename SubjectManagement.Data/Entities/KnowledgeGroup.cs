@@ -6,8 +6,9 @@ namespace SubjectManagement.Data.Entities
 {
     public class KnowledgeGroup
     {
-        public string ID { get; set; }
+        public Guid ID { get; set; }
         public string Name { get; set; }
 
+        public List<SubjectInKnowledgeGroup> SubjectInKnowledgeGroups { get; set; }
     }
 }

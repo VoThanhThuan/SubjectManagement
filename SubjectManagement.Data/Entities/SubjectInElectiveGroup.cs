@@ -6,9 +6,12 @@ namespace SubjectManagement.Data.Entities
 {
     public class SubjectInElectiveGroup
     {
-        public string ID { get; set; }
-        public string IDSubject { get; set; }
-        public string IDGroupElective { get; set; }
+        public int ID { get; set; }
+        public Guid IDSubject { get; set; }
+        public Guid IDElectiveGroup { get; set; }
 
+
+        public Subject Subject { get; set; }
+        public ElectiveGroup ElectiveGroup { get; set; }
     }
 }

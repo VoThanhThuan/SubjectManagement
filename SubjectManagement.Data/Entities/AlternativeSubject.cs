@@ -6,9 +6,10 @@ namespace SubjectManagement.Data.Entities
 {
     public class AlternativeSubject
     {
-        public string ID { get; set; }
-        public string IDSubjectsOld { get; set; }
-        public string IDSubjectsNew { get; set; }
+        public int ID { get; set; }
+        public Guid IDOld { get; set; }
+        public Guid IDNew { get; set; }
+        public Subject Subject { get; set; }
 
     }
 }
