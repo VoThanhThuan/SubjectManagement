@@ -10,7 +10,7 @@ using SubjectManagement.Data.EF;
 namespace SubjectManagement.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20210312035612_db1")]
+    [Migration("20210313134429_db1")]
     partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,32 @@ namespace SubjectManagement.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("AppUserRole");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            RoleID = "admin",
+                            UserID = "TK01"
+                        },
+                        new
+                        {
+                            ID = 2,
+                            RoleID = "guest",
+                            UserID = "TK02"
+                        },
+                        new
+                        {
+                            ID = 3,
+                            RoleID = "guest",
+                            UserID = "TK03"
+                        },
+                        new
+                        {
+                            ID = 4,
+                            RoleID = "admin",
+                            UserID = "TK04"
+                        });
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.AlternativeSubject", b =>
@@ -80,6 +106,26 @@ namespace SubjectManagement.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("AppRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = "admin",
+                            Description = "Quyền Cao Cấp",
+                            Name = "admin"
+                        },
+                        new
+                        {
+                            ID = "guest",
+                            Description = "Quyền Người Xem",
+                            Name = "guest"
+                        },
+                        new
+                        {
+                            ID = "dev",
+                            Description = "Quyền Của Thằng Lập Trình",
+                            Name = "dev"
+                        });
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.AppUser", b =>
@@ -109,6 +155,44 @@ namespace SubjectManagement.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("AppUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = "TK01",
+                            Avatar = "",
+                            FirstName = "Thuận",
+                            LastName = "Võ Thành",
+                            PasswordHash = "wZIa07fMB/OKgTNIFKmWVw==",
+                            Username = "thuan"
+                        },
+                        new
+                        {
+                            ID = "TK02",
+                            Avatar = "",
+                            FirstName = "Anh",
+                            LastName = "Lê Thị Ngọc",
+                            PasswordHash = "X+vaPQ75BzemDeL9fG13KA==",
+                            Username = "anh"
+                        },
+                        new
+                        {
+                            ID = "TK03",
+                            Avatar = "",
+                            FirstName = "Sơn",
+                            LastName = "Nguyễn Ngọc",
+                            PasswordHash = "SY08a/oDP23Bvk/MPDcKpw==",
+                            Username = "son"
+                        },
+                        new
+                        {
+                            ID = "TK04",
+                            Avatar = "",
+                            FirstName = "Truyền",
+                            LastName = "Nguyễn Thị Mỹ",
+                            PasswordHash = "ipy+CjQc6p4LS8IWvcIq3Q==",
+                            Username = "truyen"
+                        });
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.ElectiveGroup", b =>
@@ -171,27 +255,68 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<string>("CourseCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Credit")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Credit")
+                        .HasColumnType("int");
 
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsOffical")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NumberOfPractice")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NumberOfPractice")
+                        .HasColumnType("int");
 
-                    b.Property<string>("NumberOfTheory")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("NumberOfTheory")
+                        .HasColumnType("int");
 
-                    b.Property<string>("TypeCourse")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<bool>("TypeCourse")
+                        .HasColumnType("bit");
 
                     b.HasKey("ID");
 
                     b.ToTable("Subject");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = new Guid("dfa4dc5c-3963-4515-88e3-2236b95ca73c"),
+                            CourseCode = "SEE101",
+                            Credit = 1,
+                            Details = "",
+                            IsOffical = true,
+                            Name = "Giới thiệu ngành – ĐH KTPM",
+                            NumberOfPractice = 0,
+                            NumberOfTheory = 15,
+                            TypeCourse = true
+                        },
+                        new
+                        {
+                            ID = new Guid("80df5307-e86e-429e-89f2-c686675137c3"),
+                            CourseCode = "COS106",
+                            Credit = 4,
+                            Details = "",
+                            IsOffical = true,
+                            Name = "Lập trình căn bản",
+                            NumberOfPractice = 50,
+                            NumberOfTheory = 35,
+                            TypeCourse = true
+                        },
+                        new
+                        {
+                            ID = new Guid("1188f271-325f-40f9-804e-1ae2a9661084"),
+                            CourseCode = "TIE501",
+                            Credit = 4,
+                            Details = "",
+                            IsOffical = true,
+                            Name = "Lập trình .Net",
+                            NumberOfPractice = 60,
+                            NumberOfTheory = 30,
+                            TypeCourse = true
+                        });
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInElectiveGroup", b =>

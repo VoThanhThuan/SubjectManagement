@@ -7,7 +7,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SubjectManagement.Data\SubjectManagement.Data.csproj" />
+    <None Remove="Login\WallpaperLaptopLogo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="2.0.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SubjectManagement.Application\SubjectManagement.Application.csproj" />
+    <ProjectReference Include="..\SubjectManagement.Service\SubjectManagement.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Login\WallpaperLaptopLogo.png" />
   </ItemGroup>
 
 </Project>

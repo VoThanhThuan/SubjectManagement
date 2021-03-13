@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SubjectManagement.Data\SubjectManagement.Data.csproj" />
+    <ProjectReference Include="..\SubjectManagement.Service\SubjectManagement.Service.csproj" />
+    <ProjectReference Include="..\SubjectManagement.ViewMobels\SubjectManagement.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>

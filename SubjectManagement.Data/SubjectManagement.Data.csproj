@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
+    <ProjectReference Include="..\SubjectManagement.Service\SubjectManagement.Service.csproj" />
   </ItemGroup>
 
 </Project>

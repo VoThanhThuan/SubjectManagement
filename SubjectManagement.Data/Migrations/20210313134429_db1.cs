@@ -96,10 +96,11 @@ namespace SubjectManagement.Data.Migrations
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CourseCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Credit = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    TypeCourse = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NumberOfTheory = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NumberOfPractice = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Credit = table.Column<int>(type: "int", nullable: false),
+                    TypeCourse = table.Column<bool>(type: "bit", nullable: false),
+                    NumberOfTheory = table.Column<int>(type: "int", nullable: false),
+                    NumberOfPractice = table.Column<int>(type: "int", nullable: false),
+                    IsOffical = table.Column<bool>(type: "bit", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -203,6 +204,48 @@ namespace SubjectManagement.Data.Migrations
                         principalTable: "Subject",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AppRoles",
+                columns: new[] { "ID", "Description", "Name" },
+                values: new object[,]
+                {
+                    { "admin", "Quyền Cao Cấp", "admin" },
+                    { "guest", "Quyền Người Xem", "guest" },
+                    { "dev", "Quyền Của Thằng Lập Trình", "dev" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AppUserRole",
+                columns: new[] { "ID", "RoleID", "UserID" },
+                values: new object[,]
+                {
+                    { 1, "admin", "TK01" },
+                    { 2, "guest", "TK02" },
+                    { 3, "guest", "TK03" },
+                    { 4, "admin", "TK04" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "AppUsers",
+                columns: new[] { "ID", "Avatar", "FirstName", "LastName", "PasswordHash", "Username" },
+                values: new object[,]
+                {
+                    { "TK01", "", "Thuận", "Võ Thành", "wZIa07fMB/OKgTNIFKmWVw==", "thuan" },
+                    { "TK02", "", "Anh", "Lê Thị Ngọc", "X+vaPQ75BzemDeL9fG13KA==", "anh" },
+                    { "TK03", "", "Sơn", "Nguyễn Ngọc", "SY08a/oDP23Bvk/MPDcKpw==", "son" },
+                    { "TK04", "", "Truyền", "Nguyễn Thị Mỹ", "ipy+CjQc6p4LS8IWvcIq3Q==", "truyen" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Subject",
+                columns: new[] { "ID", "CourseCode", "Credit", "Details", "IsOffical", "Name", "NumberOfPractice", "NumberOfTheory", "TypeCourse" },
+                values: new object[,]
+                {
+                    { new Guid("dfa4dc5c-3963-4515-88e3-2236b95ca73c"), "SEE101", 1, "", true, "Giới thiệu ngành – ĐH KTPM", 0, 15, true },
+                    { new Guid("80df5307-e86e-429e-89f2-c686675137c3"), "COS106", 4, "", true, "Lập trình căn bản", 50, 35, true },
+                    { new Guid("1188f271-325f-40f9-804e-1ae2a9661084"), "TIE501", 4, "", true, "Lập trình .Net", 60, 30, true }
                 });
 
             migrationBuilder.CreateIndex(

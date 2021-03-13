@@ -6,6 +6,7 @@ using Dashboard.Data.Configurations;
 using Dashboard.Data.Entities;
 using SubjectManagement.Data.Configurations;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.Data.Extensions;
 
 namespace SubjectManagement.Data.EF
 {
@@ -35,7 +36,7 @@ namespace SubjectManagement.Data.EF
 
 
 
-            //modelBuilder.Seed();
+            modelBuilder.Seed();
         }
 
         public DbSet<AppUser> AppUsers { get; set; }
