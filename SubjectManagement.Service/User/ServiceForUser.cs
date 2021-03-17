@@ -18,10 +18,4 @@ namespace SubjectManagement.Service.User
 
     }
 
-    public class InfoLogin
-    {
-        public string RoleID { get; set; }
-        public string Name { get; set; }
-        public string ImagePath { get; set; }
-    }
 }

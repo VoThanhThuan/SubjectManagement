@@ -12,11 +12,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Service", "SubjectManagement.Service\SubjectManagement.Service.csproj", "{111F5FBB-C636-4C79-90EB-3B9E6C22D669}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Common", "SubjectManagement.Service\SubjectManagement.Common.csproj", "{111F5FBB-C636-4C79-90EB-3B9E6C22D669}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubjectManagement.Application", "SubjectManagement.Application\SubjectManagement.Application.csproj", "{EB76F4C5-C0A4-4A2C-AFBD-32F6CB4D7126}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Application", "SubjectManagement.Application\SubjectManagement.Application.csproj", "{EB76F4C5-C0A4-4A2C-AFBD-32F6CB4D7126}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubjectManagement.ViewModels", "SubjectManagement.ViewMobels\SubjectManagement.ViewModels.csproj", "{15287189-4945-4C8A-90BD-C6218CD07114}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.ViewModels", "SubjectManagement.ViewMobels\SubjectManagement.ViewModels.csproj", "{15287189-4945-4C8A-90BD-C6218CD07114}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

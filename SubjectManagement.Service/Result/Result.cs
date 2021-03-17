@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SubjectManagement.Service.Common
+namespace SubjectManagement.Common.Result
 {
     public class Result<T>
     {

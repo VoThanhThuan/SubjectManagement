@@ -12,4 +12,11 @@ namespace SubjectManagement.ViewModels.System.Users
         public string Password { get; set; }
         public bool RememberMe { get; set; }
     }
+
+    public class InfoLogin
+    {
+        public string Role { get; set; }
+        public string Name { get; set; }
+        public string ImagePath { get; set; }
+    }
 }

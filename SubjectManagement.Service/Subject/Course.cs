@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SubjectManagement.Service.Subject
+namespace SubjectManagement.Common.Subject
 {
     public class Course
     {

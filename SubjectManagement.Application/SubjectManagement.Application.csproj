@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SubjectManagement.Data\SubjectManagement.Data.csproj" />
-    <ProjectReference Include="..\SubjectManagement.Service\SubjectManagement.Service.csproj" />
+    <ProjectReference Include="..\SubjectManagement.Service\SubjectManagement.Common.csproj" />
     <ProjectReference Include="..\SubjectManagement.ViewMobels\SubjectManagement.ViewModels.csproj" />
   </ItemGroup>
 

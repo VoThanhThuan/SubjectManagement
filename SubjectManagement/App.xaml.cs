@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SubjectManagement.Application.System.Users;
 using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
+using SubjectManagement.Login;
 
 namespace SubjectManagement
 {
@@ -23,18 +24,17 @@ namespace SubjectManagement
             ServiceProvider = serviceCollection.BuildServiceProvider();
 
             ServiceProvider.GetRequiredService<Db>();
-            
         }
 
         private void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<SubjectDbContext>(cs => cs.UseSqlServer(
-                "Server=.\\SQLEXPRESS;Database=ComputerShopManager;Trusted_Connection=true;")
+                "Server =.\\SQLEXPRESS; Database=SubjectDatabase; Trusted_Connection=True;")
             );
 
             services.AddTransient(typeof(Db));
 
-            services.AddTransient<IUserService, UserService>();
         }
 
 

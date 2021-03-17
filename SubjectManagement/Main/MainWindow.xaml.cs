@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Dragablz;
 using SubjectManagement.Login;
+using SubjectManagement.Main.Children.Common;
 
 namespace SubjectManagement
 {
@@ -24,8 +27,21 @@ namespace SubjectManagement
         public MainWindow()
         {
             InitializeComponent();
-            var login = new LoginWindow();
-            login.Show();
+            InitialTabablzControl.NewItemFactory = () =>
+            {
+                var tabItem = new TabItem()
+                {
+                    Header = "NewTab",
+                };
+                tabItem.Content = new NewTabUC(tabItem);
+                return tabItem;
+            };
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var newItem = new TabItem() {Header = "NewTab" };
+            newItem.Content = new NewTabUC(newItem);
+            InitialTabablzControl.Items.Add(newItem);
         }
     }
 }

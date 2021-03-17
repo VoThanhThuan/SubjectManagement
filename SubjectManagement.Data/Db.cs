@@ -9,10 +9,10 @@ namespace SubjectManagement.Data
 {
     public class Db
     {
-        public static SubjectDbContext _context;
+        public static SubjectDbContext Context;
         public Db(SubjectDbContext context)
         {
-            _context = context;
+            Context = context;
         }
     }
 }
