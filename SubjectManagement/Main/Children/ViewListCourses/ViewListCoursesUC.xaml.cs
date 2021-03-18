@@ -25,10 +25,16 @@ namespace SubjectManagement.Main.Children.ViewListCourses
         {
             InitializeComponent();
             _subjectService = new SubjectService();
-            dg_ListCourses.ItemsSource = _subjectService.LoadSubject().ResultObj.ToObservableCollection();
+            LoadListSubject();
         }
 
         private ISubjectService _subjectService;
+
+        private async void LoadListSubject()
+        {
+            var listSubject = await _subjectService.LoadSubject();
+            dg_ListCourses.ItemsSource = listSubject.ResultObj.ToList();
+        }
 
     }
 }

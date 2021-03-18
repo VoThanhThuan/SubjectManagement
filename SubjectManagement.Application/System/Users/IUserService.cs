@@ -11,6 +11,6 @@ namespace SubjectManagement.Application.System.Users
 {
     public interface IUserService
     {
-        Result<InfoLogin> Authentivate(LoginRequest request);
+        Task<Result<InfoLogin>> Authentivate(LoginRequest request);
     }
 }

@@ -13,9 +13,9 @@ namespace SubjectManagement.Application.SubjectApp
 {
     public class SubjectService : ISubjectService
     {
-        public Result<LocalView<Subject>> LoadSubject()
+        public async Task<Result<LocalView<Subject>>> LoadSubject()
         {
-            Db.Context.Subjects.Load();
+            await Db.Context.Subjects.LoadAsync();
             var subject = Db.Context.Subjects.Local;
             return new ResultSuccess<LocalView<Subject>>(subject, "OK");
         }

@@ -11,6 +11,6 @@ namespace SubjectManagement.Application.SubjectApp
 {
     public interface ISubjectService
     {
-        Result<LocalView<Subject>> LoadSubject();
+        Task<Result<LocalView<Subject>>> LoadSubject();
     }
 }

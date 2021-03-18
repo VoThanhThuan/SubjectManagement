@@ -5,6 +5,8 @@ using SubjectManagement.ViewModels.System.Users;
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -51,12 +53,14 @@ namespace SubjectManagement.Login
             ImgBackground.ImageSource = new BitmapImage(new Uri(path, UriKind.Relative));
         }
 
-        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+
+
+        private async void OpenWindow()
         {
             dht_Loading.Visibility = Visibility.Visible;
 
             var info = new LoginRequest() { Username = tbx_UserName.Text, Password = tbx_Password.Password, RememberMe = false };
-            var result = _userService.Authentivate(info);
+            var result = await _userService.Authentivate(info);
             if (result.IsSuccessed is true)
             {
                 if (result.ResultObj.Role is "admin")
@@ -81,10 +85,15 @@ namespace SubjectManagement.Login
                 };
                 mess.ShowDialog();
             }
-
             dht_Loading.Visibility = Visibility.Hidden;
-
         }
+
+
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            OpenWindow();
+        }
+
 
         private void btn_Close_Checked(object sender, RoutedEventArgs e)
         {

@@ -1,13 +1,16 @@
-﻿<UserControl x:Class="SubjectManagement.Main.Children.ViewListCourses.ViewListCoursesUC"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SubjectManagement.Main.Children.ViewListCourses"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             x:Class="SubjectManagement.Main.Children.ViewListCourses.ViewListCoursesUC"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:ConvertTypeCourses x:Key="ConvertTypeCourses" />
+    </UserControl.Resources>
     <Grid>
         <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}">
             <StackPanel>
@@ -31,7 +34,7 @@
                                 <DataGridTextColumn Header="Tín Chỉ"
                                                     Binding="{Binding Credit}" />
                                 <DataGridTextColumn Header="Loại Học Phần"
-                                                    Binding="{Binding TypeCourse}" />
+                                                    Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
                                 <DataGridTextColumn Header="Tiết Lý Thuyết"
                                                     Binding="{Binding NumberOfTheory}" />
                                 <DataGridTextColumn Header="Tiết Thực Hành"
