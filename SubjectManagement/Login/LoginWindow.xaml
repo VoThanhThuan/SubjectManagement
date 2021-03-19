@@ -217,7 +217,7 @@
             </RepeatButton>
 
             <Grid Background="#7F000000"
-                  x:Name="dht_Loading"
+                  x:Name="Grid_Loading"
                   Visibility="Hidden">
                 <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}"
                              IsIndeterminate="True"

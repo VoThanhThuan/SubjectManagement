@@ -100,6 +100,9 @@ namespace SubjectManagement.Data.Migrations
                     TypeCourse = table.Column<bool>(type: "bit", nullable: false),
                     NumberOfTheory = table.Column<int>(type: "int", nullable: false),
                     NumberOfPractice = table.Column<int>(type: "int", nullable: false),
+                    Prerequisite = table.Column<int>(type: "int", nullable: false),
+                    learnFirst = table.Column<int>(type: "int", nullable: false),
+                    Parallel = table.Column<int>(type: "int", nullable: false),
                     IsOffical = table.Column<bool>(type: "bit", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
@@ -240,12 +243,12 @@ namespace SubjectManagement.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Subject",
-                columns: new[] { "ID", "CourseCode", "Credit", "Details", "IsOffical", "Name", "NumberOfPractice", "NumberOfTheory", "TypeCourse" },
+                columns: new[] { "ID", "CourseCode", "Credit", "Details", "IsOffical", "Name", "NumberOfPractice", "NumberOfTheory", "Parallel", "Prerequisite", "TypeCourse", "learnFirst" },
                 values: new object[,]
                 {
-                    { new Guid("dfa4dc5c-3963-4515-88e3-2236b95ca73c"), "SEE101", 1, "", true, "Giới thiệu ngành – ĐH KTPM", 0, 15, true },
-                    { new Guid("80df5307-e86e-429e-89f2-c686675137c3"), "COS106", 4, "", true, "Lập trình căn bản", 50, 35, true },
-                    { new Guid("1188f271-325f-40f9-804e-1ae2a9661084"), "TIE501", 4, "", true, "Lập trình .Net", 60, 30, true }
+                    { new Guid("bdd89ea9-c237-48cb-9f4f-ff73a19f8d0e"), "SEE101", 1, "", true, "Giới thiệu ngành – ĐH KTPM", 0, 15, 0, 0, true, 0 },
+                    { new Guid("3242c90f-e2e2-4a60-949a-cfb653ddbb37"), "COS106", 4, "", true, "Lập trình căn bản", 50, 35, 0, 0, true, 0 },
+                    { new Guid("bcd66cf3-b9c9-45ab-a563-4426eb17c1ba"), "TIE501", 4, "", true, "Lập trình .Net", 60, 30, 0, 0, true, 0 }
                 });
 
             migrationBuilder.CreateIndex(

@@ -2,9 +2,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SubjectManagement.Dialog"
+        xmlns:local="clr-namespace:SubjectManagement.Common.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        x:Class="SubjectManagement.Dialog.MessageDialog"
+        x:Class="SubjectManagement.Common.Dialog.MessageDialog"
         mc:Ignorable="d"
         Title="Message"
         Height="170"
@@ -18,7 +18,7 @@
             <DockPanel>
                 <Grid DockPanel.Dock="Top">
                     <materialDesign:ColorZone x:Name="title_color" Mode="PrimaryMid"
-                                              Height="40">
+                                              Height="40" x:FieldModifier="public">
                     <materialDesign:ColorZone.Background>
                         <LinearGradientBrush EndPoint="0.5,1"
                                              StartPoint="0.5,0">
@@ -43,7 +43,7 @@
                                    Text="Title Message"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Left"
-                                   Margin="10,0,0,0" />
+                                   Margin="10,0,0,0" x:FieldModifier="public" />
 
                     </materialDesign:ColorZone>
 
@@ -104,7 +104,7 @@
                                TextWrapping="Wrap"
                                FontSize="18"
                                FontWeight="Bold"
-                               Margin="10,5,0,0" />
+                               Margin="10,5,0,0" x:FieldModifier="public" />
                 </ScrollViewer>
 
             </DockPanel>

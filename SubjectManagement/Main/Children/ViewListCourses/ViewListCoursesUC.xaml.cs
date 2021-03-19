@@ -36,5 +36,9 @@ namespace SubjectManagement.Main.Children.ViewListCourses
             dg_ListCourses.ItemsSource = listSubject.ResultObj.ToList();
         }
 
+        private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

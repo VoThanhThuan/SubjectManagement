@@ -17,7 +17,7 @@ using Dragablz;
 using SubjectManagement.Login;
 using SubjectManagement.Main.Children.Common;
 
-namespace SubjectManagement
+namespace SubjectManagement.Main
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,10 +29,7 @@ namespace SubjectManagement
             InitializeComponent();
             InitialTabablzControl.NewItemFactory = () =>
             {
-                var tabItem = new TabItem()
-                {
-                    Header = "NewTab",
-                };
+                var tabItem = new TabItem() {Header = "NewTab"};
                 tabItem.Content = new NewTabUC(tabItem);
                 return tabItem;
             };

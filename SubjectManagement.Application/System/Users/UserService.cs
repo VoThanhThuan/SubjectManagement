@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 using SubjectManagement.Common.Result;
+using SubjectManagement.Common.User;
 using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
-using SubjectManagement.Service.User;
+
 using SubjectManagement.ViewModels.System.Users;
 
 namespace SubjectManagement.Application.System.Users
 {
     public class UserService : IUserService
     {
-        public async Task<Result<InfoLogin>> Authentivate(LoginRequest request)
+        public async Task<Result<InfoLogin>> Authenticate(LoginRequest request)
         {
             await Db.Context.AppUsers.LoadAsync();
             //Tìm tài khoản

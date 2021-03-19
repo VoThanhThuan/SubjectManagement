@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Dashboard.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using SubjectManagement.Common.Subject;
+using SubjectManagement.Common.User;
 using SubjectManagement.Data.Entities;
-using SubjectManagement.Service.User;
 
 namespace SubjectManagement.Data.Extensions
 {

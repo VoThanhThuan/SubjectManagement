@@ -13,6 +13,9 @@ namespace SubjectManagement.Data.Entities
         public bool TypeCourse { get; set; }
         public int NumberOfTheory { get; set; }
         public int NumberOfPractice { get; set; }
+        public int Prerequisite { get; set; } //Tiên Quyết
+        public int learnFirst { get; set; } //Học Trước
+        public int Parallel { get; set; } // Song Hành
         public bool IsOffical { get; set; }
         public string Details { get; set; }
 

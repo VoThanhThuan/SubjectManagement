@@ -12,7 +12,40 @@
         <local:ConvertTypeCourses x:Key="ConvertTypeCourses" />
     </UserControl.Resources>
     <Grid>
-        <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}">
+        <StackPanel>
+            <Button x:Name="btn_AddOpen"
+                    ToolTip="Thêm mới"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Width="140"
+                    Margin="10,10,0,0"
+                    Padding="0"
+                    Height="47.7"
+                    Click="btn_AddOpen_Click"
+                    Foreground="#FF00B9FF">
+                <Grid Width="132"
+                      Height="44">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="41*"></ColumnDefinition>
+                        <ColumnDefinition Width="91*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <materialDesign:PackIcon Kind="TablePlus"
+                                             Height="32"
+                                             Width="32"
+                                             VerticalAlignment="Center"
+                                             HorizontalAlignment="Right"
+                                             Margin="4,0,0,0" />
+                    <TextBlock HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="20"
+                               Grid.Column="1"
+                               Height="27">Thêm</TextBlock>
+                </Grid>
+            </Button>
+
+        </StackPanel>
+        <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}"
+                             Margin="0 69, 0, 0">
             <StackPanel>
                 <Expander HorizontalAlignment="Stretch"
                           Header="Expander Example 2a">

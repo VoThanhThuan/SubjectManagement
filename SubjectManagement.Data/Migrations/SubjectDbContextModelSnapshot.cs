@@ -271,8 +271,17 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<int>("NumberOfTheory")
                         .HasColumnType("int");
 
+                    b.Property<int>("Parallel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Prerequisite")
+                        .HasColumnType("int");
+
                     b.Property<bool>("TypeCourse")
                         .HasColumnType("bit");
+
+                    b.Property<int>("learnFirst")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -281,7 +290,7 @@ namespace SubjectManagement.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ID = new Guid("dfa4dc5c-3963-4515-88e3-2236b95ca73c"),
+                            ID = new Guid("bdd89ea9-c237-48cb-9f4f-ff73a19f8d0e"),
                             CourseCode = "SEE101",
                             Credit = 1,
                             Details = "",
@@ -289,11 +298,14 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Giới thiệu ngành – ĐH KTPM",
                             NumberOfPractice = 0,
                             NumberOfTheory = 15,
-                            TypeCourse = true
+                            Parallel = 0,
+                            Prerequisite = 0,
+                            TypeCourse = true,
+                            learnFirst = 0
                         },
                         new
                         {
-                            ID = new Guid("80df5307-e86e-429e-89f2-c686675137c3"),
+                            ID = new Guid("3242c90f-e2e2-4a60-949a-cfb653ddbb37"),
                             CourseCode = "COS106",
                             Credit = 4,
                             Details = "",
@@ -301,11 +313,14 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Lập trình căn bản",
                             NumberOfPractice = 50,
                             NumberOfTheory = 35,
-                            TypeCourse = true
+                            Parallel = 0,
+                            Prerequisite = 0,
+                            TypeCourse = true,
+                            learnFirst = 0
                         },
                         new
                         {
-                            ID = new Guid("1188f271-325f-40f9-804e-1ae2a9661084"),
+                            ID = new Guid("bcd66cf3-b9c9-45ab-a563-4426eb17c1ba"),
                             CourseCode = "TIE501",
                             Credit = 4,
                             Details = "",
@@ -313,7 +328,10 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Lập trình .Net",
                             NumberOfPractice = 60,
                             NumberOfTheory = 30,
-                            TypeCourse = true
+                            Parallel = 0,
+                            Prerequisite = 0,
+                            TypeCourse = true,
+                            learnFirst = 0
                         });
                 });
 

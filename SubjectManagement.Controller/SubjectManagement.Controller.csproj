@@ -6,9 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SubjectManagement.Application\SubjectManagement.Application.csproj" />
     <ProjectReference Include="..\SubjectManagement.Common\SubjectManagement.Common.csproj" />
-    <ProjectReference Include="..\SubjectManagement.Data\SubjectManagement.Data.csproj" />
-    <ProjectReference Include="..\SubjectManagement.ViewMobels\SubjectManagement.ViewModels.csproj" />
   </ItemGroup>
 
 </Project>

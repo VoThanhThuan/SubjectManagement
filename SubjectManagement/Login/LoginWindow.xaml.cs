@@ -1,8 +1,9 @@
 ﻿using SubjectManagement.Application.System.Users;
-using SubjectManagement.Dialog;
 using SubjectManagement.Member;
 using SubjectManagement.ViewModels.System.Users;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -12,6 +13,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using SubjectManagement.Controller;
+using SubjectManagement.Main;
 
 namespace SubjectManagement.Login
 {
@@ -23,11 +26,8 @@ namespace SubjectManagement.Login
         public LoginWindow()
         {
             InitializeComponent();
-            var userService = new UserService();
-            _userService = userService;
         }
 
-        private readonly IUserService _userService;
 
 
         /// <summary>
@@ -54,44 +54,21 @@ namespace SubjectManagement.Login
         }
 
 
-
-        private async void OpenWindow()
-        {
-            dht_Loading.Visibility = Visibility.Visible;
-
-            var info = new LoginRequest() { Username = tbx_UserName.Text, Password = tbx_Password.Password, RememberMe = false };
-            var result = await _userService.Authentivate(info);
-            if (result.IsSuccessed is true)
-            {
-                if (result.ResultObj.Role is "admin")
-                {
-                    var main = new MainWindow();
-                    main.Show();
-                }
-                else
-                {
-                    var member = new MemberWindow();
-                    member.Show();
-                }
-            }
-            else
-            {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = "Lỗi đăng nhập" },
-                    tbl_Message = { Text = $"{result.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
-            }
-            dht_Loading.Visibility = Visibility.Hidden;
-        }
-
-
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            OpenWindow();
+            var open = new OpenWindowController();
+            var loginInfo = new LoginRequest()
+            {
+                Username = tbx_UserName.Text,
+                Password = tbx_Password.Password,
+                ListWindows = new Hashtable() 
+            };
+
+            loginInfo.ListWindows.Add("admin", new MainWindow());
+            loginInfo.ListWindows.Add("guest", new MemberWindow());
+
+            open.OpenWindow(loginInfo, Grid_Loading);
+
         }
 
 

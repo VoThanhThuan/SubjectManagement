@@ -9,9 +9,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SubjectManagement.Service.Common;
+using SubjectManagement.Common.Result;
 
-namespace SubjectManagement.Dialog
+namespace SubjectManagement.Common.Dialog
 {
     /// <summary>
     /// Interaction logic for Prompt.xaml
