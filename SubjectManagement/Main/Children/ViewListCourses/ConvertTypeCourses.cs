@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace SubjectManagement.Main.Children.ViewListCourses
+namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 {
     public class ConvertTypeCourses : IValueConverter
     {

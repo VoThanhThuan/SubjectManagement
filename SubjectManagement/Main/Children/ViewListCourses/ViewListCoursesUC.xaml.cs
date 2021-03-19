@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SubjectManagement.Application.SubjectApp;
 
-namespace SubjectManagement.Main.Children.ViewListCourses
+namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 {
     /// <summary>
     /// Interaction logic for ViewListCoursesUC.xaml

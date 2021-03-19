@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement", "SubjectManagement\SubjectManagement.csproj", "{F0C6A7D2-DDE2-4392-91E8-665774D6C401}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.GUI", "SubjectManagement\SubjectManagement.GUI.csproj", "{F0C6A7D2-DDE2-4392-91E8-665774D6C401}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Data", "SubjectManagement.Data\SubjectManagement.Data.csproj", "{BD8442C3-25BF-446A-93AE-2CAAB8711518}"
 EndProject
@@ -16,9 +16,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Applicati
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.ViewModels", "SubjectManagement.ViewMobels\SubjectManagement.ViewModels.csproj", "{15287189-4945-4C8A-90BD-C6218CD07114}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubjectManagement.Controller", "SubjectManagement.Controller\SubjectManagement.Controller.csproj", "{19A93232-97D0-400F-BFA9-2B5BD24EBD70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Controller", "SubjectManagement.Controller\SubjectManagement.Controller.csproj", "{19A93232-97D0-400F-BFA9-2B5BD24EBD70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SubjectManagement.Common", "SubjectManagement.Common\SubjectManagement.Common.csproj", "{FA7E4EE0-7E14-4E2F-A9A2-E686AA5A5744}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Common", "SubjectManagement.Common\SubjectManagement.Common.csproj", "{FA7E4EE0-7E14-4E2F-A9A2-E686AA5A5744}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

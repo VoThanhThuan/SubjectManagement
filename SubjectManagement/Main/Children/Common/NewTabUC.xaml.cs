@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SubjectManagement.Main.Children.ViewListCourses;
+using SubjectManagement.GUI.Main.Children.ViewListCourses;
 
-namespace SubjectManagement.Main.Children.Common
+namespace SubjectManagement.GUI.Main.Children.Common
 {
     /// <summary>
     /// Interaction logic for NewTabUC.xaml

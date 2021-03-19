@@ -1,5 +1,5 @@
 ﻿using SubjectManagement.Application.System.Users;
-using SubjectManagement.Member;
+using SubjectManagement.GUI.Member;
 using SubjectManagement.ViewModels.System.Users;
 using System;
 using System.Collections;
@@ -14,9 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using SubjectManagement.Controller;
-using SubjectManagement.Main;
+using SubjectManagement.GUI.Main;
 
-namespace SubjectManagement.Login
+namespace SubjectManagement.GUI.Login
 {
     /// <summary>
     /// Interaction logic for LoginWindow.xaml

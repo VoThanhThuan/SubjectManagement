@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SubjectManagement.Main
+namespace SubjectManagement.GUI.Main
 {
     /// <summary>
     /// Interaction logic for AddSubjectWindow.xaml

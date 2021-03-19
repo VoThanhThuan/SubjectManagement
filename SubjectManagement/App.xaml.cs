@@ -5,9 +5,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SubjectManagement.Application.System.Users;
 using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
-using SubjectManagement.Login;
+using SubjectManagement.GUI.Login;
 
-namespace SubjectManagement
+namespace SubjectManagement.GUI
 {
     /// <summary>
     /// Interaction logic for App.xaml
