@@ -101,7 +101,7 @@ namespace SubjectManagement.Data.Migrations
                     NumberOfTheory = table.Column<int>(type: "int", nullable: false),
                     NumberOfPractice = table.Column<int>(type: "int", nullable: false),
                     Prerequisite = table.Column<int>(type: "int", nullable: false),
-                    learnFirst = table.Column<int>(type: "int", nullable: false),
+                    LearnFirst = table.Column<int>(type: "int", nullable: false),
                     Parallel = table.Column<int>(type: "int", nullable: false),
                     IsOffical = table.Column<bool>(type: "bit", nullable: false),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -235,20 +235,46 @@ namespace SubjectManagement.Data.Migrations
                 columns: new[] { "ID", "Avatar", "FirstName", "LastName", "PasswordHash", "Username" },
                 values: new object[,]
                 {
-                    { "TK01", "", "Thuận", "Võ Thành", "wZIa07fMB/OKgTNIFKmWVw==", "thuan" },
-                    { "TK02", "", "Anh", "Lê Thị Ngọc", "X+vaPQ75BzemDeL9fG13KA==", "anh" },
+                    { "TK04", "", "Truyền", "Nguyễn Thị Mỹ", "ipy+CjQc6p4LS8IWvcIq3Q==", "truyen" },
                     { "TK03", "", "Sơn", "Nguyễn Ngọc", "SY08a/oDP23Bvk/MPDcKpw==", "son" },
-                    { "TK04", "", "Truyền", "Nguyễn Thị Mỹ", "ipy+CjQc6p4LS8IWvcIq3Q==", "truyen" }
+                    { "TK01", "", "Thuận", "Võ Thành", "wZIa07fMB/OKgTNIFKmWVw==", "thuan" },
+                    { "TK02", "", "Anh", "Lê Thị Ngọc", "X+vaPQ75BzemDeL9fG13KA==", "anh" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "KnowledgeGroup",
+                columns: new[] { "ID", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("57955971-4be8-40fd-b149-eee225daea4c"), "Khối kiến thức đại cương" },
+                    { new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"), "Khối kiến thức cơ sở ngành" },
+                    { new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), "Khối kiến thức chuyên ngành" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Subject",
-                columns: new[] { "ID", "CourseCode", "Credit", "Details", "IsOffical", "Name", "NumberOfPractice", "NumberOfTheory", "Parallel", "Prerequisite", "TypeCourse", "learnFirst" },
+                columns: new[] { "ID", "CourseCode", "Credit", "Details", "IsOffical", "LearnFirst", "Name", "NumberOfPractice", "NumberOfTheory", "Parallel", "Prerequisite", "TypeCourse" },
                 values: new object[,]
                 {
-                    { new Guid("bdd89ea9-c237-48cb-9f4f-ff73a19f8d0e"), "SEE101", 1, "", true, "Giới thiệu ngành – ĐH KTPM", 0, 15, 0, 0, true, 0 },
-                    { new Guid("3242c90f-e2e2-4a60-949a-cfb653ddbb37"), "COS106", 4, "", true, "Lập trình căn bản", 50, 35, 0, 0, true, 0 },
-                    { new Guid("bcd66cf3-b9c9-45ab-a563-4426eb17c1ba"), "TIE501", 4, "", true, "Lập trình .Net", 60, 30, 0, 0, true, 0 }
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014"), "SEE508", 2, "", true, 38, "Quản lý dự án phần mềm", 20, 20, 0, 0, true },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010"), "SEE101", 1, "", true, 0, "Giới thiệu ngành – ĐH KTPM", 0, 15, 0, 0, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011"), "COS106", 4, "", true, 0, "Lập trình căn bản", 50, 35, 0, 0, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012"), "TIE501", 4, "", true, 20, "Lập trình .Net", 60, 30, 0, 0, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013"), "SEE301", 2, "", true, 0, "Nhập môn công nghệ phần mềm", 20, 20, 0, 0, true },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015"), "SEE505", 3, "", true, 38, "Phân tích và thiết kế phần mềm hướng đối tượng", 30, 30, 0, 0, true }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SubjectInKnowledgeGroup",
+                columns: new[] { "ID", "IDKnowledgeGroup", "IDSubject" },
+                values: new object[,]
+                {
+                    { 1, new Guid("57955971-4be8-40fd-b149-eee225daea4c"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010") },
+                    { 2, new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011") },
+                    { 4, new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012") },
+                    { 5, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013") },
+                    { 6, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014") },
+                    { 7, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015") }
                 });
 
             migrationBuilder.CreateIndex(

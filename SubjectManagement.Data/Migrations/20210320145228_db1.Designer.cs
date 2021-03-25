@@ -10,7 +10,7 @@ using SubjectManagement.Data.EF;
 namespace SubjectManagement.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20210319151812_db1")]
+    [Migration("20210320145228_db1")]
     partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -224,6 +224,23 @@ namespace SubjectManagement.Data.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("KnowledgeGroup");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = new Guid("57955971-4be8-40fd-b149-eee225daea4c"),
+                            Name = "Khối kiến thức đại cương"
+                        },
+                        new
+                        {
+                            ID = new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"),
+                            Name = "Khối kiến thức cơ sở ngành"
+                        },
+                        new
+                        {
+                            ID = new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"),
+                            Name = "Khối kiến thức chuyên ngành"
+                        });
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.Semeter", b =>
@@ -264,6 +281,9 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<bool>("IsOffical")
                         .HasColumnType("bit");
 
+                    b.Property<int>("LearnFirst")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -282,9 +302,6 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<bool>("TypeCourse")
                         .HasColumnType("bit");
 
-                    b.Property<int>("learnFirst")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.ToTable("Subject");
@@ -292,48 +309,93 @@ namespace SubjectManagement.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ID = new Guid("bdd89ea9-c237-48cb-9f4f-ff73a19f8d0e"),
+                            ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010"),
                             CourseCode = "SEE101",
                             Credit = 1,
                             Details = "",
                             IsOffical = true,
+                            LearnFirst = 0,
                             Name = "Giới thiệu ngành – ĐH KTPM",
                             NumberOfPractice = 0,
                             NumberOfTheory = 15,
                             Parallel = 0,
                             Prerequisite = 0,
-                            TypeCourse = true,
-                            learnFirst = 0
+                            TypeCourse = false
                         },
                         new
                         {
-                            ID = new Guid("3242c90f-e2e2-4a60-949a-cfb653ddbb37"),
+                            ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011"),
                             CourseCode = "COS106",
                             Credit = 4,
                             Details = "",
                             IsOffical = true,
+                            LearnFirst = 0,
                             Name = "Lập trình căn bản",
                             NumberOfPractice = 50,
                             NumberOfTheory = 35,
                             Parallel = 0,
                             Prerequisite = 0,
-                            TypeCourse = true,
-                            learnFirst = 0
+                            TypeCourse = false
                         },
                         new
                         {
-                            ID = new Guid("bcd66cf3-b9c9-45ab-a563-4426eb17c1ba"),
+                            ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012"),
                             CourseCode = "TIE501",
                             Credit = 4,
                             Details = "",
                             IsOffical = true,
+                            LearnFirst = 20,
                             Name = "Lập trình .Net",
                             NumberOfPractice = 60,
                             NumberOfTheory = 30,
                             Parallel = 0,
                             Prerequisite = 0,
-                            TypeCourse = true,
-                            learnFirst = 0
+                            TypeCourse = false
+                        },
+                        new
+                        {
+                            ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013"),
+                            CourseCode = "SEE301",
+                            Credit = 2,
+                            Details = "",
+                            IsOffical = true,
+                            LearnFirst = 0,
+                            Name = "Nhập môn công nghệ phần mềm",
+                            NumberOfPractice = 20,
+                            NumberOfTheory = 20,
+                            Parallel = 0,
+                            Prerequisite = 0,
+                            TypeCourse = true
+                        },
+                        new
+                        {
+                            ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014"),
+                            CourseCode = "SEE508",
+                            Credit = 2,
+                            Details = "",
+                            IsOffical = true,
+                            LearnFirst = 38,
+                            Name = "Quản lý dự án phần mềm",
+                            NumberOfPractice = 20,
+                            NumberOfTheory = 20,
+                            Parallel = 0,
+                            Prerequisite = 0,
+                            TypeCourse = true
+                        },
+                        new
+                        {
+                            ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015"),
+                            CourseCode = "SEE505",
+                            Credit = 3,
+                            Details = "",
+                            IsOffical = true,
+                            LearnFirst = 38,
+                            Name = "Phân tích và thiết kế phần mềm hướng đối tượng",
+                            NumberOfPractice = 30,
+                            NumberOfTheory = 30,
+                            Parallel = 0,
+                            Prerequisite = 0,
+                            TypeCourse = true
                         });
                 });
 
@@ -385,6 +447,44 @@ namespace SubjectManagement.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("SubjectInKnowledgeGroup");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            IDKnowledgeGroup = new Guid("57955971-4be8-40fd-b149-eee225daea4c"),
+                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010")
+                        },
+                        new
+                        {
+                            ID = 2,
+                            IDKnowledgeGroup = new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"),
+                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011")
+                        },
+                        new
+                        {
+                            ID = 4,
+                            IDKnowledgeGroup = new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"),
+                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012")
+                        },
+                        new
+                        {
+                            ID = 5,
+                            IDKnowledgeGroup = new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"),
+                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013")
+                        },
+                        new
+                        {
+                            ID = 6,
+                            IDKnowledgeGroup = new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"),
+                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014")
+                        },
+                        new
+                        {
+                            ID = 7,
+                            IDKnowledgeGroup = new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"),
+                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015")
+                        });
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInSemeter", b =>

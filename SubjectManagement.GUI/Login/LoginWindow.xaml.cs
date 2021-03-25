@@ -13,7 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using SubjectManagement.Controller;
+using SubjectManagement.GUI.Controller;
 using SubjectManagement.GUI.Main;
 
 namespace SubjectManagement.GUI.Login

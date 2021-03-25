@@ -1,0 +1,141 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:SubjectManagement.GUI.Main.Children.ViewListCourses"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             x:Class="SubjectManagement.GUI.Main.Children.ViewListCourses.ListExpanderCoursesUC"
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
+    <Grid x:Name="renderBody">
+        <StackPanel Orientation="Horizontal">
+                <Button x:Name="btn_Add"
+                        ToolTip="Thêm mới"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="140"
+                        Margin="10,0,0,0"
+                        Padding="0"
+                        Height="48"
+                        BorderBrush="{x:Null}"
+                        Foreground="#FF00B9FF"
+                        Click="btn_AddOpen_Click">
+                    <Grid Width="132"
+                          Height="44">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="41*"></ColumnDefinition>
+                            <ColumnDefinition Width="91*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="PuzzlePlus"
+                                                 Height="32"
+                                                 Width="32"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Right"
+                                                 Margin="4,0,0,0" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   Grid.Column="1"
+                                   Height="27">Thêm</TextBlock>
+                    </Grid>
+                </Button>
+
+                <Button x:Name="btn_Edit"
+                        ToolTip="Sửa"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="140"
+                        Padding="0"
+                        Foreground="#DD00FF46"
+                        BorderBrush="{x:Null}"
+                        Height="48"
+                        Click="Btn_Edit_OnClick">
+                    <Grid Width="132"
+                          Height="44">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="41*"></ColumnDefinition>
+                            <ColumnDefinition Width="91*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="PuzzleEdit"
+                                                 Height="32"
+                                                 Width="32"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Right"
+                                                 Margin="4,0,0,0" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   Grid.Column="1"
+                                   Height="27">Sửa</TextBlock>
+                    </Grid>
+                </Button>
+
+                <Button x:Name="btn_Remove"
+                        ToolTip="Xóa"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="140"
+                        Padding="0"
+                        BorderBrush="{x:Null}"
+                        Height="48"
+                        Foreground="#FFFF4F4F">
+                    <Grid Width="132"
+                          Height="44">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="41*"></ColumnDefinition>
+                            <ColumnDefinition Width="91*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="PuzzleRemove"
+                                                 Height="32"
+                                                 Width="32"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Right"
+                                                 Margin="4,0,0,0" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   Grid.Column="1"
+                                   Height="27">Xóa</TextBlock>
+                    </Grid>
+                </Button>
+
+                <Button x:Name="btn_Reload"
+                        ToolTip="Xóa"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Width="140"
+                        Padding="0"
+                        BorderBrush="{x:Null}"
+                        Height="48"
+                        Foreground="#FFD495FF"
+                        Click="Btn_Reload_OnClick">
+                    <Grid Width="132"
+                          Height="44">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="41*"></ColumnDefinition>
+                            <ColumnDefinition Width="91*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <materialDesign:PackIcon Kind="Reload"
+                                                 Height="32"
+                                                 Width="32"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Right"
+                                                 Margin="4,0,0,0" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="20"
+                                   Grid.Column="1"
+                                   Height="27">Tải Lại</TextBlock>
+                    </Grid>
+                </Button>
+
+
+            </StackPanel>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      Margin="0 69 0 0">
+            <StackPanel x:Name="renderExpander"></StackPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

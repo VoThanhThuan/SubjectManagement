@@ -14,5 +14,6 @@ namespace SubjectManagement.Data
         {
             Context = context;
         }
+
     }
 }

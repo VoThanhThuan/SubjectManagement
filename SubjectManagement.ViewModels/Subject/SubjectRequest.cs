@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace SubjectManagement.Data.Entities
+namespace SubjectManagement.ViewModels.Subject
 {
-    public class Subject
+    public class SubjectRequest
     {
         public Guid ID { get; set; }
         public string CourseCode { get; set; }
@@ -19,10 +21,6 @@ namespace SubjectManagement.Data.Entities
         public bool IsOffical { get; set; }
         public string Details { get; set; }
 
-        public AlternativeSubject AlternativeSubject { get; set; }
-        public SubjectInElectiveGroup SubjectInElectiveGroup { get; set; }
-        public SubjectInSemeter SubjectInSemeter { get; set; }
-        public SubjectInKnowledgeGroup SubjectInKnowledgeGroup { get; set; }
-
+        public Guid IDKnowledgeGroup { get; set; }
     }
 }

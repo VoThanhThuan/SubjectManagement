@@ -10,7 +10,7 @@ using SubjectManagement.Application.System.Users;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.ViewModels.System.Users;
 
-namespace SubjectManagement.Controller
+namespace SubjectManagement.GUI.Controller
 {
     public class OpenWindowController
     {

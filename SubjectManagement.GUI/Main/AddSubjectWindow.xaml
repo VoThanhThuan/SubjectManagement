@@ -6,53 +6,56 @@
         xmlns:local="clr-namespace:SubjectManagement.GUI.Main"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AddSubjectWindow" Height="450" Width="800">
-    <StackPanel>
-        <TextBox materialDesign:HintAssist.Hint="Mã Học Phần"
+        Title="AddSubjectWindow" Height="550" Width="800">
+    <StackPanel Margin="5">
+        <TextBox x:Name="tbx_CourseCode" 
+                 materialDesign:HintAssist.Hint="Mã Học Phần"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center" />
-        <TextBox materialDesign:HintAssist.Hint="Tên Học Phần"
+        <TextBox x:Name="tbx_Name" materialDesign:HintAssist.Hint="Tên Học Phần"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center" />
-        <TextBox materialDesign:HintAssist.Hint="Số Tiết Lý Thuyết"
+        <TextBox x:Name="tbx_Credit"
+                 materialDesign:HintAssist.Hint="Số Tín Chỉ"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center" />
-        <TextBox materialDesign:HintAssist.Hint="Số Tiết Thực Hành"
+        <TextBox x:Name="tbx_NumberOfTheory"
+                 materialDesign:HintAssist.Hint="Số Tiết Lý Thuyết"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center" />
-        <TextBox materialDesign:HintAssist.Hint="Tiên Quyết"
+        <TextBox x:Name="tbx_NumberOfPractice"
+                 materialDesign:HintAssist.Hint="Số Tiết Thực Hành"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center" />
-        <TextBox materialDesign:HintAssist.Hint="Học Trước"
+        <TextBox x:Name="tbx_Prerequisite"
+                 materialDesign:HintAssist.Hint="Tiên Quyết"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center" />
-        <TextBox materialDesign:HintAssist.Hint="Song Hành"
+        <TextBox x:Name="tbx_LearnFirst"
+                 materialDesign:HintAssist.Hint="Học Trước"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 VerticalAlignment="Center" />
+        <TextBox x:Name="tbx_Parallel"
+                 materialDesign:HintAssist.Hint="Song Hành"
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 VerticalAlignment="Center" />
+        <TextBox x:Name="tbx_Details"
+                 materialDesign:HintAssist.Hint="Mô Tả Môn Học"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center" />
         <StackPanel Orientation="Horizontal">
-            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"
+            <ToggleButton x:Name="chk_TypeCourse" Style="{StaticResource MaterialDesignSwitchToggleButton}"
                           ToolTip="Default ToggleButton Style" />
-            <TextBox Foreground="#7F000000">Môn Tự Chọn</TextBox>
+            <TextBlock Foreground="#7F000000">Môn Tự Chọn</TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
-            <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}"
+            <ToggleButton x:Name="chk_IsOffical" Style="{StaticResource MaterialDesignSwitchToggleButton}"
                           ToolTip="Default ToggleButton Style" />
-            <TextBox Foreground="#7F000000">Môn Chính Thức</TextBox>
+            <TextBlock Foreground="#7F000000">Môn Chính Thức</TextBlock>
         </StackPanel>
         <StackPanel>
-            <ComboBox materialDesign:HintAssist.Hint="Nhốm Học Phần">
-                <ComboBoxItem>
-                    Android
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    iOS
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Linux
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    Windows
-                </ComboBoxItem>
+            <ComboBox x:Name="cbb_CoursesGroup"
+                      materialDesign:HintAssist.Hint="Nhóm Học Phần">
             </ComboBox>
             <materialDesign:PopupBox Grid.Column="1"
                                      Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
@@ -99,6 +102,20 @@
                 </StackPanel>
             </materialDesign:PopupBox>
         </StackPanel>
+        <Grid Height="40">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="btn_AddProduct"
+                    Grid.Column="0"
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Click="btn_AddProduct_Click"
+                    Content="Thêm" />
+            <Button x:Name="btn_CLose"
+                    Grid.Column="1"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">Đóng</Button>
+        </Grid>
 
     </StackPanel>
 </Window>

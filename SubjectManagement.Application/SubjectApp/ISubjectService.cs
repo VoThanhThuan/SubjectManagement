@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.ViewModels.Subject;
 
 namespace SubjectManagement.Application.SubjectApp
 {
     public interface ISubjectService
     {
-        Task<Result<LocalView<Subject>>> LoadSubject();
+        Task<LocalView<Subject>> LoadSubject();
+        Task<List<KnowledgeGroup>> LoadKnowledgeGroup();
+        Task<List<Subject>> LoadSubjectWithGroup(Guid IDGroup);
+
+        Task<Result<string>> AddSubject(SubjectRequest request);
+
+        Task<Result<string>> EditSubject(SubjectRequest request);
+
+        Task<Result<string>> RemoveSubject(SubjectRequest request);
+
     }
 }

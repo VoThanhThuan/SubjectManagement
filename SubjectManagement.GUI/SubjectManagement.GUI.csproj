@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SubjectManagement.Controller\SubjectManagement.Controller.csproj" />
+    <ProjectReference Include="..\SubjectManagement.Application\SubjectManagement.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -13,30 +13,40 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SubjectManagement.Application.SubjectApp;
+using SubjectManagement.GUI.Controller;
 
 namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 {
     /// <summary>
     /// Interaction logic for ViewListCoursesUC.xaml
     /// </summary>
-    public partial class ViewListCoursesUC : UserControl
+    public partial class ListExpanderCoursesUC : UserControl
     {
-        public ViewListCoursesUC()
+        public ListExpanderCoursesUC()
         {
             InitializeComponent();
-            _subjectService = new SubjectService();
-            LoadListSubject();
         }
 
-        private ISubjectService _subjectService;
+        public Grid _g_loading;
 
         private async void LoadListSubject()
         {
-            var listSubject = await _subjectService.LoadSubject();
-            dg_ListCourses.ItemsSource = listSubject.ResultObj.ToList();
+            var load = new LoadListController();
+            load.LoadList(renderBody, _g_loading);
         }
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
+        {
+            var addSubject = new AddSubjectWindow();
+            addSubject.Show();
+        }
+
+        private void Btn_Reload_OnClick(object sender, RoutedEventArgs e)
+        {
+            LoadListSubject();
+        }
+
+        private void Btn_Edit_OnClick(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
         }

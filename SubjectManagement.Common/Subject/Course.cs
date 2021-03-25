@@ -6,8 +6,8 @@ namespace SubjectManagement.Common.Subject
 {
     public class Course
     {
-        public const bool Elective = true;
-        public const bool Obligatory = false;
+        public const bool Elective = false;
+        public const bool Obligatory = true;
 
     }
 }

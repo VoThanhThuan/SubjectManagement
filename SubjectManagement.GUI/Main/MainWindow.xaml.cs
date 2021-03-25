@@ -1,7 +1,9 @@
-﻿using SubjectManagement.GUI.Main.Children.Common;
+﻿using System;
+using SubjectManagement.GUI.Main.Children.Common;
 using System.Windows;
 using System.Windows.Controls;
-
+using System.Threading;
+using System.Windows.Threading;
 namespace SubjectManagement.GUI.Main
 {
     /// <summary>
@@ -21,7 +23,7 @@ namespace SubjectManagement.GUI.Main
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var newItem = new TabItem() {Header = "NewTab" };
+            var newItem = new TabItem() { Header = "NewTab" };
             newItem.Content = new NewTabUC(newItem);
             InitialTabablzControl.Items.Add(newItem);
         }

@@ -18,6 +18,7 @@
         <dragablz:TabablzControl.InterTabController>
             <dragablz:InterTabController />
         </dragablz:TabablzControl.InterTabController>
+        <TabItem Header="xxx"></TabItem>
     </dragablz:TabablzControl>
 
 </Window>

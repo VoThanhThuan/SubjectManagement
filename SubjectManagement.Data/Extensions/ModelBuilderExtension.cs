@@ -104,9 +104,10 @@ namespace SubjectManagement.Data.Extensions
             );
 
             modelBuilder.Entity<Subject>().HasData(
+                //kiến thức đại cương
                 new Subject()
                 {
-                    ID = Guid.NewGuid(),
+                    ID = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0010"),
                     CourseCode = "SEE101",
                     Name = "Giới thiệu ngành – ĐH KTPM",
                     Credit = 1,
@@ -116,9 +117,10 @@ namespace SubjectManagement.Data.Extensions
                     IsOffical = true,
                     Details = ""
                 },
+                //Kiến thức cơ sở ngành
                 new Subject()
                 {
-                    ID = Guid.NewGuid(),
+                    ID = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0011"),
                     CourseCode = "COS106",
                     Name = "Lập trình căn bản",
                     Credit = 4,
@@ -130,17 +132,113 @@ namespace SubjectManagement.Data.Extensions
                 },
                 new Subject()
                 {
-                    ID = Guid.NewGuid(),
+                    ID = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0012"),
                     CourseCode = "TIE501",
                     Name = "Lập trình .Net",
                     Credit = 4,
                     TypeCourse = Course.Elective,
                     NumberOfTheory = 30,
                     NumberOfPractice = 60,
+                    LearnFirst = 20,
                     IsOffical = true,
                     Details = ""
-                }
-                );
+                },
+                //Kiến thức Chuyên ngành
+                new Subject()
+                {
+                    ID = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0013"),
+                    CourseCode = "SEE301",
+                    Name = "Nhập môn công nghệ phần mềm",
+                    Credit = 2,
+                    TypeCourse = Course.Obligatory,
+                    NumberOfTheory = 20,
+                    NumberOfPractice = 20,
+                    IsOffical = true,
+                    Details = ""
+                },
+                new Subject()
+                {
+                    ID = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0014"),
+                    CourseCode = "SEE508",
+                    Name = "Quản lý dự án phần mềm",
+                    Credit = 2,
+                    TypeCourse = Course.Obligatory,
+                    NumberOfTheory = 20,
+                    NumberOfPractice = 20,
+                    LearnFirst = 38, 
+                    IsOffical = true,
+                    Details = ""
+                },
+                new Subject()
+                {
+                    ID = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0015"),
+                    CourseCode = "SEE505",
+                    Name = "Phân tích và thiết kế phần mềm hướng đối tượng",
+                    Credit = 3,
+                    TypeCourse = Course.Obligatory,
+                    NumberOfTheory = 30,
+                    NumberOfPractice = 30,
+                    LearnFirst = 38,
+                    IsOffical = true,
+                    Details = ""
+                });
+
+            modelBuilder.Entity<KnowledgeGroup>().HasData(
+                new KnowledgeGroup()
+                {
+                    ID = Guid.Parse("57955971-4BE8-40FD-B149-EEE225DAEA4C"),
+                    Name = "Khối kiến thức đại cương"
+                },
+                new KnowledgeGroup()
+                {
+                    ID = Guid.Parse("D881A11F-BC9E-4F07-828F-9467C3045838"),
+                    Name = "Khối kiến thức cơ sở ngành"
+                },
+                new KnowledgeGroup()
+                {
+                    ID = Guid.Parse("E3F2DFDF-85E9-40D1-ADC1-95926F68011D"),
+                    Name = "Khối kiến thức chuyên ngành"
+                });
+
+            modelBuilder.Entity<SubjectInKnowledgeGroup>().HasData(
+                new SubjectInKnowledgeGroup()
+                {
+                    ID = 1,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0010"),//Giới thiệu ngành
+                    IDKnowledgeGroup = Guid.Parse("57955971-4BE8-40FD-B149-EEE225DAEA4C")//Đại cương
+                },
+
+                new SubjectInKnowledgeGroup()
+                {
+                    ID = 2,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0011"),//
+                    IDKnowledgeGroup = Guid.Parse("D881A11F-BC9E-4F07-828F-9467C3045838")//Khối kiến thức cơ sở ngàn
+                },
+                new SubjectInKnowledgeGroup()
+                {
+                    ID = 4,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0012"),//
+                    IDKnowledgeGroup = Guid.Parse("D881A11F-BC9E-4F07-828F-9467C3045838")//Khối kiến thức cơ sở ngàn
+                },
+
+                new SubjectInKnowledgeGroup()
+                {
+                    ID = 5,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0013"),//
+                    IDKnowledgeGroup = Guid.Parse("E3F2DFDF-85E9-40D1-ADC1-95926F68011D")//Khối kiến thức chuyên ngành
+                },
+                new SubjectInKnowledgeGroup()
+                {
+                    ID = 6,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0014"),//
+                    IDKnowledgeGroup = Guid.Parse("E3F2DFDF-85E9-40D1-ADC1-95926F68011D")//Khối kiến thức chuyên ngành
+                },
+                new SubjectInKnowledgeGroup()
+                {
+                    ID = 7,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0015"),//
+                    IDKnowledgeGroup = Guid.Parse("E3F2DFDF-85E9-40D1-ADC1-95926F68011D")//Khối kiến thức chuyên ngành
+                });
 
         }
     }

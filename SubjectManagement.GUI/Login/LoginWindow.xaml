@@ -218,12 +218,12 @@
 
             <Grid Background="#7F000000"
                   x:Name="Grid_Loading"
-                  Visibility="Hidden">
+                  Visibility="Visible">
                 <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}"
                              IsIndeterminate="True"
                              Value="0"
-                             Width="84"
-                             Height="84"
+                             Width="164"
+                             Height="164"
                              VerticalAlignment="Center"
                              Foreground="White" />
             </Grid>
