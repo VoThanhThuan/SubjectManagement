@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,15 +35,18 @@ namespace SubjectManagement.GUI.Main
             load.LoadCombobox(cbb_CoursesGroup);
         }
 
+        public bool IsEdit { get; set; } = false;
+        public Hashtable OldValue { get; set; }
+
         private SubjectRequest InfoSubject()
         {
 
             var subject = new SubjectRequest()
             {
-                ID = Guid.NewGuid(),
+                ID = IsEdit is false ? Guid.NewGuid() : (Guid)OldValue["ID"],
                 CourseCode = tbx_CourseCode.Text,
                 Name = tbx_Name.Text,
-                Credit = Convert.ToInt32(tbx_Credit.Text),
+                Credit = string.IsNullOrEmpty(tbx_Credit.Text) ? 0 : Convert.ToInt32(tbx_Credit.Text),
                 TypeCourse = chk_TypeCourse.IsChecked ?? true,
                 NumberOfTheory = Convert.ToInt32(tbx_NumberOfTheory.Text),
                 NumberOfPractice = Convert.ToInt32(tbx_NumberOfPractice.Text),
@@ -51,7 +55,9 @@ namespace SubjectManagement.GUI.Main
                 Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
                 IsOffical = chk_IsOffical.IsChecked ?? true,
                 Details = tbx_Details.Text,
-                IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID
+                IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
+
+                IDKnowledgeGroupOld = (Guid)OldValue["IDKnowledgeGroupOld"]
             };
             return subject;
         }
@@ -76,8 +82,17 @@ namespace SubjectManagement.GUI.Main
             if (cbb_CoursesGroup.SelectedIndex < -1) return;
             var subject = InfoSubject();
             var add = new SubjectController();
-            add.AddSubject(subject);
-            
+            if(IsEdit is not true)
+                add.AddSubject(subject);
+            else
+                add.EditSubject(subject);
+
+            this.Close();
+        }
+
+        private void Btn_CLose_OnClick(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -16,11 +16,17 @@ namespace SubjectManagement.Application.SubjectApp
         Task<List<KnowledgeGroup>> LoadKnowledgeGroup();
         Task<List<Subject>> LoadSubjectWithGroup(Guid IDGroup);
 
+        Task<List<KnowledgeGroup>> FindKnowledgeGroup(Guid idSubject);
+
         Task<Result<string>> AddSubject(SubjectRequest request);
 
         Task<Result<string>> EditSubject(SubjectRequest request);
 
         Task<Result<string>> RemoveSubject(SubjectRequest request);
+
+        Task<Result<Subject>> FindSubject(string coursesCode);
+
+
 
     }
 }

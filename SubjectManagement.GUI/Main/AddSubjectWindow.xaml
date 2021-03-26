@@ -114,7 +114,8 @@
                     Content="Thêm" />
             <Button x:Name="btn_CLose"
                     Grid.Column="1"
-                    Style="{StaticResource MaterialDesignOutlinedButton}">Đóng</Button>
+                    Style="{StaticResource MaterialDesignOutlinedButton}"
+                    Click="Btn_CLose_OnClick">Đóng</Button>
         </Grid>
 
     </StackPanel>

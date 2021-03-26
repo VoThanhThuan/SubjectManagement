@@ -46,7 +46,7 @@
                                    Text="Title Prompt"
                                    VerticalAlignment="Center"
                                    Margin="10,0,0,0"
-                                   HorizontalAlignment="Left" />
+                                   HorizontalAlignment="Left" x:FieldModifier="public" />
 
                     </materialDesign:ColorZone>
 
@@ -99,7 +99,7 @@
                              Margin="5"
                              materialDesign:HintAssist.Hint="Nội dung"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                             VerticalAlignment="Center" />
+                             VerticalAlignment="Center" x:FieldModifier="public" />
                 </ScrollViewer>
 
             </DockPanel>
