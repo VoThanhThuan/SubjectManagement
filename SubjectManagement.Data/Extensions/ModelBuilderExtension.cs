@@ -165,7 +165,7 @@ namespace SubjectManagement.Data.Extensions
                     TypeCourse = Course.Obligatory,
                     NumberOfTheory = 20,
                     NumberOfPractice = 20,
-                    LearnFirst = 38, 
+                    LearnFirst = 38,
                     IsOffical = true,
                     Details = ""
                 },
@@ -216,30 +216,135 @@ namespace SubjectManagement.Data.Extensions
                 },
                 new SubjectInKnowledgeGroup()
                 {
-                    ID = 4,
+                    ID = 3,
                     IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0012"),//
                     IDKnowledgeGroup = Guid.Parse("D881A11F-BC9E-4F07-828F-9467C3045838")//Khối kiến thức cơ sở ngàn
                 },
 
                 new SubjectInKnowledgeGroup()
                 {
-                    ID = 5,
+                    ID = 4,
                     IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0013"),//
                     IDKnowledgeGroup = Guid.Parse("E3F2DFDF-85E9-40D1-ADC1-95926F68011D")//Khối kiến thức chuyên ngành
                 },
                 new SubjectInKnowledgeGroup()
                 {
-                    ID = 6,
+                    ID = 5,
                     IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0014"),//
                     IDKnowledgeGroup = Guid.Parse("E3F2DFDF-85E9-40D1-ADC1-95926F68011D")//Khối kiến thức chuyên ngành
                 },
                 new SubjectInKnowledgeGroup()
                 {
-                    ID = 7,
+                    ID = 6,
                     IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0015"),//
                     IDKnowledgeGroup = Guid.Parse("E3F2DFDF-85E9-40D1-ADC1-95926F68011D")//Khối kiến thức chuyên ngành
                 });
 
+            modelBuilder.Entity<Class>().HasData(
+                new Class()
+                {
+                    ID = 1,
+                    CodeClass = "DH19PM",
+                    Name = "Kỹ thuật phầm mềm",
+                    Year = DateTime.Parse("2019-01-01")
+                });
+            modelBuilder.Entity<Faculty>().HasData(
+                new Faculty()
+                {
+                    ID = 1,
+                    Name = "Công nghệ thông tin"
+                });
+
+            modelBuilder.Entity<ClassInFaculty>().HasData(
+                new ClassInFaculty()
+                {
+                    ID = 1,
+                    IDClass = 1,
+                    IDFaculty = 1
+                });
+
+            modelBuilder.Entity<Semester>().HasData(
+                new Semester()
+                {
+                    ID = 1,
+                    Term = 1
+                },
+                new Semester()
+                {
+                    ID = 2,
+                    Term = 2
+                },
+                new Semester()
+                {
+                    ID = 3,
+                    Term = 3
+                },
+                new Semester()
+                {
+                    ID = 4,
+                    Term = 4
+                },
+                new Semester()
+                {
+                    ID = 5,
+                    Term = 5
+                },
+                new Semester()
+                {
+                    ID = 6,
+                    Term = 6
+                },
+                new Semester()
+                {
+                    ID = 7,
+                    Term = 7
+                },
+                new Semester()
+                {
+                    ID = 8,
+                    Term = 8
+                });
+
+            modelBuilder.Entity<SemesterOfClass>().HasData(
+                new SemesterOfClass()
+                {
+                    ID = 1,
+                    IDClass = 1,
+                    IDSemester = 1
+                });
+
+
+            modelBuilder.Entity<SubjectOfClass>().HasData(
+                new SubjectOfClass()
+                {
+                    IDClass = 1,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0010")//Giới thiệu ngành
+                },
+                new SubjectOfClass()
+                {
+                    IDClass = 1,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0011")
+                },
+                new SubjectOfClass()
+                {
+                    IDClass = 1,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0012")
+                },
+                new SubjectOfClass()
+                {
+                    IDClass = 1,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0013")
+                },
+                new SubjectOfClass()
+                {
+                    IDClass = 1,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0014")
+                },
+                new SubjectOfClass()
+                {
+                    IDClass = 1,
+                    IDSubject = Guid.Parse("0F7B55FC-4968-49D8-B9BD-402301FA0015")
+                });
         }
     }
 }

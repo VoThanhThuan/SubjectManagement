@@ -23,20 +23,23 @@ namespace SubjectManagement.GUI.Main
     /// </summary>
     public partial class AddSubjectWindow : Window
     {
-        public AddSubjectWindow()
+        public AddSubjectWindow(Class _class)
         {
             InitializeComponent();
             loadCombobox();
+            _Class = _class;
         }
 
         private void loadCombobox()
         {
-            var load = new SubjectController();
+            var load = new SubjectController(_Class);
             load.LoadCombobox(cbb_CoursesGroup);
         }
 
         public bool IsEdit { get; set; } = false;
         public Hashtable OldValue { get; set; }
+
+        private Class _Class { get; init; }
 
         private SubjectRequest InfoSubject()
         {
@@ -55,9 +58,10 @@ namespace SubjectManagement.GUI.Main
                 Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
                 IsOffical = chk_IsOffical.IsChecked ?? true,
                 Details = tbx_Details.Text,
-                IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
 
-                IDKnowledgeGroupOld = (Guid)OldValue["IDKnowledgeGroupOld"]
+                IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
+                IDKnowledgeGroupOld = (Guid?) OldValue?["IDKnowledgeGroupOld"] ?? Guid.Empty,
+                IdClass = _Class.ID 
             };
             return subject;
         }
@@ -81,7 +85,7 @@ namespace SubjectManagement.GUI.Main
         {
             if (cbb_CoursesGroup.SelectedIndex < -1) return;
             var subject = InfoSubject();
-            var add = new SubjectController();
+            var add = new SubjectController(_Class);
             if(IsEdit is not true)
                 add.AddSubject(subject);
             else

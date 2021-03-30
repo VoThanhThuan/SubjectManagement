@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Threading;
 using System.Windows.Threading;
+using SubjectManagement.GUI.Controller;
+
 namespace SubjectManagement.GUI.Main
 {
     /// <summary>
@@ -20,6 +22,8 @@ namespace SubjectManagement.GUI.Main
                 tabItem.Content = new NewTabUC(tabItem);
                 return tabItem;
             };
+            var load = new FacultyController();
+            load.LoadFacultyAndClass();
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {

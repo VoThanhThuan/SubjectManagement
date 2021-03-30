@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using SubjectManagement.Application.SubjectApp;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
+using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 
 namespace SubjectManagement.GUI.Main.Children.ViewListCourses
@@ -24,22 +25,25 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
     /// </summary>
     public partial class ListExpanderCoursesUC : UserControl
     {
-        public ListExpanderCoursesUC()
+        public ListExpanderCoursesUC(Grid renderBody)
         {
             InitializeComponent();
+            _renderBody = renderBody;
         }
 
         public Grid _g_loading;
 
-        private async void LoadListSubject()
+        public Class _Class { get; init; }
+        private Grid _renderBody;
+        private void LoadListSubject()
         {
-            var load = new LoadListController();
-            load.LoadList(renderBody, _g_loading);
+            var load = new LoadListController(_Class);
+            load.LoadList(_renderBody, _g_loading);
         }
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
         {
-            var addSubject = new AddSubjectWindow();
+            var addSubject = new AddSubjectWindow(_Class);
             addSubject.Show();
         }
 
@@ -57,7 +61,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             prompt.ShowDialog();
 
             if (prompt.DialogResult != MyDialogResult.Result.Ok) return;
-            var edit = new SubjectController();
+            var edit = new SubjectController(_Class);
             edit.EditWindow(prompt.tbx_Value.Text);
 
         }
@@ -71,7 +75,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             prompt.ShowDialog();
 
             if (prompt.DialogResult != MyDialogResult.Result.Ok) return;
-            var edit = new SubjectController();
+            var edit = new SubjectController(_Class);
             edit.RemoveSubject(prompt.tbx_Value.Text);
         }
     }

@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.EntityFrameworkCore;
 using SubjectManagement.Application.System.Users;
 using SubjectManagement.Common.Dialog;
+using SubjectManagement.Data;
 using SubjectManagement.ViewModels.System.Users;
 
 namespace SubjectManagement.GUI.Controller
@@ -41,6 +43,9 @@ namespace SubjectManagement.GUI.Controller
                 };
                 mess.ShowDialog();
             }
+
+            await Db.Context.Faculties.LoadAsync();
+            await Db.Context.Classes.LoadAsync();
 
             grid_Loading.Visibility = Visibility.Hidden;
         }

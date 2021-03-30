@@ -8,9 +8,12 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
+    <Grid x:Name="MainBody">
         <Grid x:Name="RenderBody">
-            <Grid>
+            <TextBlock x:Name="tbl_Class" Text="xxx"
+                       Foreground="#FF3F51B5"
+                       FontSize="20"></TextBlock>
+            <Grid Margin="0 25 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
@@ -25,10 +28,11 @@
                                              Width="120"
                                              Height="120" />
                 </Button>
-                <Button ToolTip="Icon"
+                <Button x:Name="btn_AddSemester" ToolTip="Icon"
                         Width="160"
                         Height="160"
-                        Grid.Column="1">
+                        Grid.Column="1"
+                        Click="Btn_AddSemester_OnClick">
                     <materialDesign:PackIcon Kind="GoogleSpreadsheet"
                                              Width="120"
                                              Height="120" />
@@ -46,7 +50,7 @@
             <TextBox HorizontalAlignment="Center"
                      VerticalAlignment="Center"
                      Foreground="White"
-                     FontSize="32">Đang Tải...</TextBox>
+                     FontSize="32">waiting for love...</TextBox>
         </Grid>
 
     </Grid>

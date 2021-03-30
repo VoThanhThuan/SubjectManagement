@@ -10,7 +10,8 @@
         mc:Ignorable="d"
         Title="MainWindow"
         Height="600"
-        Width="900">
+        Width="900"
+        WindowStartupLocation="CenterScreen">
 
     <dragablz:TabablzControl ShowDefaultAddButton="True"
                              ShowDefaultCloseButton="True"

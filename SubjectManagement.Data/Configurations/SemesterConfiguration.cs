@@ -7,11 +7,11 @@ using SubjectManagement.Data.Entities;
 
 namespace SubjectManagement.Data.Configurations
 {
-    public class SemeterConfiguration : IEntityTypeConfiguration<Semeter>
+    public class SemesterConfiguration : IEntityTypeConfiguration<Semester>
     {
-        public void Configure(EntityTypeBuilder<Semeter> builder)
+        public void Configure(EntityTypeBuilder<Semester> builder)
         {
-            builder.ToTable("Semeter");
+            builder.ToTable("Semester");
             builder.Property(x => x.ID).UseIdentityColumn();
         }
     }

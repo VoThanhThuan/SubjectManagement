@@ -16,8 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 using SubjectManagement.GUI.Main.Children.ViewListCourses;
+using SubjectManagement.GUI.Main.Dialog;
 
 namespace SubjectManagement.GUI.Main.Children.Common
 {
@@ -30,27 +32,27 @@ namespace SubjectManagement.GUI.Main.Children.Common
         {
             InitializeComponent();
             _titleTab = titleTab;
+            var faculty = new FacultyDialog {Owner = System.Windows.Application.Current.MainWindow};
+            faculty.ShowDialog();
+            _Class = faculty._Class;
+            tbl_Class.Text = _Class.Name;
         }
 
         private TabItem _titleTab;
+        public Class _Class { get; init; }
 
         private void Btn_ViewList_OnClick(object sender, RoutedEventArgs e)
         {
             _titleTab.Header = "View List";
             
-            //RenderBody.Dispatcher.Invoke(new Action(() =>
-            //{
-                
-            //}));
-            var listCourses = new LoadListController();
-            listCourses.LoadList(RenderBody, g_loading);
+            var listCourses = new LoadListController(_Class){_Class = _Class};
+            listCourses.LoadList(MainBody, g_loading);
         }
 
-
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void Btn_AddSemester_OnClick(object sender, RoutedEventArgs e)
         {
-            
+            var semester = new AddSemesterWindow(_Class);
+            semester.Show();
         }
-
     }
 }

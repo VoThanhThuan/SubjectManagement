@@ -12,19 +12,21 @@ namespace SubjectManagement.Application.SubjectApp
 {
     public interface ISubjectService
     {
-        Task<LocalView<Subject>> LoadSubject();
+        List<Subject> LoadSubject();
+        List<Subject> LoadSubjectOfClass(int idClass);
+        List<Subject> LoadSubjectDifferentSemester(int? term);
         Task<List<KnowledgeGroup>> LoadKnowledgeGroup();
-        Task<List<Subject>> LoadSubjectWithGroup(Guid IDGroup);
+        List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass);
 
-        Task<List<KnowledgeGroup>> FindKnowledgeGroup(Guid idSubject);
+        List<KnowledgeGroup> FindKnowledgeGroup(Guid idSubject);
 
-        Task<Result<string>> AddSubject(SubjectRequest request);
+        Result<string> AddSubject(SubjectRequest request);
 
-        Task<Result<string>> EditSubject(SubjectRequest request);
+        Result<string> EditSubject(SubjectRequest request);
 
-        Task<Result<string>> RemoveSubject(SubjectRequest request);
+        Result<string> RemoveSubject(SubjectRequest request);
 
-        Task<Result<Subject>> FindSubject(string coursesCode);
+        Result<Subject> FindSubject(string coursesCode);
 
 
 

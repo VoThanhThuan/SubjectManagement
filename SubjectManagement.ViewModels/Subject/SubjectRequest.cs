@@ -23,5 +23,6 @@ namespace SubjectManagement.ViewModels.Subject
 
         public Guid IDKnowledgeGroup { get; set; }
         public Guid IDKnowledgeGroupOld { get; set; }
+        public int IdClass { get; set; }
     }
 }

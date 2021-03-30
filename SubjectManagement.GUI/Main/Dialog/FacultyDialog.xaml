@@ -1,0 +1,40 @@
+﻿<Window x:Class="SubjectManagement.GUI.Main.Dialog.FacultyDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SubjectManagement.GUI.Main.Dialog"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="FacultyDialog"
+        Height="180"
+        Width="400"
+        WindowStyle="None"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <StackPanel Margin="5">
+            <ComboBox Style="{StaticResource MaterialDesignFilledComboBox}"
+                      x:Name="cbb_Faculty"
+                      Margin ="0 5 0 0"
+                      IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+                      materialDesign:HintAssist.Hint="Khoa"
+                      SelectionChanged="cbb_Faculty_SelectionChanged">
+            </ComboBox>
+            <ComboBox Style="{StaticResource MaterialDesignFilledComboBox}"
+                      x:Name="cbb_Class"
+                      Margin="0 5 0 0"
+                      IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+                      materialDesign:HintAssist.Hint="Lớp"
+                      SelectionChanged="Cbb_Class_OnSelectionChanged">
+            </ComboBox>
+
+            <Button x:Name="btn_accept"
+                    Margin="0 15 0 0"
+                    Content="Chấp Nhận"
+                    Click="Btn_accept_OnClick"
+                    IsEnabled="False"></Button>
+
+        </StackPanel>
+
+    </Grid>
+</Window>

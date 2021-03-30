@@ -21,8 +21,10 @@ namespace SubjectManagement.Data.Entities
 
         public AlternativeSubject AlternativeSubject { get; set; }
         public SubjectInElectiveGroup SubjectInElectiveGroup { get; set; }
-        public SubjectInSemeter SubjectInSemeter { get; set; }
+        public SubjectInSemester SubjectInSemester { get; set; }
         public SubjectInKnowledgeGroup SubjectInKnowledgeGroup { get; set; }
+
+        public SubjectOfClass SubjectOfClass { get; set; }
 
     }
 }

@@ -31,10 +31,15 @@ namespace SubjectManagement.Data.EF
             modelBuilder.ApplyConfiguration(new ElectiveGroupConfiguration());
             modelBuilder.ApplyConfiguration(new SubjectInElectiveGroupConfiguration());
 
-            modelBuilder.ApplyConfiguration(new SemeterConfiguration());
-            modelBuilder.ApplyConfiguration(new SubjectInSemeterConfiguration());
+            modelBuilder.ApplyConfiguration(new SemesterConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectInSemesterConfiguration());
 
+            modelBuilder.ApplyConfiguration(new ClassConfiguration());
+            modelBuilder.ApplyConfiguration(new FacultyConfiguration());
+            modelBuilder.ApplyConfiguration(new ClassInFacultyConfiguration());
+            modelBuilder.ApplyConfiguration(new SemesterOfClassConfiguration());
 
+            modelBuilder.ApplyConfiguration(new SubjectOfClassConfiguration());
 
             modelBuilder.Seed();
         }
@@ -46,11 +51,17 @@ namespace SubjectManagement.Data.EF
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<ElectiveGroup> ElectiveGroups { get; set; }
         public DbSet<SubjectInElectiveGroup> SubjectInElectiveGroups { get; set; }
-        public DbSet<Semeter> Semeters { get; set; }
-        public DbSet<SubjectInSemeter> SubjectInSemeters { get; set; }
+        public DbSet<Semester> Semesters { get; set; }
+        public DbSet<SubjectInSemester> SubjectInSemesters { get; set; }
         public DbSet<KnowledgeGroup> KnowledgeGroups { get; set; }
         public DbSet<SubjectInKnowledgeGroup> SubjectInKnowledgeGroups { get; set; }
 
+        public DbSet<Class> Classes { get; set; }
+        public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<ClassInFaculty> ClassInFaculties { get; set; }
+        public DbSet<SemesterOfClass> SemesterOfClasses { get; set; }
+
+        public DbSet<SubjectOfClass> SubjectOfClasses { get; set; }
 
     }
 }

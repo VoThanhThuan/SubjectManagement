@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SubjectManagement.Application.SubjectApp;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
+using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Main;
 using SubjectManagement.ViewModels.Subject;
@@ -17,12 +19,15 @@ namespace SubjectManagement.GUI.Controller
 {
     public class SubjectController
     {
-        public SubjectController()
+        public SubjectController(Class _class)
         {
-            _subjectService = new SubjectService();
+            _subjectService = new SubjectService(Db.Context);
+            _Class = _class;
         }
 
         private readonly ISubjectService _subjectService;
+
+        public Class _Class { get; init; }
 
         public async void LoadCombobox(ComboBox cbb)
         {
@@ -31,14 +36,29 @@ namespace SubjectManagement.GUI.Controller
             cbb.DisplayMemberPath = "Name";
         }
 
-        public async void AddSubject(SubjectRequest request)
+        public List<Subject> GetSubject(int? semester = null)
         {
-            await _subjectService.AddSubject(request);
+            var value =  _subjectService.LoadSubjectDifferentSemester(semester);
+            return value;
         }
 
-        public async void EditWindow(string coursesCode)
+        public void AddSubject(SubjectRequest request)
         {
-            var result = await _subjectService.FindSubject(coursesCode);
+             var result = _subjectService.AddSubject(request);
+             if (!result.IsSuccessed) return;
+             var mess = new MessageDialog()
+             {
+                 tbl_Title = { Text = $"{result.Message}" },
+                 tbl_Message = { Text = $"{result.Message}" },
+                 title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                 Topmost = true
+             };
+             mess.ShowDialog();
+        }
+
+        public void EditWindow(string coursesCode)
+        {
+            var result = _subjectService.FindSubject(coursesCode);
             if (!result.IsSuccessed)
             {
                 var mess = new MessageDialog()
@@ -54,11 +74,13 @@ namespace SubjectManagement.GUI.Controller
 
             var knowledge = _subjectService.FindKnowledgeGroup(result.ResultObj.ID);
 
-            var oldValue = new Hashtable();
-            oldValue.Add("ID", result.ResultObj.ID);
-            oldValue.Add("IDKnowledgeGroupOld", knowledge.Result[0].ID);
+            var oldValue = new Hashtable
+            {
+                { "ID", result.ResultObj.ID },
+                { "IDKnowledgeGroupOld", knowledge[0].ID }
+            };
 
-            var editWindow = new AddSubjectWindow
+            var editWindow = new AddSubjectWindow(_Class)
             {
                 btn_AddProduct = { Content = "Sửa" },
                 tbx_CourseCode = { Text = result.ResultObj.CourseCode },
@@ -72,7 +94,7 @@ namespace SubjectManagement.GUI.Controller
                 tbx_Parallel = { Text = $"{result.ResultObj.Parallel}" },
                 chk_IsOffical = { IsChecked = result.ResultObj.IsOffical },
                 tbx_Details = { Text = result.ResultObj.Details },
-                cbb_CoursesGroup = { SelectedValue = knowledge.Result[0] },
+                cbb_CoursesGroup = { SelectedValue = knowledge[0] },
 
                 IsEdit = true,
                 OldValue = oldValue
@@ -82,9 +104,9 @@ namespace SubjectManagement.GUI.Controller
             editWindow.Show();
         }
 
-        public async void EditSubject(SubjectRequest request)
+        public void EditSubject(SubjectRequest request)
         {
-            var result = await _subjectService.EditSubject(request);
+            var result = _subjectService.EditSubject(request);
             if (result.IsSuccessed) return;
             var mess = new MessageDialog()
             {
@@ -97,11 +119,11 @@ namespace SubjectManagement.GUI.Controller
         }
 
 
-        public async void RemoveSubject(string coursesCode)
+        public void RemoveSubject(string coursesCode)
         {
             //Tìm kiếm môn học
-            var subject = await _subjectService.FindSubject(coursesCode);
-            if (subject is null)
+            var subject = _subjectService.FindSubject(coursesCode);
+            if (subject.ResultObj is null)
             {
 
                 var mess = new MessageDialog()
@@ -130,30 +152,29 @@ namespace SubjectManagement.GUI.Controller
 
 
             //Tìm kiếm nhóm môn
-            var group = await _subjectService.FindKnowledgeGroup(subject.ResultObj.ID);
+            var group = _subjectService.FindKnowledgeGroup(subject.ResultObj.ID);
             if (group.Count == 0)
             {
-
                 var mess = new MessageDialog()
                 {
-                    tbl_Title = { Text = $"Lỗi tìm kiếm" },
-                    tbl_Message = { Text = $"" },
+                    tbl_Title = { Text = $"Lỗi tìm kiếm nhóm môn học" },
+                    tbl_Message = { Text = $"Đã có lỗi gì đó nhưng bạn yên tâm, phần mềm vẫn sẽ xử lý và xóa cho bạn môn học {subject.ResultObj.Name}" },
                     title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
                     Topmost = true
                 };
                 mess.ShowDialog();
-                return;
+                //return;
             }
 
             //Tiến hành xóa
             var request = new SubjectRequest()
             {
                 ID = subject.ResultObj.ID,
-                IDKnowledgeGroup = group[0].ID
+                IDKnowledgeGroup = group.Count == 0 ? Guid.Empty : group[0].ID 
             };
 
-            var result = await _subjectService.RemoveSubject(request);
-            if (result is not null) return;
+            var result = _subjectService.RemoveSubject(request);
+            if (result.ResultObj is not null)
             {
                 var mess = new MessageDialog()
                 {
@@ -165,6 +186,15 @@ namespace SubjectManagement.GUI.Controller
                 mess.ShowDialog();
                 return;
             }
+
+            var sus = new MessageDialog()
+            {
+                tbl_Title = { Text = $"{result.Message}" },
+                tbl_Message = { Text = $"{result.Message}" },
+                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                Topmost = true
+            };
+            sus.ShowDialog();
         }
 
     }
