@@ -10,25 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SubjectManagement.Application.SemesterApp;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 
-namespace SubjectManagement.GUI.Main
+namespace SubjectManagement.GUI.Main.Children.Semester
 {
     /// <summary>
-    /// Interaction logic for AddSemeterWindow.xaml
+    /// Interaction logic for AddSemesterUC.xaml
     /// </summary>
-    public partial class AddSemesterWindow : Window
+    public partial class AddSemesterUC : UserControl
     {
-        public AddSemesterWindow(Class _class)
+        public AddSemesterUC(Class _class)
         {
             InitializeComponent();
             _Class = _class;
             tbl_NameClass.Text = _class.Name;
             LoadListSubject();
+
         }
 
         public Class _Class { get; init; }
@@ -41,14 +42,14 @@ namespace SubjectManagement.GUI.Main
 
         private void LoadSubjectInSemester(int semester)
         {
-            if(semester < 0) return;
+            if (semester < 0) return;
             var load = new SemesterController();
             dg_SubjectOfSemester.ItemsSource = load.LoadSubject(semester);
         }
 
         private void Cbb_Semester_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var semester = int.Parse($"{((ComboBoxItem) cbb_Semester.SelectedItem).Content}");
+            var semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}");
 
             //Load lại data grid
             LoadListSubject(semester);
@@ -98,5 +99,6 @@ namespace SubjectManagement.GUI.Main
             LoadListSubject(semester);
             LoadSubjectInSemester(semester);
         }
+
     }
 }

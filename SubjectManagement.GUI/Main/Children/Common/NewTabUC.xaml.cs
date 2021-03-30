@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Main.Children.Semester;
 using SubjectManagement.GUI.Main.Children.ViewListCourses;
 using SubjectManagement.GUI.Main.Dialog;
 
@@ -51,8 +52,10 @@ namespace SubjectManagement.GUI.Main.Children.Common
 
         private void Btn_AddSemester_OnClick(object sender, RoutedEventArgs e)
         {
-            var semester = new AddSemesterWindow(_Class);
-            semester.Show();
+            var semester = new AddSemesterUC(_Class);
+            MainBody.Children.Clear();
+            MainBody.Children.Add(semester);
+          
         }
     }
 }
