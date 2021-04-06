@@ -4,9 +4,61 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SubjectManagement.GUI.Member"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="MemberWindow" Height="450" Width="800">
+        Title="MemberWindow"
+        Height="450"
+        Width="800">
     <Grid>
-        
+        <ComboBox x:Name="cbb_class"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+                  materialDesign:HintAssist.Hint="Lớp"
+                  Height="50"
+                  VerticalAlignment="top"
+                  SelectionChanged="Cbb_class_OnSelectionChanged">
+        </ComboBox>
+        <Grid Margin=" 0 40 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Button x:Name="btn_ViewList"
+                        ToolTip="Icon"
+                        Width="160"
+                        Height="160"
+                        Click="Btn_ViewList_OnClick">
+                    <materialDesign:PackIcon Kind="ViewSplitHorizontal"
+                                             Width="120"
+                                             Height="120" />
+                </Button>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Button x:Name="btn_Compare"
+                        ToolTip="Icon"
+                        Width="160"
+                        Height="160"
+                        Grid.Column="2"
+                        Click="Btn_Compare_OnClick">
+                    <materialDesign:PackIcon Kind="Compare"
+                                             Width="120"
+                                             Height="120" />
+                </Button>
+            </Grid>
+
+            <Grid Grid.Column="2">
+                <Button x:Name="btn_AlternativeSubject"
+                        ToolTip="Icon"
+                        Width="160"
+                        Height="160"
+                        Click="Btn_AlternativeSubject_OnClick">
+                    <materialDesign:PackIcon Kind="CurrentAc"
+                                             Width="120"
+                                             Height="120" />
+                </Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Window>

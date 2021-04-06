@@ -11,6 +11,6 @@ namespace SubjectManagement.Application.FacultyApp
     public interface IFacultyService
     {
         List<Faculty> GetFaculty();
-        List<Class> GetClass(int IDFaculty);
+        List<Class> GetClass(int? idClass = null);
     }
 }

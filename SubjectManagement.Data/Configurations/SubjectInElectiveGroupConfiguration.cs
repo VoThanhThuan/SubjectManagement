@@ -15,7 +15,7 @@ namespace SubjectManagement.Data.Configurations
             builder.Property(x => x.ID).UseIdentityColumn();
 
             builder.HasOne(x => x.Subject).WithOne(x => x.SubjectInElectiveGroup)
-                .HasForeignKey<SubjectInElectiveGroup>(x => x.IDSubject);
+                .HasForeignKey<SubjectInElectiveGroup>(x => new {x.IDSubject, x.IDCLass});
             builder.HasOne(x => x.ElectiveGroup).WithMany(x => x.SubjectInElectiveGroups)
                 .HasForeignKey(x => x.IDElectiveGroup);
 

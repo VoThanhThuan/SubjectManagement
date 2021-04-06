@@ -74,16 +74,26 @@ namespace SubjectManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IDClass")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("IDNew")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("IDOld")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("SubjectID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("SubjectIDClass")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("IDNew")
-                        .IsUnique();
+                    b.HasIndex("IDClass");
+
+                    b.HasIndex("SubjectID", "SubjectIDClass");
 
                     b.ToTable("AlternativeSubject");
                 });
@@ -222,6 +232,13 @@ namespace SubjectManagement.Data.Migrations
                             CodeClass = "DH19PM",
                             Name = "Kỹ thuật phầm mềm",
                             Year = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            ID = 2,
+                            CodeClass = "DH20PM",
+                            Name = "Kỹ thuật phầm mềm",
+                            Year = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -254,6 +271,12 @@ namespace SubjectManagement.Data.Migrations
                         {
                             ID = 1,
                             IDClass = 1,
+                            IDFaculty = 1
+                        },
+                        new
+                        {
+                            ID = 2,
+                            IDClass = 2,
                             IDFaculty = 1
                         });
                 });
@@ -330,68 +353,13 @@ namespace SubjectManagement.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("SubjectManagement.Data.Entities.Semester", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("Term")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Semester");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            Term = 1
-                        });
-                });
-
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SemesterOfClass", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("IDClass")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDSemester")
-                        .HasColumnType("int");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("IDClass")
-                        .IsUnique();
-
-                    b.HasIndex("IDSemester");
-
-                    b.ToTable("SemesterOfClass");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            IDClass = 1,
-                            IDSemester = 1
-                        });
-                });
-
             modelBuilder.Entity("SubjectManagement.Data.Entities.Subject", b =>
                 {
                     b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("IDClass")
+                        .HasColumnType("int");
 
                     b.Property<string>("CourseCode")
                         .HasColumnType("nvarchar(max)");
@@ -402,10 +370,7 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool>("IsOffical")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LearnFirst")
+                    b.Property<int?>("LearnFirst")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -417,16 +382,21 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<int>("NumberOfTheory")
                         .HasColumnType("int");
 
-                    b.Property<int>("Parallel")
+                    b.Property<int?>("Parallel")
                         .HasColumnType("int");
 
-                    b.Property<int>("Prerequisite")
+                    b.Property<int?>("Prerequisite")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Semester")
                         .HasColumnType("int");
 
                     b.Property<bool>("TypeCourse")
                         .HasColumnType("bit");
 
-                    b.HasKey("ID");
+                    b.HasKey("ID", "IDClass");
+
+                    b.HasIndex("IDClass");
 
                     b.ToTable("Subject");
 
@@ -434,91 +404,76 @@ namespace SubjectManagement.Data.Migrations
                         new
                         {
                             ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010"),
+                            IDClass = 1,
                             CourseCode = "SEE101",
                             Credit = 1,
                             Details = "",
-                            IsOffical = true,
-                            LearnFirst = 0,
                             Name = "Giới thiệu ngành – ĐH KTPM",
                             NumberOfPractice = 0,
                             NumberOfTheory = 15,
-                            Parallel = 0,
-                            Prerequisite = 0,
                             TypeCourse = false
                         },
                         new
                         {
                             ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011"),
+                            IDClass = 1,
                             CourseCode = "COS106",
                             Credit = 4,
                             Details = "",
-                            IsOffical = true,
-                            LearnFirst = 0,
                             Name = "Lập trình căn bản",
                             NumberOfPractice = 50,
                             NumberOfTheory = 35,
-                            Parallel = 0,
-                            Prerequisite = 0,
                             TypeCourse = false
                         },
                         new
                         {
                             ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012"),
+                            IDClass = 1,
                             CourseCode = "TIE501",
                             Credit = 4,
                             Details = "",
-                            IsOffical = true,
                             LearnFirst = 20,
                             Name = "Lập trình .Net",
                             NumberOfPractice = 60,
                             NumberOfTheory = 30,
-                            Parallel = 0,
-                            Prerequisite = 0,
                             TypeCourse = false
                         },
                         new
                         {
                             ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013"),
+                            IDClass = 1,
                             CourseCode = "SEE301",
                             Credit = 2,
                             Details = "",
-                            IsOffical = true,
-                            LearnFirst = 0,
                             Name = "Nhập môn công nghệ phần mềm",
                             NumberOfPractice = 20,
                             NumberOfTheory = 20,
-                            Parallel = 0,
-                            Prerequisite = 0,
                             TypeCourse = true
                         },
                         new
                         {
                             ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014"),
+                            IDClass = 1,
                             CourseCode = "SEE508",
                             Credit = 2,
                             Details = "",
-                            IsOffical = true,
                             LearnFirst = 38,
                             Name = "Quản lý dự án phần mềm",
                             NumberOfPractice = 20,
                             NumberOfTheory = 20,
-                            Parallel = 0,
-                            Prerequisite = 0,
                             TypeCourse = true
                         },
                         new
                         {
                             ID = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015"),
+                            IDClass = 1,
                             CourseCode = "SEE505",
                             Credit = 3,
                             Details = "",
-                            IsOffical = true,
                             LearnFirst = 38,
                             Name = "Phân tích và thiết kế phần mềm hướng đối tượng",
                             NumberOfPractice = 30,
                             NumberOfTheory = 30,
-                            Parallel = 0,
-                            Prerequisite = 0,
                             TypeCourse = true
                         });
                 });
@@ -532,6 +487,9 @@ namespace SubjectManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IDCLass")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("IDElectiveGroup")
                         .HasColumnType("uniqueidentifier");
 
@@ -542,7 +500,7 @@ namespace SubjectManagement.Data.Migrations
 
                     b.HasIndex("IDElectiveGroup");
 
-                    b.HasIndex("IDSubject")
+                    b.HasIndex("IDSubject", "IDCLass")
                         .IsUnique();
 
                     b.ToTable("SubjectInElectiveGroup");
@@ -557,6 +515,9 @@ namespace SubjectManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("IDClass")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("IDKnowledgeGroup")
                         .HasColumnType("uniqueidentifier");
 
@@ -567,7 +528,7 @@ namespace SubjectManagement.Data.Migrations
 
                     b.HasIndex("IDKnowledgeGroup");
 
-                    b.HasIndex("IDSubject")
+                    b.HasIndex("IDSubject", "IDClass")
                         .IsUnique();
 
                     b.ToTable("SubjectInKnowledgeGroup");
@@ -576,116 +537,60 @@ namespace SubjectManagement.Data.Migrations
                         new
                         {
                             ID = 1,
+                            IDClass = 1,
                             IDKnowledgeGroup = new Guid("57955971-4be8-40fd-b149-eee225daea4c"),
                             IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010")
                         },
                         new
                         {
                             ID = 2,
+                            IDClass = 1,
                             IDKnowledgeGroup = new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"),
                             IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011")
                         },
                         new
                         {
                             ID = 3,
+                            IDClass = 1,
                             IDKnowledgeGroup = new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"),
                             IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012")
                         },
                         new
                         {
                             ID = 4,
+                            IDClass = 1,
                             IDKnowledgeGroup = new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"),
                             IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013")
                         },
                         new
                         {
                             ID = 5,
+                            IDClass = 1,
                             IDKnowledgeGroup = new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"),
                             IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014")
                         },
                         new
                         {
                             ID = 6,
+                            IDClass = 1,
                             IDKnowledgeGroup = new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"),
-                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015")
-                        });
-                });
-
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInSemester", b =>
-                {
-                    b.Property<Guid>("IDSubject")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("IDSemester")
-                        .HasColumnType("int");
-
-                    b.HasKey("IDSubject", "IDSemester");
-
-                    b.HasIndex("IDSemester");
-
-                    b.HasIndex("IDSubject")
-                        .IsUnique();
-
-                    b.ToTable("SubjectInSemester");
-                });
-
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectOfClass", b =>
-                {
-                    b.Property<int>("IDClass")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("IDSubject")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("IDClass", "IDSubject");
-
-                    b.HasIndex("IDSubject")
-                        .IsUnique();
-
-                    b.ToTable("SubjectOfClass");
-
-                    b.HasData(
-                        new
-                        {
-                            IDClass = 1,
-                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010")
-                        },
-                        new
-                        {
-                            IDClass = 1,
-                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011")
-                        },
-                        new
-                        {
-                            IDClass = 1,
-                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012")
-                        },
-                        new
-                        {
-                            IDClass = 1,
-                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013")
-                        },
-                        new
-                        {
-                            IDClass = 1,
-                            IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014")
-                        },
-                        new
-                        {
-                            IDClass = 1,
                             IDSubject = new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015")
                         });
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.AlternativeSubject", b =>
                 {
-                    b.HasOne("SubjectManagement.Data.Entities.Subject", "Subject")
-                        .WithOne("AlternativeSubject")
-                        .HasForeignKey("SubjectManagement.Data.Entities.AlternativeSubject", "IDNew")
+                    b.HasOne("SubjectManagement.Data.Entities.Class", "Class")
+                        .WithMany("AlternativeSubjects")
+                        .HasForeignKey("IDClass")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Subject");
+                    b.HasOne("SubjectManagement.Data.Entities.Subject", null)
+                        .WithMany("AlternativeSubjects")
+                        .HasForeignKey("SubjectID", "SubjectIDClass");
+
+                    b.Navigation("Class");
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.ClassInFaculty", b =>
@@ -707,23 +612,15 @@ namespace SubjectManagement.Data.Migrations
                     b.Navigation("Faculty");
                 });
 
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SemesterOfClass", b =>
+            modelBuilder.Entity("SubjectManagement.Data.Entities.Subject", b =>
                 {
                     b.HasOne("SubjectManagement.Data.Entities.Class", "Class")
-                        .WithOne("SemesterOfClass")
-                        .HasForeignKey("SubjectManagement.Data.Entities.SemesterOfClass", "IDClass")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SubjectManagement.Data.Entities.Semester", "Semester")
-                        .WithMany("SemesterOfClasses")
-                        .HasForeignKey("IDSemester")
+                        .WithMany("Subject")
+                        .HasForeignKey("IDClass")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Class");
-
-                    b.Navigation("Semester");
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInElectiveGroup", b =>
@@ -736,7 +633,7 @@ namespace SubjectManagement.Data.Migrations
 
                     b.HasOne("SubjectManagement.Data.Entities.Subject", "Subject")
                         .WithOne("SubjectInElectiveGroup")
-                        .HasForeignKey("SubjectManagement.Data.Entities.SubjectInElectiveGroup", "IDSubject")
+                        .HasForeignKey("SubjectManagement.Data.Entities.SubjectInElectiveGroup", "IDSubject", "IDCLass")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -755,7 +652,7 @@ namespace SubjectManagement.Data.Migrations
 
                     b.HasOne("SubjectManagement.Data.Entities.Subject", "Subject")
                         .WithOne("SubjectInKnowledgeGroup")
-                        .HasForeignKey("SubjectManagement.Data.Entities.SubjectInKnowledgeGroup", "IDSubject")
+                        .HasForeignKey("SubjectManagement.Data.Entities.SubjectInKnowledgeGroup", "IDSubject", "IDClass")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -764,51 +661,13 @@ namespace SubjectManagement.Data.Migrations
                     b.Navigation("Subject");
                 });
 
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInSemester", b =>
-                {
-                    b.HasOne("SubjectManagement.Data.Entities.Semester", "Semester")
-                        .WithMany("SubjectInSemesters")
-                        .HasForeignKey("IDSemester")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SubjectManagement.Data.Entities.Subject", "Subject")
-                        .WithOne("SubjectInSemester")
-                        .HasForeignKey("SubjectManagement.Data.Entities.SubjectInSemester", "IDSubject")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Semester");
-
-                    b.Navigation("Subject");
-                });
-
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectOfClass", b =>
-                {
-                    b.HasOne("SubjectManagement.Data.Entities.Class", "Class")
-                        .WithMany("SubjectOfClass")
-                        .HasForeignKey("IDClass")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SubjectManagement.Data.Entities.Subject", "Subject")
-                        .WithOne("SubjectOfClass")
-                        .HasForeignKey("SubjectManagement.Data.Entities.SubjectOfClass", "IDSubject")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Subject");
-                });
-
             modelBuilder.Entity("SubjectManagement.Data.Entities.Class", b =>
                 {
+                    b.Navigation("AlternativeSubjects");
+
                     b.Navigation("ClassInFaculty");
 
-                    b.Navigation("SemesterOfClass");
-
-                    b.Navigation("SubjectOfClass");
+                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.ElectiveGroup", b =>
@@ -826,24 +685,13 @@ namespace SubjectManagement.Data.Migrations
                     b.Navigation("SubjectInKnowledgeGroups");
                 });
 
-            modelBuilder.Entity("SubjectManagement.Data.Entities.Semester", b =>
-                {
-                    b.Navigation("SemesterOfClasses");
-
-                    b.Navigation("SubjectInSemesters");
-                });
-
             modelBuilder.Entity("SubjectManagement.Data.Entities.Subject", b =>
                 {
-                    b.Navigation("AlternativeSubject");
+                    b.Navigation("AlternativeSubjects");
 
                     b.Navigation("SubjectInElectiveGroup");
 
                     b.Navigation("SubjectInKnowledgeGroup");
-
-                    b.Navigation("SubjectInSemester");
-
-                    b.Navigation("SubjectOfClass");
                 });
 #pragma warning restore 612, 618
         }

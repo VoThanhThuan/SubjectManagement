@@ -18,9 +18,11 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Main.Children.Alternative;
+using SubjectManagement.GUI.Main.Children.Compare;
 using SubjectManagement.GUI.Main.Children.Semester;
 using SubjectManagement.GUI.Main.Children.ViewListCourses;
-using SubjectManagement.GUI.Main.Dialog;
+using SubjectManagement.GUI.Dialog;
 
 namespace SubjectManagement.GUI.Main.Children.Common
 {
@@ -36,7 +38,7 @@ namespace SubjectManagement.GUI.Main.Children.Common
             var faculty = new FacultyDialog {Owner = System.Windows.Application.Current.MainWindow};
             faculty.ShowDialog();
             _Class = faculty._Class;
-            tbl_Class.Text = _Class.Name;
+            tbl_Class.Text = $"{_Class.Name} - {_Class.CodeClass}";
         }
 
         private TabItem _titleTab;
@@ -56,6 +58,23 @@ namespace SubjectManagement.GUI.Main.Children.Common
             MainBody.Children.Clear();
             MainBody.Children.Add(semester);
           
+        }
+
+        private void Btn_Compare_OnClick(object sender, RoutedEventArgs e)
+        {
+            var compare = new CompareDialog(_Class){ Owner = System.Windows.Application.Current.MainWindow };
+            compare.ShowDialog();
+            if (compare.DialogResult != true) return;
+            var compareUC = new SubjectCompareUC(_Class, compare._ClassCompare);
+            MainBody.Children.Clear();
+            MainBody.Children.Add(compareUC);
+        }
+
+        private void Btn_AlternativeSubject_OnClick(object sender, RoutedEventArgs e)
+        {
+            var alter = new AlternativeSubjectUC(_Class);
+            MainBody.Children.Clear();
+            MainBody.Children.Add(alter);
         }
     }
 }

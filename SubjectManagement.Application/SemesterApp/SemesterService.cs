@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SubjectManagement.Data.EF;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.ViewModels.SubjectOfClass;
 
 namespace SubjectManagement.Application.SemesterApp
 {
@@ -19,37 +20,34 @@ namespace SubjectManagement.Application.SemesterApp
 
         private readonly SubjectDbContext _db;
 
-        public Result<string> AddSubject(Guid idSubject, int term)
+        public Result<string> AddSubject(Subject request, int semester)
         {
-            var checkValid =
-                _db.SubjectInSemesters.Find(idSubject, term);
-            if (checkValid is not null)
-                return new ResultError<string>($"Môn học này thuộc học kỳ {checkValid.IDSemester}");
-            var sis = new SubjectInSemester()
-            {
-                IDSemester = term,
-                IDSubject = idSubject
-            };
-            _db.SubjectInSemesters.Add(sis);
+            request.Semester = semester;
+
             _db.SaveChanges();
             return new ResultSuccess<string>("Thêm thành công");
         }
 
-        public List<Subject> LoadSubject(int idSemester)
+        public List<Subject> LoadSubject(int idSemester, int idClass)
         {
-            var subject = (from sis in _db.SubjectInSemesters
-                join s in _db.Subjects on sis.IDSubject equals s.ID
-                where sis.IDSemester == idSemester
-                select s).ToList();
+            //var subject = (from sis in _db.SubjectInSemesters
+            //    join s in _db.Subjects on sis.IDSubject equals s.ID
+            //    where sis.IDSemester == idSemester
+            //    select s).ToList();
+
+            var subject = _db.Subjects.Where(x => x.Semester == idSemester && x.IDClass == idClass).Select(x => x).ToList();
+
             return subject;
         }
 
         public Result<string> RemoveSubject(Guid idSubject, int term)
         {
-            var sis = _db.SubjectInSemesters.Find(idSubject, term);
-            if (sis is null)
+            var s = _db.Subjects.Find(idSubject);
+            if (s is null)
                 return new ResultError<string>($"Môn học không tồn tại");
-            _db.SubjectInSemesters.Remove(sis);
+
+            s.Semester = null;
+
             _db.SaveChanges();
             return new ResultSuccess<string>($"Xóa thành công môn học khỏi học kỳ {term}");
         }

@@ -33,21 +33,17 @@ namespace SubjectManagement.Application.SubjectApp
         }
         public List<Subject> LoadSubjectOfClass(int idClass)
         {
-            var subject = (from s in _db.Subjects
-                           join soc in _db.SubjectOfClasses on s.ID equals soc.IDSubject
-                           where soc.IDClass == idClass
-                           select s).ToList();
+            var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x).ToList();
             return subject;
         }
-        public List<Subject> LoadSubjectDifferentSemester(int? term)
+        public List<Subject> LoadSubjectDifferentSemester(int? term, int idClass)
         {
-            var subject = _db.Subjects.Select(x => x);
+            var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x);
 
-            var semester = _db.SubjectInSemesters
-                .Select(x => x.IDSubject);
+            //var semester = _db.SubjectInSemesters
+            //    .Select(x => x.IDSubject);
 
-
-            var result = subject.Where(x => !semester.Contains(x.ID)).ToList();
+            var result = subject.Where(x => x.Semester == null).ToList();
 
             return result;
         }
@@ -60,16 +56,17 @@ namespace SubjectManagement.Application.SubjectApp
 
         public  List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass)
         {
-            var subjectOfClass = from s in _db.Subjects
-                                 join soc in _db.SubjectOfClasses on s.ID equals soc.IDSubject
-                                 where soc.IDClass == idClass
-                                 select s;
-            var subjectInGroup = (from sig in _db.SubjectInKnowledgeGroups
-                                  join s in subjectOfClass on sig.IDSubject equals s.ID
-                                  where sig.IDKnowledgeGroup == IDGroup
-                                  select s).ToList();
-            subjectInGroup.Reverse();
-            return subjectInGroup;
+            var subjectInGroup = from sig in _db.SubjectInKnowledgeGroups
+                where sig.IDClass == idClass && sig.IDKnowledgeGroup == IDGroup 
+                select sig;
+
+            var subject = from s in _db.Subjects where s.IDClass == idClass select s;
+
+            var result = (from sig in subjectInGroup
+                join s in subject on sig.IDSubject equals s.ID
+                    select s).ToList();
+
+            return result;
         }
 
         public List<KnowledgeGroup> FindKnowledgeGroup(Guid idSubject)
@@ -104,8 +101,8 @@ namespace SubjectManagement.Application.SubjectApp
                 Prerequisite = request.Prerequisite,
                 LearnFirst = request.LearnFirst,
                 Parallel = request.Parallel,
-                IsOffical = request.IsOffical,
-                Details = request.Details
+                Details = request.Details,
+                IDClass = request.IdClass
             };
             _db.Add(subject);
             _db.SaveChanges();
@@ -114,21 +111,13 @@ namespace SubjectManagement.Application.SubjectApp
             var sig = new SubjectInKnowledgeGroup()
             {
                 IDSubject = request.ID,
+                IDClass = request.IdClass,
                 IDKnowledgeGroup = request.IDKnowledgeGroup
             };
 
-            _db.SubjectInKnowledgeGroups.Add(sig);
+            _db.SubjectInKnowledgeGroups.Add(sig); 
             _db.SaveChanges();
 
-            //Thêm môn học vào lớp học
-            var soc = new SubjectOfClass()
-            {
-                IDClass = request.IdClass,
-                IDSubject = request.ID
-            };
-
-            _db.SubjectOfClasses.Add(soc);
-            _db.SaveChanges();
 
             return new ResultSuccess<string>($"Đã thêm môn học {request.Name} thành công");
         }
@@ -139,6 +128,64 @@ namespace SubjectManagement.Application.SubjectApp
             if (subject is null) return new ResultError<Subject>($"Không tìm thấy môn học có mã là {coursesCode}");
 
             return new ResultSuccess<Subject>(subject, "ok");
+        }
+
+        public Result<string> CopyListSubject(int idClassOld, int idClassNew)
+        {
+            var oldSubject = from sik in _db.SubjectInKnowledgeGroups
+                join s in _db.Subjects on sik.IDSubject equals s.ID 
+                select new
+                {
+                    s.ID,s.CourseCode, s.Name, s.Credit, s.TypeCourse, s.NumberOfTheory, s.NumberOfPractice, s.Prerequisite, s.LearnFirst,
+                    s.Parallel, s.Details, s.IDClass, sik.IDKnowledgeGroup
+                };
+            //var oldSubject = _db.Subjects.Where(x => x.IDClass == idClassOld).Select(x => x);
+            if (oldSubject.ToList().Count <= 0)
+                return new ResultError<string>("Không có dữ liệu để sao chép");
+
+            var newSubject = _db.Subjects.Where(x => x.IDClass == idClassNew).Select(x => x);
+
+            //Xóa danh sách củ
+            foreach (var subject in newSubject)
+            {
+                _db.Subjects.Remove(subject);
+            }
+
+            _db.SaveChanges();
+
+            //Copy
+            foreach (var item in oldSubject)
+            {
+                var subject = new Subject()
+                {
+                    ID = item.ID,
+                    IDClass = idClassNew,
+                    CourseCode = item.CourseCode,
+                    Name = item.Name,
+                    Credit = item.Credit,
+                    TypeCourse = item.TypeCourse,
+                    NumberOfTheory = item.NumberOfTheory,
+                    NumberOfPractice = item.NumberOfPractice,
+                    Prerequisite = item.Prerequisite,
+                    LearnFirst = item.LearnFirst,
+                    Parallel = item.Parallel,
+                    Details = item.Details
+                };
+                
+                _db.Subjects.Add(subject);
+                //thêm môn học vào khối kiến thức
+                var sig = new SubjectInKnowledgeGroup()
+                {
+                    IDSubject = item.ID,
+                    IDClass = idClassNew,
+                    IDKnowledgeGroup = item.IDKnowledgeGroup
+                };
+                _db.SubjectInKnowledgeGroups.Add(sig);
+            }
+
+            _db.SaveChanges();
+
+            return new ResultSuccess<string>("Copy hoàn thành");
         }
 
         public Result<string> EditSubject(SubjectRequest request)
@@ -158,7 +205,7 @@ namespace SubjectManagement.Application.SubjectApp
             }
 
             //edit jsubject
-            var subject = _db.Subjects.Find(request.ID);
+            var subject = _db.Subjects.Find(request.ID, request.IdClass);
 
             if (subject is null) return new ResultError<string>("Lỗi tìm kiếm mã môn - line 115 - SubjectService");
 
@@ -171,7 +218,6 @@ namespace SubjectManagement.Application.SubjectApp
             subject.Prerequisite = request.Prerequisite;
             subject.LearnFirst = request.LearnFirst;
             subject.Parallel = request.Parallel;
-            subject.IsOffical = request.IsOffical;
             subject.Details = request.Details;
 
             _db.Subjects.Update(subject);

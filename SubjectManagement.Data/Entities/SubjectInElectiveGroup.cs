@@ -8,6 +8,8 @@ namespace SubjectManagement.Data.Entities
     {
         public int ID { get; set; }
         public Guid IDSubject { get; set; }
+        public int IDCLass { get; set; }
+
         public Guid IDElectiveGroup { get; set; }
 
 

@@ -19,24 +19,72 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="btn_ViewList"
-                        ToolTip="Icon"
-                        Width="160"
-                        Height="160"
-                        Click="Btn_ViewList_OnClick">
-                    <materialDesign:PackIcon Kind="GoogleSpreadsheet"
-                                             Width="120"
-                                             Height="120" />
-                </Button>
-                <Button x:Name="btn_AddSemester" ToolTip="Icon"
-                        Width="160"
-                        Height="160"
-                        Grid.Column="1"
-                        Click="Btn_AddSemester_OnClick">
-                    <materialDesign:PackIcon Kind="GoogleSpreadsheet"
-                                             Width="120"
-                                             Height="120" />
-                </Button>
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Button x:Name="btn_ViewList"
+                                ToolTip="Icon"
+                                Width="160"
+                                Height="160"
+                                Click="Btn_ViewList_OnClick">
+                            <materialDesign:PackIcon Kind="ViewSplitHorizontal"
+                                                     Width="120"
+                                                     Height="120" />
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Button x:Name="btn_AlternativeSubject"
+                                ToolTip="Icon"
+                                Width="160"
+                                Height="160"
+                                Click="Btn_AlternativeSubject_OnClick">
+                            <materialDesign:PackIcon Kind="CurrentAc"
+                                                     Width="120"
+                                                     Height="120" />
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Button x:Name="btn_AddSemester"
+                                ToolTip="Icon"
+                                Width="160"
+                                Height="160"
+                                Grid.Column="1"
+                                Click="Btn_AddSemester_OnClick">
+                            <materialDesign:PackIcon Kind="ClipboardList"
+                                                     Width="120"
+                                                     Height="120" />
+                        </Button>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Button x:Name="btn_Compare"
+                                ToolTip="Icon"
+                                Width="160"
+                                Height="160"
+                                Grid.Column="2"
+                                Click="Btn_Compare_OnClick">
+                            <materialDesign:PackIcon Kind="Compare"
+                                                     Width="120"
+                                                     Height="120" />
+                        </Button>
+                    </Grid>
+                </Grid>
+
             </Grid>
         </Grid>
 

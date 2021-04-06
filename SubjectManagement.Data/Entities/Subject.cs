@@ -13,18 +13,18 @@ namespace SubjectManagement.Data.Entities
         public bool TypeCourse { get; set; }
         public int NumberOfTheory { get; set; }
         public int NumberOfPractice { get; set; }
-        public int Prerequisite { get; set; } //Tiên Quyết
-        public int LearnFirst { get; set; } //Học Trước
-        public int Parallel { get; set; } // Song Hành
-        public bool IsOffical { get; set; }
+        public int? Prerequisite { get; set; } //Tiên Quyết
+        public int? LearnFirst { get; set; } //Học Trước
+        public int? Parallel { get; set; } // Song Hành
         public string Details { get; set; }
 
-        public AlternativeSubject AlternativeSubject { get; set; }
-        public SubjectInElectiveGroup SubjectInElectiveGroup { get; set; }
-        public SubjectInSemester SubjectInSemester { get; set; }
-        public SubjectInKnowledgeGroup SubjectInKnowledgeGroup { get; set; }
+        public int? Semester { get; set; }
+        public int IDClass { get; set; }
 
-        public SubjectOfClass SubjectOfClass { get; set; }
+        public Class Class { get; set; }
+        public List<AlternativeSubject> AlternativeSubjects{ get; set; }
+        public SubjectInElectiveGroup SubjectInElectiveGroup { get; set; }
+        public SubjectInKnowledgeGroup SubjectInKnowledgeGroup { get; set; }
 
     }
 }

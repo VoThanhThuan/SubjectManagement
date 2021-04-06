@@ -11,6 +11,7 @@ namespace SubjectManagement.Data.Entities
         public int ID { get; set; }
 
         public Guid IDSubject { get; set; }
+        public int IDClass { get; set; }
         public Guid IDKnowledgeGroup { get; set; }
 
         public Subject Subject { get; set; }

@@ -8,15 +8,24 @@ using SubjectManagement.Application.SemesterApp;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.ViewModels.SubjectOfClass;
 
 namespace SubjectManagement.GUI.Controller
 {
     public class SemesterController
     {
-        public void AddSubject(Guid idSubject, int term)
+
+        public SemesterController(Class _class)
         {
-            var add = new SemesterService(Db.Context);
-            var result = add.AddSubject(idSubject, term);
+            _Class = _class;
+            _semesterServicel = new SemesterService(Db.Context);
+        }
+
+        private readonly ISemesterService _semesterServicel;
+        private Class _Class { get; init; }
+        public void AddSubject(Subject request, int semester)
+        {
+            var result = _semesterServicel.AddSubject(request, semester);
             var mess = new MessageDialog()
             {
                 tbl_Title = { Text = $"Lỗi thêm" },
@@ -28,8 +37,7 @@ namespace SubjectManagement.GUI.Controller
         }
         public void RemoveSubject(Guid idSubject, int term)
         {
-            var remove = new SemesterService(Db.Context);
-            var result = remove.RemoveSubject(idSubject, term);
+            var result = _semesterServicel.RemoveSubject(idSubject, term);
 
             var mess = new MessageDialog()
             {
@@ -42,8 +50,7 @@ namespace SubjectManagement.GUI.Controller
         }
         public List<Subject> LoadSubject(int idSemester)
         {
-            var load = new SemesterService(Db.Context);
-            return load.LoadSubject(idSemester);
+            return _semesterServicel.LoadSubject(idSemester, _Class.ID);
 
         }
     }

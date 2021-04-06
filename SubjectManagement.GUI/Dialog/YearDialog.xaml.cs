@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SubjectManagement.GUI.Main.Dialog
+namespace SubjectManagement.GUI.Dialog
 {
     /// <summary>
     /// Interaction logic for YearDialog.xaml

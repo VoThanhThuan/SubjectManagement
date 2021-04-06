@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.ViewModels.SubjectOfClass;
 
 namespace SubjectManagement.GUI.Main.Children.Semester
 {
@@ -37,13 +38,13 @@ namespace SubjectManagement.GUI.Main.Children.Semester
         private void LoadListSubject(int? semester = null)
         {
             var load = new SubjectController(_Class);
-            dg_ListAllSubject.ItemsSource = load.GetSubject(semester);
+            dg_ListAllSubject.ItemsSource = load.GetSubjectSemester(semester);
         }
 
         private void LoadSubjectInSemester(int semester)
         {
             if (semester < 0) return;
-            var load = new SemesterController();
+            var load = new SemesterController(_Class);
             dg_SubjectOfSemester.ItemsSource = load.LoadSubject(semester);
         }
 
@@ -74,10 +75,12 @@ namespace SubjectManagement.GUI.Main.Children.Semester
 
             if (dg_ListAllSubject.SelectedIndex < 0) return;
             var subject = (Subject)dg_ListAllSubject.SelectedValue;
-            var add = new SemesterController();
+            var add = new SemesterController(_Class);
 
             var semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}");
-            add.AddSubject(subject.ID, semester);
+
+
+            add.AddSubject(subject, semester);
 
             //Load lại data grid
             LoadListSubject(semester);
@@ -88,7 +91,7 @@ namespace SubjectManagement.GUI.Main.Children.Semester
         {
             if (dg_SubjectOfSemester.SelectedIndex < 0) return;
 
-            var remove = new SemesterController();
+            var remove = new SemesterController(_Class);
 
             var subject = (Subject)dg_SubjectOfSemester.SelectedValue;
             var semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}");

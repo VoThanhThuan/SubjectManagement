@@ -13,9 +13,9 @@ namespace SubjectManagement.Data.Entities
         public string Name { get; set; }
         public DateTime Year { get; set; }
 
-        public SemesterOfClass SemesterOfClass { get; set; }
         public ClassInFaculty ClassInFaculty { get; set; }
-        public List<SubjectOfClass> SubjectOfClass { get; set; }
+        public List<Subject> Subject { get; set; }
+        public List<AlternativeSubject> AlternativeSubjects { get; set; }
 
     }
 }

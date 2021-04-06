@@ -36,10 +36,30 @@ namespace SubjectManagement.GUI.Controller
             cbb.DisplayMemberPath = "Name";
         }
 
-        public List<Subject> GetSubject(int? semester = null)
+        public Subject FindSubject(string codeSubject)
         {
-            var value =  _subjectService.LoadSubjectDifferentSemester(semester);
-            return value;
+            var subject = _subjectService.FindSubject(codeSubject);
+            if (subject.IsSuccessed != false) return subject.ResultObj;
+            var mess = new MessageDialog()
+            {
+                tbl_Title = { Text = $"Không tìm thấy môn học" },
+                tbl_Message = { Text = $"{subject.Message}" },
+                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                Topmost = true
+            };
+            mess.ShowDialog();
+            return null;
+        }
+
+        public List<Subject> GetSubjectSemester(int? semester = null)
+        {
+ 
+            return _subjectService.LoadSubjectDifferentSemester(semester, _Class.ID);
+        }
+
+        public List<Subject> GetSubjectClass()
+        {
+            return _subjectService.LoadSubjectOfClass(_Class.ID); ;
         }
 
         public void AddSubject(SubjectRequest request)
@@ -92,7 +112,6 @@ namespace SubjectManagement.GUI.Controller
                 tbx_Prerequisite = { Text = $"{result.ResultObj.Prerequisite}" },
                 tbx_LearnFirst = { Text = $"{result.ResultObj.LearnFirst}" },
                 tbx_Parallel = { Text = $"{result.ResultObj.Parallel}" },
-                chk_IsOffical = { IsChecked = result.ResultObj.IsOffical },
                 tbx_Details = { Text = result.ResultObj.Details },
                 cbb_CoursesGroup = { SelectedValue = knowledge[0] },
 
@@ -195,6 +214,19 @@ namespace SubjectManagement.GUI.Controller
                 Topmost = true
             };
             sus.ShowDialog();
+        }
+
+        public void CopyListSubject(int idClassOld, int idClassNew)
+        {
+            var result = _subjectService.CopyListSubject(idClassOld, idClassNew);
+            var mess = new MessageDialog()
+            {
+                tbl_Title = { Text = $"Thông puma" },
+                tbl_Message = { Text = $"{result.Message}" },
+                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                Topmost = true
+            };
+            mess.ShowDialog();
         }
 
     }

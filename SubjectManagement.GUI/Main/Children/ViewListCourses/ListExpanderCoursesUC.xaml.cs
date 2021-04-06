@@ -17,6 +17,7 @@ using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Dialog;
 
 namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 {
@@ -43,8 +44,23 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
         {
-            var addSubject = new AddSubjectWindow(_Class);
-            addSubject.Show();
+            var dialog = new AddNewOrOldDialog(_Class);
+            dialog.ShowDialog();
+            switch (dialog.IsCopy)
+            {
+                case true:
+                {
+                    var copy = new SubjectController(_Class);
+                    copy.CopyListSubject(dialog.IdClassNew, _Class.ID);
+                    break;
+                }
+                case false:
+                {
+                    var addSubject = new AddSubjectWindow(_Class);
+                    addSubject.Show();
+                    break;
+                }
+            }
         }
 
         private void Btn_Reload_OnClick(object sender, RoutedEventArgs e)

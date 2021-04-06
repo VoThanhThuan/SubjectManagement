@@ -56,7 +56,6 @@ namespace SubjectManagement.GUI.Main
                 Prerequisite = string.IsNullOrEmpty(tbx_Prerequisite.Text) ? 0 :  Convert.ToInt32(tbx_Prerequisite.Text),
                 LearnFirst = string.IsNullOrEmpty(tbx_LearnFirst.Text) ? 0 : Convert.ToInt32(tbx_LearnFirst.Text),
                 Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
-                IsOffical = chk_IsOffical.IsChecked ?? true,
                 Details = tbx_Details.Text,
 
                 IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,

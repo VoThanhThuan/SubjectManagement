@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 
-namespace SubjectManagement.GUI.Main.Dialog
+namespace SubjectManagement.GUI.Dialog
 {
     /// <summary>
     /// Interaction logic for FacultyDialog.xaml
@@ -37,8 +37,7 @@ namespace SubjectManagement.GUI.Main.Dialog
         private void cbb_Faculty_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var faculty = new FacultyController();
-            var idFaculty = ((Faculty)cbb_Faculty.SelectedValue).ID;
-            faculty.GetClass(cbb_Class, idFaculty);
+            faculty.GetClass(cbb_Class);
 
         }
         private void Cbb_Class_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

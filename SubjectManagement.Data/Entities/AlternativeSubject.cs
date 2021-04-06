@@ -9,7 +9,10 @@ namespace SubjectManagement.Data.Entities
         public int ID { get; set; }
         public Guid IDOld { get; set; }
         public Guid IDNew { get; set; }
-        public Subject Subject { get; set; }
+
+        public int IDClass { get; set; }
+
+        public Class Class { get; set; }
 
     }
 }

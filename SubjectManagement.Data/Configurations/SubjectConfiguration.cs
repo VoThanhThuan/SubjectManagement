@@ -12,6 +12,9 @@ namespace SubjectManagement.Data.Configurations
         public void Configure(EntityTypeBuilder<Subject> builder)
         {
             builder.ToTable("Subject");
+            builder.HasKey(x => new {x.ID, x.IDClass});
+            builder.HasOne(x => x.Class).WithMany(x => x.Subject)
+                .HasForeignKey(x => x.IDClass);
         }
     }
 }

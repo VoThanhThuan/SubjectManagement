@@ -14,7 +14,7 @@ namespace SubjectManagement.Application.SubjectApp
     {
         List<Subject> LoadSubject();
         List<Subject> LoadSubjectOfClass(int idClass);
-        List<Subject> LoadSubjectDifferentSemester(int? term);
+        List<Subject> LoadSubjectDifferentSemester(int? term, int idClass);
         Task<List<KnowledgeGroup>> LoadKnowledgeGroup();
         List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass);
 
@@ -28,7 +28,7 @@ namespace SubjectManagement.Application.SubjectApp
 
         Result<Subject> FindSubject(string coursesCode);
 
-
+        Result<string> CopyListSubject(int idClassOld, int idClassNew);
 
     }
 }

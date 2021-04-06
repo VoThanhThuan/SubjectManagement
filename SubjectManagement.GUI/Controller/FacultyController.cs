@@ -32,10 +32,10 @@ namespace SubjectManagement.GUI.Controller
             cbb.DisplayMemberPath = "Name";
         }
 
-        public void GetClass(ComboBox cbb, int IDFaculty)
+        public void GetClass(ComboBox cbb, int? idClass = null)
         {
-            cbb.ItemsSource = _facultyService.GetClass(IDFaculty);
-            cbb.DisplayMemberPath = "Name";
+            cbb.ItemsSource = _facultyService.GetClass(idClass);
+            cbb.DisplayMemberPath = "CodeClass";
         }
 
     }

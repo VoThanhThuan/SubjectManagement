@@ -104,38 +104,32 @@ namespace SubjectManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Semester",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Term = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Semester", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Subject",
                 columns: table => new
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IDClass = table.Column<int>(type: "int", nullable: false),
                     CourseCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Credit = table.Column<int>(type: "int", nullable: false),
                     TypeCourse = table.Column<bool>(type: "bit", nullable: false),
                     NumberOfTheory = table.Column<int>(type: "int", nullable: false),
                     NumberOfPractice = table.Column<int>(type: "int", nullable: false),
-                    Prerequisite = table.Column<int>(type: "int", nullable: false),
-                    LearnFirst = table.Column<int>(type: "int", nullable: false),
-                    Parallel = table.Column<int>(type: "int", nullable: false),
-                    IsOffical = table.Column<bool>(type: "bit", nullable: false),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Prerequisite = table.Column<int>(type: "int", nullable: true),
+                    LearnFirst = table.Column<int>(type: "int", nullable: true),
+                    Parallel = table.Column<int>(type: "int", nullable: true),
+                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Semester = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Subject", x => x.ID);
+                    table.PrimaryKey("PK_Subject", x => new { x.ID, x.IDClass });
+                    table.ForeignKey(
+                        name: "FK_Subject_Class_IDClass",
+                        column: x => x.IDClass,
+                        principalTable: "Class",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -165,49 +159,32 @@ namespace SubjectManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SemesterOfClass",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IDSemester = table.Column<int>(type: "int", nullable: false),
-                    IDClass = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SemesterOfClass", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_SemesterOfClass_Class_IDClass",
-                        column: x => x.IDClass,
-                        principalTable: "Class",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SemesterOfClass_Semester_IDSemester",
-                        column: x => x.IDSemester,
-                        principalTable: "Semester",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AlternativeSubject",
                 columns: table => new
                 {
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IDOld = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IDNew = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    IDNew = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IDClass = table.Column<int>(type: "int", nullable: false),
+                    SubjectID = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    SubjectIDClass = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AlternativeSubject", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_AlternativeSubject_Subject_IDNew",
-                        column: x => x.IDNew,
-                        principalTable: "Subject",
+                        name: "FK_AlternativeSubject_Class_IDClass",
+                        column: x => x.IDClass,
+                        principalTable: "Class",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AlternativeSubject_Subject_SubjectID_SubjectIDClass",
+                        columns: x => new { x.SubjectID, x.SubjectIDClass },
+                        principalTable: "Subject",
+                        principalColumns: new[] { "ID", "IDClass" },
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -217,6 +194,7 @@ namespace SubjectManagement.Data.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IDSubject = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IDCLass = table.Column<int>(type: "int", nullable: false),
                     IDElectiveGroup = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -229,10 +207,10 @@ namespace SubjectManagement.Data.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SubjectInElectiveGroup_Subject_IDSubject",
-                        column: x => x.IDSubject,
+                        name: "FK_SubjectInElectiveGroup_Subject_IDSubject_IDCLass",
+                        columns: x => new { x.IDSubject, x.IDCLass },
                         principalTable: "Subject",
-                        principalColumn: "ID",
+                        principalColumns: new[] { "ID", "IDClass" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -243,6 +221,7 @@ namespace SubjectManagement.Data.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IDSubject = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    IDClass = table.Column<int>(type: "int", nullable: false),
                     IDKnowledgeGroup = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
@@ -255,58 +234,10 @@ namespace SubjectManagement.Data.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SubjectInKnowledgeGroup_Subject_IDSubject",
-                        column: x => x.IDSubject,
+                        name: "FK_SubjectInKnowledgeGroup_Subject_IDSubject_IDClass",
+                        columns: x => new { x.IDSubject, x.IDClass },
                         principalTable: "Subject",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubjectInSemester",
-                columns: table => new
-                {
-                    IDSubject = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IDSemester = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubjectInSemester", x => new { x.IDSubject, x.IDSemester });
-                    table.ForeignKey(
-                        name: "FK_SubjectInSemester_Semester_IDSemester",
-                        column: x => x.IDSemester,
-                        principalTable: "Semester",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SubjectInSemester_Subject_IDSubject",
-                        column: x => x.IDSubject,
-                        principalTable: "Subject",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubjectOfClass",
-                columns: table => new
-                {
-                    IDSubject = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IDClass = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubjectOfClass", x => new { x.IDClass, x.IDSubject });
-                    table.ForeignKey(
-                        name: "FK_SubjectOfClass_Class_IDClass",
-                        column: x => x.IDClass,
-                        principalTable: "Class",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SubjectOfClass_Subject_IDSubject",
-                        column: x => x.IDSubject,
-                        principalTable: "Subject",
-                        principalColumn: "ID",
+                        principalColumns: new[] { "ID", "IDClass" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -336,16 +267,20 @@ namespace SubjectManagement.Data.Migrations
                 columns: new[] { "ID", "Avatar", "FirstName", "LastName", "PasswordHash", "Username" },
                 values: new object[,]
                 {
-                    { "TK01", "", "Thuận", "Võ Thành", "wZIa07fMB/OKgTNIFKmWVw==", "thuan" },
-                    { "TK02", "", "Anh", "Lê Thị Ngọc", "X+vaPQ75BzemDeL9fG13KA==", "anh" },
+                    { "TK04", "", "Truyền", "Nguyễn Thị Mỹ", "ipy+CjQc6p4LS8IWvcIq3Q==", "truyen" },
                     { "TK03", "", "Sơn", "Nguyễn Ngọc", "SY08a/oDP23Bvk/MPDcKpw==", "son" },
-                    { "TK04", "", "Truyền", "Nguyễn Thị Mỹ", "ipy+CjQc6p4LS8IWvcIq3Q==", "truyen" }
+                    { "TK02", "", "Anh", "Lê Thị Ngọc", "X+vaPQ75BzemDeL9fG13KA==", "anh" },
+                    { "TK01", "", "Thuận", "Võ Thành", "wZIa07fMB/OKgTNIFKmWVw==", "thuan" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Class",
                 columns: new[] { "ID", "CodeClass", "Name", "Year" },
-                values: new object[] { 1, "DH19PM", "Kỹ thuật phầm mềm", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) });
+                values: new object[,]
+                {
+                    { 1, "DH19PM", "Kỹ thuật phầm mềm", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, "DH20PM", "Kỹ thuật phầm mềm", new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
 
             migrationBuilder.InsertData(
                 table: "Faculty",
@@ -363,64 +298,49 @@ namespace SubjectManagement.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Semester",
-                columns: new[] { "ID", "Term" },
-                values: new object[] { 1, 1 });
+                table: "ClassInFaculty",
+                columns: new[] { "ID", "IDClass", "IDFaculty" },
+                values: new object[,]
+                {
+                    { 1, 1, 1 },
+                    { 2, 2, 1 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Subject",
-                columns: new[] { "ID", "CourseCode", "Credit", "Details", "IsOffical", "LearnFirst", "Name", "NumberOfPractice", "NumberOfTheory", "Parallel", "Prerequisite", "TypeCourse" },
+                columns: new[] { "ID", "IDClass", "CourseCode", "Credit", "Details", "LearnFirst", "Name", "NumberOfPractice", "NumberOfTheory", "Parallel", "Prerequisite", "Semester", "TypeCourse" },
                 values: new object[,]
                 {
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010"), "SEE101", 1, "", true, 0, "Giới thiệu ngành – ĐH KTPM", 0, 15, 0, 0, false },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011"), "COS106", 4, "", true, 0, "Lập trình căn bản", 50, 35, 0, 0, false },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012"), "TIE501", 4, "", true, 20, "Lập trình .Net", 60, 30, 0, 0, false },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013"), "SEE301", 2, "", true, 0, "Nhập môn công nghệ phần mềm", 20, 20, 0, 0, true },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014"), "SEE508", 2, "", true, 38, "Quản lý dự án phần mềm", 20, 20, 0, 0, true },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015"), "SEE505", 3, "", true, 38, "Phân tích và thiết kế phần mềm hướng đối tượng", 30, 30, 0, 0, true }
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010"), 1, "SEE101", 1, "", null, "Giới thiệu ngành – ĐH KTPM", 0, 15, null, null, null, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011"), 1, "COS106", 4, "", null, "Lập trình căn bản", 50, 35, null, null, null, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012"), 1, "TIE501", 4, "", 20, "Lập trình .Net", 60, 30, null, null, null, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013"), 1, "SEE301", 2, "", null, "Nhập môn công nghệ phần mềm", 20, 20, null, null, null, true },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014"), 1, "SEE508", 2, "", 38, "Quản lý dự án phần mềm", 20, 20, null, null, null, true },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015"), 1, "SEE505", 3, "", 38, "Phân tích và thiết kế phần mềm hướng đối tượng", 30, 30, null, null, null, true }
                 });
-
-            migrationBuilder.InsertData(
-                table: "ClassInFaculty",
-                columns: new[] { "ID", "IDClass", "IDFaculty" },
-                values: new object[] { 1, 1, 1 });
-
-            migrationBuilder.InsertData(
-                table: "SemesterOfClass",
-                columns: new[] { "ID", "IDClass", "IDSemester" },
-                values: new object[] { 1, 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "SubjectInKnowledgeGroup",
-                columns: new[] { "ID", "IDKnowledgeGroup", "IDSubject" },
+                columns: new[] { "ID", "IDClass", "IDKnowledgeGroup", "IDSubject" },
                 values: new object[,]
                 {
-                    { 1, new Guid("57955971-4be8-40fd-b149-eee225daea4c"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010") },
-                    { 2, new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011") },
-                    { 3, new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012") },
-                    { 4, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013") },
-                    { 5, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014") },
-                    { 6, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015") }
-                });
-
-            migrationBuilder.InsertData(
-                table: "SubjectOfClass",
-                columns: new[] { "IDClass", "IDSubject" },
-                values: new object[,]
-                {
-                    { 1, new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010") },
-                    { 1, new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011") },
-                    { 1, new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012") },
-                    { 1, new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013") },
-                    { 1, new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014") },
-                    { 1, new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015") }
+                    { 1, 1, new Guid("57955971-4be8-40fd-b149-eee225daea4c"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010") },
+                    { 2, 1, new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011") },
+                    { 3, 1, new Guid("d881a11f-bc9e-4f07-828f-9467c3045838"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012") },
+                    { 4, 1, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013") },
+                    { 5, 1, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014") },
+                    { 6, 1, new Guid("e3f2dfdf-85e9-40d1-adc1-95926f68011d"), new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015") }
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AlternativeSubject_IDNew",
+                name: "IX_AlternativeSubject_IDClass",
                 table: "AlternativeSubject",
-                column: "IDNew",
-                unique: true);
+                column: "IDClass");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AlternativeSubject_SubjectID_SubjectIDClass",
+                table: "AlternativeSubject",
+                columns: new[] { "SubjectID", "SubjectIDClass" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClassInFaculty_IDClass",
@@ -434,15 +354,9 @@ namespace SubjectManagement.Data.Migrations
                 column: "IDFaculty");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SemesterOfClass_IDClass",
-                table: "SemesterOfClass",
-                column: "IDClass",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SemesterOfClass_IDSemester",
-                table: "SemesterOfClass",
-                column: "IDSemester");
+                name: "IX_Subject_IDClass",
+                table: "Subject",
+                column: "IDClass");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectInElectiveGroup_IDElectiveGroup",
@@ -450,9 +364,9 @@ namespace SubjectManagement.Data.Migrations
                 column: "IDElectiveGroup");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubjectInElectiveGroup_IDSubject",
+                name: "IX_SubjectInElectiveGroup_IDSubject_IDCLass",
                 table: "SubjectInElectiveGroup",
-                column: "IDSubject",
+                columns: new[] { "IDSubject", "IDCLass" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
@@ -461,26 +375,9 @@ namespace SubjectManagement.Data.Migrations
                 column: "IDKnowledgeGroup");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubjectInKnowledgeGroup_IDSubject",
+                name: "IX_SubjectInKnowledgeGroup_IDSubject_IDClass",
                 table: "SubjectInKnowledgeGroup",
-                column: "IDSubject",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubjectInSemester_IDSemester",
-                table: "SubjectInSemester",
-                column: "IDSemester");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubjectInSemester_IDSubject",
-                table: "SubjectInSemester",
-                column: "IDSubject",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubjectOfClass_IDSubject",
-                table: "SubjectOfClass",
-                column: "IDSubject",
+                columns: new[] { "IDSubject", "IDClass" },
                 unique: true);
         }
 
@@ -502,19 +399,10 @@ namespace SubjectManagement.Data.Migrations
                 name: "ClassInFaculty");
 
             migrationBuilder.DropTable(
-                name: "SemesterOfClass");
-
-            migrationBuilder.DropTable(
                 name: "SubjectInElectiveGroup");
 
             migrationBuilder.DropTable(
                 name: "SubjectInKnowledgeGroup");
-
-            migrationBuilder.DropTable(
-                name: "SubjectInSemester");
-
-            migrationBuilder.DropTable(
-                name: "SubjectOfClass");
 
             migrationBuilder.DropTable(
                 name: "Faculty");
@@ -526,13 +414,10 @@ namespace SubjectManagement.Data.Migrations
                 name: "KnowledgeGroup");
 
             migrationBuilder.DropTable(
-                name: "Semester");
+                name: "Subject");
 
             migrationBuilder.DropTable(
                 name: "Class");
-
-            migrationBuilder.DropTable(
-                name: "Subject");
         }
     }
 }

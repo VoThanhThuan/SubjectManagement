@@ -49,11 +49,6 @@
                           ToolTip="Default ToggleButton Style" />
             <TextBlock Foreground="#7F000000">Môn Tự Chọn</TextBlock>
         </StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <ToggleButton x:Name="chk_IsOffical" Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                          ToolTip="Default ToggleButton Style" />
-            <TextBlock Foreground="#7F000000">Môn Chính Thức</TextBlock>
-        </StackPanel>
         <StackPanel>
             <ComboBox x:Name="cbb_CoursesGroup"
                       materialDesign:HintAssist.Hint="Nhóm Học Phần">

@@ -17,11 +17,12 @@ namespace SubjectManagement.Application.FacultyApp
             return faculty;
         }
 
-        public List<Class> GetClass(int IDFaculty)
+        public List<Class> GetClass(int? idClass = null)
         {
             var faculty = (from c in Db.Context.Classes
                            join cif in Db.Context.ClassInFaculties on c.ID equals cif.IDClass
                            join f in Db.Context.Faculties on cif.IDFaculty equals f.ID
+                           where c.ID != idClass
                            select c).ToList();
             return faculty;
         }
