@@ -12,6 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SubjectManagement.Common.Dialog;
+using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 using SubjectManagement.ViewModels.Subject;
@@ -67,17 +69,46 @@ namespace SubjectManagement.GUI.Main
 
         private void Btn_AddCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var prompt = new PromptDialog() { tbl_Title = {Text = "Nhập tên nhóm học phần"}};
+            prompt.ShowDialog();
+            if(prompt.DialogResult != MyDialogResult.Result.Ok) return;
+            var add = new KnowledgeGroupController(_Class);
+            add.AddKnowledge(prompt.tbx_Value.Text);
+            loadCombobox();
         }
 
         private void Btn_EditCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if(cbb_CoursesGroup.SelectedIndex < 0) return;
+            var group = (KnowledgeGroup)cbb_CoursesGroup.SelectedValue;
+            var prompt = new PromptDialog() { tbl_Title = { Text = "Nhập tên nhóm học phần" }, tbx_Value = {Text = $"{group.Name}"}};
+            prompt.ShowDialog();
+            if (prompt.DialogResult != MyDialogResult.Result.Ok) return;
+            var edit = new KnowledgeGroupController(_Class);
+            
+            edit.EditKnowledge(group.ID, prompt.tbx_Value.Text);
+            loadCombobox();
         }
 
         private void Btn_RemoveCategory_OnClick(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (cbb_CoursesGroup.SelectedIndex < 0) return;
+            var group = (KnowledgeGroup)cbb_CoursesGroup.SelectedValue;
+
+            var mess = new MessageDialog()
+            {
+                tbl_Title = { Text = $"Lỗi xóa" },
+                tbl_Message = { Text = $"Bạn thật sự muôn xóa môn {group.Name}" },
+                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                Topmost = true
+            };
+            mess.ShowDialog();
+
+            if(mess.DialogResult != MyDialogResult.Result.Ok) return;
+
+            var remove = new KnowledgeGroupController(_Class);
+            remove.RemoveKnowledge(group.ID);
+            loadCombobox();
         }
 
         private void btn_AddProduct_Click(object sender, RoutedEventArgs e)
