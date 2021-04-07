@@ -1,0 +1,111 @@
+﻿<Window x:Class="SubjectManagement.GUI.Main.AddUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SubjectManagement.GUI.Main"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="AddUser" Height="450" Width="800">
+    <Grid>
+        <StackPanel>
+            <StackPanel  x:Name="card_Product">
+                <TextBlock x:Name="tbl_TitleProduct"
+                           ToolTip="MaterialDesignFlatButton"
+                           FontSize="24"
+                           HorizontalAlignment="Stretch"
+                           Height="38"
+                           Foreground="#FF673AB7"
+                           TextAlignment="Center">
+                    THÔNG TIN CHO SẢN PHẨM
+                </TextBlock>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <GroupBox x:Name="gb_image"
+                                  Header="Card Group Box"
+                                  Style="{DynamicResource MaterialDesignCardGroupBox}"
+                                  Margin="16"
+                                  MouseDown="GroupBox_MouseDown"
+                                  Drop="GroupBox_Drop"
+                                  MaxHeight="300"
+                                  MaxWidth="300"
+                                  MinHeight="200"
+                                  MinWidth="200"
+                                  AllowDrop="True">
+                            <GroupBox.HeaderTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="ImageArea"
+                                                                 Height="32"
+                                                                 Width="32"
+                                                                 VerticalAlignment="Center" />
+                                        <TextBlock Margin="8,0,0,0"
+                                                   VerticalAlignment="Center"
+                                                   Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                                                   Text="{Binding}" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GroupBox.HeaderTemplate>
+                            <Image x:Name="img_Product"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center" />
+                        </GroupBox>
+
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1">
+                        <TextBox x:Name="tbx_ID"
+                                 materialDesign:HintAssist.Hint="Mã người dùng"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 VerticalAlignment="Center" />
+                        <TextBox x:Name="tbx_LasttName"
+                                 materialDesign:HintAssist.Hint="Họ"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 VerticalAlignment="Center"
+                                 TextChanged="Tbx_LastName_OnTextChanged" />
+                        <TextBox x:Name="tbx_FirstName"
+                                 materialDesign:HintAssist.Hint="Tên"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 VerticalAlignment="Center"
+                                 TextChanged="Tbx_FirstName_OnTextChanged" />
+                        <TextBox x:Name="tbx_Username"
+                                 materialDesign:HintAssist.Hint="Tài Khoản"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 VerticalAlignment="Center"/>
+                        <TextBox x:Name="tbx_Password"
+                                 materialDesign:HintAssist.Hint="Mật khẩu"
+                                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                                 VerticalAlignment="Center"
+                                 TextWrapping="Wrap" />
+                        <ComboBox x:Name="cbb_Role"
+                                  materialDesign:HintAssist.Hint="Quyền"
+                                  materialDesign:HintAssist.HintOpacity=".26">
+                        </ComboBox>
+                    </StackPanel>
+                </Grid>
+
+            </StackPanel>
+
+            <Grid Height="40">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="btn_AddUser"
+                        Grid.Column="0"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="Btn_AddUser_OnClick"
+                        Content="Thêm" />
+                <Button x:Name="btn_CLose"
+                        Grid.Column="2"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        Click="Btn_CLose_OnClick">Đóng</Button>
+            </Grid>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -23,6 +23,7 @@ using SubjectManagement.GUI.Main.Children.Compare;
 using SubjectManagement.GUI.Main.Children.Semester;
 using SubjectManagement.GUI.Main.Children.ViewListCourses;
 using SubjectManagement.GUI.Dialog;
+using SubjectManagement.GUI.Main.Children.User;
 
 namespace SubjectManagement.GUI.Main.Children.Common
 {
@@ -75,6 +76,13 @@ namespace SubjectManagement.GUI.Main.Children.Common
             var alter = new AlternativeSubjectUC(_Class);
             MainBody.Children.Clear();
             MainBody.Children.Add(alter);
+        }
+
+        private void Btn_UserManager_OnClick(object sender, RoutedEventArgs e)
+        {
+            var user = new UserManagerUC(_Class);
+            MainBody.Children.Clear();
+            MainBody.Children.Add(user);
         }
     }
 }

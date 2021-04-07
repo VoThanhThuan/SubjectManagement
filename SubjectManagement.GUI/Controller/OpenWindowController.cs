@@ -19,8 +19,7 @@ namespace SubjectManagement.GUI.Controller
 
         public OpenWindowController()
         {
-            var userService = new UserService();
-            _userService = userService;
+            _userService = new UserService(Db.Context);
         }
 
         private readonly IUserService _userService;

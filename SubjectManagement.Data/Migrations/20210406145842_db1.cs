@@ -8,33 +8,6 @@ namespace SubjectManagement.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AppRoles",
-                columns: table => new
-                {
-                    ID = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppRoles", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AppUserRole",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RoleID = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AppUserRole", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AppUsers",
                 columns: table => new
                 {
@@ -43,7 +16,8 @@ namespace SubjectManagement.Data.Migrations
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     FirstName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Avatar = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Role = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -242,35 +216,14 @@ namespace SubjectManagement.Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "AppRoles",
-                columns: new[] { "ID", "Description", "Name" },
-                values: new object[,]
-                {
-                    { "admin", "Quyền Cao Cấp", "admin" },
-                    { "guest", "Quyền Người Xem", "guest" },
-                    { "dev", "Quyền Của Thằng Lập Trình", "dev" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "AppUserRole",
-                columns: new[] { "ID", "RoleID", "UserID" },
-                values: new object[,]
-                {
-                    { 1, "admin", "TK01" },
-                    { 2, "guest", "TK02" },
-                    { 3, "guest", "TK03" },
-                    { 4, "admin", "TK04" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "AppUsers",
-                columns: new[] { "ID", "Avatar", "FirstName", "LastName", "PasswordHash", "Username" },
+                columns: new[] { "ID", "Avatar", "FirstName", "LastName", "PasswordHash", "Role", "Username" },
                 values: new object[,]
                 {
-                    { "TK04", "", "Truyền", "Nguyễn Thị Mỹ", "ipy+CjQc6p4LS8IWvcIq3Q==", "truyen" },
-                    { "TK03", "", "Sơn", "Nguyễn Ngọc", "SY08a/oDP23Bvk/MPDcKpw==", "son" },
-                    { "TK02", "", "Anh", "Lê Thị Ngọc", "X+vaPQ75BzemDeL9fG13KA==", "anh" },
-                    { "TK01", "", "Thuận", "Võ Thành", "wZIa07fMB/OKgTNIFKmWVw==", "thuan" }
+                    { "TK01", "", "Thuận", "Võ Thành", "wZIa07fMB/OKgTNIFKmWVw==", "admin", "thuan" },
+                    { "TK02", "", "Sơn", "Nguyễn Ngọc", "SY08a/oDP23Bvk/MPDcKpw==", "guest", "son" },
+                    { "TK03", "", "Truyền", "Nguyễn Thị Mỹ", "ipy+CjQc6p4LS8IWvcIq3Q==", "admin", "truyen" },
+                    { "TK04", "", "Toàn", "Nguyễn Thanh", "cwHuoXLomiI3mEZ9SpHnqQ==", "guest", "toan" }
                 });
 
             migrationBuilder.InsertData(
@@ -385,12 +338,6 @@ namespace SubjectManagement.Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "AlternativeSubject");
-
-            migrationBuilder.DropTable(
-                name: "AppRoles");
-
-            migrationBuilder.DropTable(
-                name: "AppUserRole");
 
             migrationBuilder.DropTable(
                 name: "AppUsers");

@@ -10,7 +10,7 @@ using SubjectManagement.Data.EF;
 namespace SubjectManagement.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20210405142016_db1")]
+    [Migration("20210406145842_db1")]
     partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,52 +20,6 @@ namespace SubjectManagement.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Dashboard.Data.Entities.AppUserRole", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("RoleID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserID")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AppUserRole");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = 1,
-                            RoleID = "admin",
-                            UserID = "TK01"
-                        },
-                        new
-                        {
-                            ID = 2,
-                            RoleID = "guest",
-                            UserID = "TK02"
-                        },
-                        new
-                        {
-                            ID = 3,
-                            RoleID = "guest",
-                            UserID = "TK03"
-                        },
-                        new
-                        {
-                            ID = 4,
-                            RoleID = "admin",
-                            UserID = "TK04"
-                        });
-                });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.AlternativeSubject", b =>
                 {
@@ -100,44 +54,6 @@ namespace SubjectManagement.Data.Migrations
                     b.ToTable("AlternativeSubject");
                 });
 
-            modelBuilder.Entity("SubjectManagement.Data.Entities.AppRole", b =>
-                {
-                    b.Property<string>("ID")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AppRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            ID = "admin",
-                            Description = "Quyền Cao Cấp",
-                            Name = "admin"
-                        },
-                        new
-                        {
-                            ID = "guest",
-                            Description = "Quyền Người Xem",
-                            Name = "guest"
-                        },
-                        new
-                        {
-                            ID = "dev",
-                            Description = "Quyền Của Thằng Lập Trình",
-                            Name = "dev"
-                        });
-                });
-
             modelBuilder.Entity("SubjectManagement.Data.Entities.AppUser", b =>
                 {
                     b.Property<string>("ID")
@@ -159,6 +75,9 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Username")
                         .HasColumnType("nvarchar(max)");
 
@@ -174,34 +93,38 @@ namespace SubjectManagement.Data.Migrations
                             FirstName = "Thuận",
                             LastName = "Võ Thành",
                             PasswordHash = "wZIa07fMB/OKgTNIFKmWVw==",
+                            Role = "admin",
                             Username = "thuan"
                         },
                         new
                         {
                             ID = "TK02",
                             Avatar = "",
-                            FirstName = "Anh",
-                            LastName = "Lê Thị Ngọc",
-                            PasswordHash = "X+vaPQ75BzemDeL9fG13KA==",
-                            Username = "anh"
+                            FirstName = "Sơn",
+                            LastName = "Nguyễn Ngọc",
+                            PasswordHash = "SY08a/oDP23Bvk/MPDcKpw==",
+                            Role = "guest",
+                            Username = "son"
                         },
                         new
                         {
                             ID = "TK03",
                             Avatar = "",
-                            FirstName = "Sơn",
-                            LastName = "Nguyễn Ngọc",
-                            PasswordHash = "SY08a/oDP23Bvk/MPDcKpw==",
-                            Username = "son"
+                            FirstName = "Truyền",
+                            LastName = "Nguyễn Thị Mỹ",
+                            PasswordHash = "ipy+CjQc6p4LS8IWvcIq3Q==",
+                            Role = "admin",
+                            Username = "truyen"
                         },
                         new
                         {
                             ID = "TK04",
                             Avatar = "",
-                            FirstName = "Truyền",
-                            LastName = "Nguyễn Thị Mỹ",
-                            PasswordHash = "ipy+CjQc6p4LS8IWvcIq3Q==",
-                            Username = "truyen"
+                            FirstName = "Toàn",
+                            LastName = "Nguyễn Thanh",
+                            PasswordHash = "cwHuoXLomiI3mEZ9SpHnqQ==",
+                            Role = "guest",
+                            Username = "toan"
                         });
                 });
 

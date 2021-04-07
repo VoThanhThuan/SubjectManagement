@@ -2,7 +2,6 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Dashboard.Data.Entities;
 using SubjectManagement.Data.Entities;
 
 namespace Dashboard.Data.Configurations

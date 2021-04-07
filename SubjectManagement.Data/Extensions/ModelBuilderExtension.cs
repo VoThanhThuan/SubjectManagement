@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Dashboard.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using SubjectManagement.Common.Subject;
 using SubjectManagement.Common.User;
@@ -16,27 +15,6 @@ namespace SubjectManagement.Data.Extensions
         public static void Seed(this ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<AppRole>().HasData(
-                new AppRole()
-                {
-                    ID = "admin",
-                    Name = "admin",
-                    Description = "Quyền Cao Cấp"
-                },
-                new AppRole()
-                {
-                    ID = "guest",
-                    Name = "guest",
-                    Description = "Quyền Người Xem"
-                },
-                new AppRole()
-                {
-                    ID = "dev",
-                    Name = "dev",
-                    Description = "Quyền Của Thằng Lập Trình"
-                }
-                );
-
             modelBuilder.Entity<AppUser>().HasData(
                 new AppUser()
                 {
@@ -45,61 +23,38 @@ namespace SubjectManagement.Data.Extensions
                     PasswordHash = ServiceForUser.PasswordHash("thuan"),
                     FirstName = "Thuận",
                     LastName = "Võ Thành",
-                    Avatar = ""
+                    Avatar = "",
+                    Role = "admin"
                 },
                 new AppUser()
                 {
                     ID = "TK02",
-                    Username = "anh",
-                    PasswordHash = ServiceForUser.PasswordHash("anh"),
-                    FirstName = "Anh",
-                    LastName = "Lê Thị Ngọc",
-                    Avatar = ""
-                },
-                new AppUser()
-                {
-                    ID = "TK03",
                     Username = "son",
                     PasswordHash = ServiceForUser.PasswordHash("son"),
                     FirstName = "Sơn",
                     LastName = "Nguyễn Ngọc",
-                    Avatar = ""
+                    Avatar = "",
+                    Role = "guest"
                 },
                 new AppUser()
                 {
-                    ID = "TK04",
+                    ID = "TK03",
                     Username = "truyen",
                     PasswordHash = ServiceForUser.PasswordHash("truyen"),
                     FirstName = "Truyền",
                     LastName = "Nguyễn Thị Mỹ",
-                    Avatar = ""
-                }
-            );
-
-            modelBuilder.Entity<AppUserRole>().HasData(
-                new AppUserRole()
-                {
-                    ID = 1,
-                    UserID = "TK01",
-                    RoleID = "admin"
+                    Avatar = "",
+                    Role = "admin"
                 },
-                new AppUserRole()
+                new AppUser()
                 {
-                    ID = 2,
-                    UserID = "TK02",
-                    RoleID = "guest"
-                },
-                new AppUserRole()
-                {
-                    ID = 3,
-                    UserID = "TK03",
-                    RoleID = "guest"
-                },
-                new AppUserRole()
-                {
-                    ID = 4,
-                    UserID = "TK04",
-                    RoleID = "admin"
+                    ID = "TK04",
+                    Username = "toan",
+                    PasswordHash = ServiceForUser.PasswordHash("toan"),
+                    FirstName = "Toàn",
+                    LastName = "Nguyễn Thanh",
+                    Avatar = "",
+                    Role = "guest"
                 }
             );
 
