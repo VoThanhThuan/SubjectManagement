@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <None Remove="Login\WallpaperLaptopLogo.png" />
+    <None Remove="Main\Children\Common\LogoDH19PM.png" />
+    <None Remove="Main\Children\Common\logo_laptop_1HI_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +24,8 @@
 
   <ItemGroup>
     <Resource Include="Login\image\WallpaperLaptopLogo.png" />
+    <Resource Include="Main\Children\Common\LogoDH19PM.png" />
+    <Resource Include="Main\Children\Common\logo_laptop_1HI_icon.ico" />
   </ItemGroup>
 
 </Project>

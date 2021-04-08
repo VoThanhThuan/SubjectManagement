@@ -11,15 +11,104 @@
         Title="MainWindow"
         Height="600"
         Width="900"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        WindowStyle="SingleBorderWindow"
+        SizeToContent="Manual">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="0"
+                      CornerRadius="0"
+                      CaptionHeight="0" />
+    </WindowChrome.WindowChrome>
+    <DockPanel>
+        <Grid DockPanel.Dock="Top"
+              Background="#009ba0"
+              MouseDown="UIElement_OnMouseDown">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right">
+                <StackPanel.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="Background"
+                                Value="#00ADD8E6" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter HorizontalAlignment="Center"
+                                                          VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True">
+                                            <Setter Property="Background"
+                                                    Value="#4C000000" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
 
-    <dragablz:TabablzControl ShowDefaultAddButton="True"
-                             ShowDefaultCloseButton="True"
-                             x:Name="InitialTabablzControl">
-        <dragablz:TabablzControl.InterTabController>
-            <dragablz:InterTabController />
-        </dragablz:TabablzControl.InterTabController>
-        <TabItem Header="xxx"></TabItem>
-    </dragablz:TabablzControl>
+                </StackPanel.Resources>
 
+                <Button Width="30"
+                        Height="30"
+                        BorderBrush="{x:Null}"
+                        Padding="0"
+                        Foreground="White">
+                    <materialDesign:PackIcon Kind="BellOutline" />
+                </Button>
+
+                <Button Width="40"
+                        Height="30"
+                        BorderBrush="{x:Null}"
+                        Padding="0"
+                        Foreground="White"
+                        Margin="0 0 10 0">
+                    <materialDesign:PackIcon Kind="Settings" />
+                </Button>
+
+                <!--BtnHide-->
+                <Button x:Name="Btn_Hide"
+                        Width="30"
+                        Height="30"
+                        BorderBrush="{x:Null}"
+                        Padding="0"
+                        Foreground="White"
+                        Click="Btn_Hide_OnClickHide">
+                    <materialDesign:PackIcon Kind="Minus" />
+                </Button>
+
+                <!--Btn Zoom-->
+                <Button Width="40"
+                        Height="30"
+                        BorderBrush="{x:Null}"
+                        Padding="0"
+                        Foreground="White"
+                        Click="Btn_Zoom_OnClickZoom">
+                    <materialDesign:PackIcon x:Name="Icon_Zoom" Kind="CropSquare" />
+                </Button>
+
+                <!--Button Exit-->
+                <Button x:Name="Btn_Exit"
+                        Width="40"
+                        Height="30"
+                        BorderBrush="{x:Null}"
+                        Padding="0"
+                        Foreground="White"
+                        Click="Btn_Exit_OnClickExit">
+                    <materialDesign:PackIcon Kind="Close" />
+                </Button>
+            </StackPanel>
+        </Grid>
+
+        <dragablz:TabablzControl ShowDefaultAddButton="True"
+                                 ShowDefaultCloseButton="True"
+                                 x:Name="InitialTabablzControl">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController />
+            </dragablz:TabablzControl.InterTabController>
+        </dragablz:TabablzControl>
+    </DockPanel>
 </Window>

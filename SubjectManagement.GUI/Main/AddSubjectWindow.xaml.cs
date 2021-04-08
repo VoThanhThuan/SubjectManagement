@@ -128,5 +128,10 @@ namespace SubjectManagement.GUI.Main
         {
             this.Close();
         }
+
+        private void chk_TypeCourse_Click(object sender, RoutedEventArgs e)
+        {
+            tbl_TypeCourse.Text = chk_TypeCourse.IsChecked == true ? "Bắt buộc" : "Tự chọn";
+        }
     }
 }
