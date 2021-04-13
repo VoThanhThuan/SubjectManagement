@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 
@@ -26,6 +27,7 @@ namespace SubjectManagement.GUI.Dialog
             InitializeComponent();
             LoadCbbFaculty();
         }
+        public new MyDialogResult.Result DialogResult = MyDialogResult.Result.Close;
 
         public Class _Class { get; set; }
         private void LoadCbbFaculty()
@@ -48,6 +50,7 @@ namespace SubjectManagement.GUI.Dialog
         private void Btn_accept_OnClick(object sender, RoutedEventArgs e)
         {
             _Class = ((Class) cbb_Class.SelectedValue);
+            DialogResult = MyDialogResult.Result.Ok;
             this.Close();
         }
 

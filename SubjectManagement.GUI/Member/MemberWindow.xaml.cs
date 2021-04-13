@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.GUI.Dialog;
+using SubjectManagement.ViewModels.System.Users;
 
 namespace SubjectManagement.GUI.Member
 {
@@ -14,7 +15,7 @@ namespace SubjectManagement.GUI.Member
     /// </summary>
     public partial class MemberWindow : Window
     {
-        public MemberWindow()
+        public MemberWindow(InfoLogin user)
         {
             InitializeComponent();
             loadCombobox();

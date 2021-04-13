@@ -14,28 +14,28 @@ namespace SubjectManagement.GUI
     /// </summary>
     public partial class App : System.Windows.Application
     {
-        public IServiceProvider ServiceProvider { get; private set; }
-        protected override void OnStartup(StartupEventArgs e)
-        {
+        //public IServiceProvider ServiceProvider { get; private set; }
+        //protected override void OnStartup(StartupEventArgs e)
+        //{
 
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
+        //    var serviceCollection = new ServiceCollection();
+        //    ConfigureServices(serviceCollection);
 
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+        //    ServiceProvider = serviceCollection.BuildServiceProvider();
 
-            ServiceProvider.GetRequiredService<Db>();
-        }
+        //    ServiceProvider.GetRequiredService<Db>();
+        //}
 
-        private void ConfigureServices(IServiceCollection services)
-        {
+        //private void ConfigureServices(IServiceCollection services)
+        //{
 
-            services.AddDbContext<SubjectDbContext>(cs => cs.UseSqlServer(
-                "Server =.\\SQLEXPRESS; Database=SubjectDatabase; Trusted_Connection=True;")
-            );
+        //    services.AddDbContext<SubjectDbContext>(cs => cs.UseSqlServer(
+        //        "Server =.\\SQLEXPRESS; Database=SubjectDatabase; Trusted_Connection=True;")
+        //    );
 
-            services.AddTransient(typeof(Db));
+        //    services.AddTransient(typeof(Db));
 
-        }
+        //}
 
 
     }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SubjectManagement.GUI.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="CompareDialog"
+        Title="Chọn Lớp So Sánh"
         Height="200"
         Width="400"
         WindowStartupLocation="CenterOwner">
@@ -62,7 +62,6 @@
                     Margin="5,0,5,0"
                     Padding="0"
                     BorderBrush="{x:Null}"
-                    Foreground="#FF00B9FF"
                     IsEnabled="False"
                     Click="Btn_Review_OnClick">
                 <Grid>
@@ -90,7 +89,6 @@
                     Margin="5,0,5,0"
                     Padding="0"
                     BorderBrush="{x:Null}"
-                    Foreground="#FF00B9FF"
                     IsEnabled="False"
                     Click="Btn_Accept_OnClick">
                 <Grid>

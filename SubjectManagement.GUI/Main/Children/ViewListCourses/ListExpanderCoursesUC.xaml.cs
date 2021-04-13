@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using SubjectManagement.Application.SubjectApp;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
@@ -34,6 +35,8 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 
         public Grid _g_loading;
 
+        private Window _mainWindow { get; set; }
+
         public Class _Class { get; init; }
         private Grid _renderBody;
         private void LoadListSubject()
@@ -44,7 +47,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new AddNewOrOldDialog(_Class);
+            var dialog = new AddNewOrOldDialog(_Class){Owner = Window.GetWindow(this) };
             dialog.ShowDialog();
             switch (dialog.IsCopy)
             {
@@ -93,6 +96,29 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             if (prompt.DialogResult != MyDialogResult.Result.Ok) return;
             var edit = new SubjectController(_Class);
             edit.RemoveSubject(prompt.tbx_Value.Text);
+        }
+
+        private void Btn_Export_OnClick(object sender, RoutedEventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel (*.xlsx)|*.xlsx|JSON (*.json)|*.json";
+            saveFileDialog.Title = "Xuất file";
+            saveFileDialog.FileName = DateTime.Now.ToString("yyyyMMddTHHmmss");
+            if (saveFileDialog.ShowDialog() != true) return;
+            var filename = saveFileDialog.FileName;
+            var export = new ExportController(_Class);
+
+            switch (saveFileDialog.FilterIndex)
+            {
+                case 1:
+                    export.ExportForExcel(filename);
+                    break;
+                case 2:
+                    export.ExportForJSON(filename);
+                    break;
+            }
+
+
         }
     }
 }

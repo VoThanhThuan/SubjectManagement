@@ -1,29 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
+﻿using Dragablz;
+using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.GUI.Main.Children.Alternative;
 using SubjectManagement.GUI.Main.Children.Compare;
 using SubjectManagement.GUI.Main.Children.Semester;
-using SubjectManagement.GUI.Main.Children.ViewListCourses;
-using SubjectManagement.GUI.Dialog;
 using SubjectManagement.GUI.Main.Children.User;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace SubjectManagement.GUI.Main.Children.Common
 {
@@ -32,11 +17,11 @@ namespace SubjectManagement.GUI.Main.Children.Common
     /// </summary>
     public partial class NewTabUC : UserControl
     {
-        public NewTabUC(TabItem titleTab)
+        public NewTabUC(TabItem Tab, Window mainWindow)
         {
             InitializeComponent();
-            _titleTab = titleTab;
-            var faculty = new FacultyDialog {Owner = System.Windows.Application.Current.MainWindow};
+            _titleTab = Tab;
+            var faculty = new FacultyDialog(){Owner = mainWindow };
             faculty.ShowDialog();
             _Class = faculty._Class;
             tbl_Class.Text = $"{_Class.Name} - {_Class.CodeClass}";
@@ -44,6 +29,8 @@ namespace SubjectManagement.GUI.Main.Children.Common
 
         private TabItem _titleTab;
         public Class _Class { get; init; }
+
+        
 
         private void Btn_ViewList_OnClick(object sender, RoutedEventArgs e)
         {
@@ -55,6 +42,7 @@ namespace SubjectManagement.GUI.Main.Children.Common
 
         private void Btn_AddSemester_OnClick(object sender, RoutedEventArgs e)
         {
+            _titleTab.Header = "Tùy Chỉnh Học Kỳ";
             var semester = new AddSemesterUC(_Class);
             MainBody.Children.Clear();
             MainBody.Children.Add(semester);
@@ -66,6 +54,7 @@ namespace SubjectManagement.GUI.Main.Children.Common
             var compare = new CompareDialog(_Class){ Owner = System.Windows.Application.Current.MainWindow };
             compare.ShowDialog();
             if (compare.DialogResult != true) return;
+            _titleTab.Header = "So Sánh";
             var compareUC = new SubjectCompareUC(_Class, compare._ClassCompare);
             MainBody.Children.Clear();
             MainBody.Children.Add(compareUC);
@@ -73,6 +62,8 @@ namespace SubjectManagement.GUI.Main.Children.Common
 
         private void Btn_AlternativeSubject_OnClick(object sender, RoutedEventArgs e)
         {
+            _titleTab.Header = "Học Phần Thay Thế";
+
             var alter = new AlternativeSubjectUC(_Class);
             MainBody.Children.Clear();
             MainBody.Children.Add(alter);
@@ -80,7 +71,9 @@ namespace SubjectManagement.GUI.Main.Children.Common
 
         private void Btn_UserManager_OnClick(object sender, RoutedEventArgs e)
         {
-            var user = new UserManagerUC(_Class);
+            _titleTab.Header = "Quản Lý Người Dùng";
+
+            var user = new UserManagerUC();
             MainBody.Children.Clear();
             MainBody.Children.Add(user);
         }

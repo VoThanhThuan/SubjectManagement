@@ -26,18 +26,20 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
         {
             InitializeComponent();
             _Class = _class;
-            LoadAlter();
+            LoadSubjectClass();
         }
 
         private Class _Class { get; init; }
 
-        private void LoadAlter()
+        private void LoadSubjectClass()
         {
             var clss = new FacultyController();
             clss.GetClass(cbb_Class, _Class.ID);
 
             var subAlter = new SubjectController(_Class);
             dg_ListAllSubject.ItemsSource = subAlter.GetSubjectClass();
+            //var alter = new AlternativeController(_Class);
+            //alter.LoadSubjectClass(dg_ListAllSubject);
         }
 
         private void loadListAlter()
@@ -78,6 +80,27 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
 
         private void Dg_ListAllSubject_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            loadListAlter();
+        }
+
+        private void Btn_AddInCell_OnClick(object sender, RoutedEventArgs e)
+        {
+            var btn = (Button) (sender);
+            
+            if ((dg_ListAllSubject.SelectedIndex < 0)) return;
+            var subject = (Subject)dg_ListAllSubject.SelectedValue;
+            //var subjectAlter = (Subject)dg_ListAllSubject.SelectedValue;
+
+            var add = new AlternativeController(_Class);
+            add.AddAlternative(subject.ID, Guid.Parse($"{btn.Tag}"));
+            loadListAlter();
+        }
+
+        private void Btn_RemoveInCell_OnClick(object sender, RoutedEventArgs e)
+        {
+            var remove = new AlternativeController(_Class);
+            var subject = (Button) sender;
+            remove.RemoveAlternative(Guid.Parse($"{subject.Tag}"));
             loadListAlter();
         }
     }

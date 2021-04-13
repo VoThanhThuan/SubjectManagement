@@ -10,7 +10,12 @@ namespace SubjectManagement.Application.FacultyApp
 {
     public interface IFacultyService
     {
-        List<Faculty> GetFaculty();
-        List<Class> GetClass(int? idClass = null);
+        Task<List<Faculty>> GetFaculty();
+        Task<List<Class>> GetClass(int? idClass = null);
+        Result<string> AddFaculty(string name);
+        Result<string> RemoveFaculty(int id);
+
+        Result<string> AddClass(Class c, int idFaculty);
+        Result<string> RemoveClass(int id);
     }
 }

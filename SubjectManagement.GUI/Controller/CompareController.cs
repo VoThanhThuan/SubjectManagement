@@ -20,8 +20,8 @@ namespace SubjectManagement.GUI.Controller
         public CompareController()
         {
             _facultyService = new FacultyService();
-            _compareService = new CompareService(Db.Context);
-            _subjectService = new SubjectService(Db.Context);
+            _compareService = new CompareService();
+            _subjectService = new SubjectService();
         }
 
         private readonly IFacultyService _facultyService;

@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Thêm môn học"
-        Height="auto"
+        Height="500"
         Width="500"
         WindowStartupLocation="CenterScreen">
     <StackPanel Margin="5">

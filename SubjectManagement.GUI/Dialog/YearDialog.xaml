@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:SubjectManagement.GUI.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="YearDialog"
+        Title="Chọn năm"
         Height="400"
         Width="260"
-        ResizeMode="NoResize">
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition MaxHeight="69"></RowDefinition>

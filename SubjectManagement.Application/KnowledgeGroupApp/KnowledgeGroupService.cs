@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
 
 namespace SubjectManagement.Application.KnowledgeGroupApp
@@ -13,9 +14,10 @@ namespace SubjectManagement.Application.KnowledgeGroupApp
     public class KnowledgeGroupService : IKnowledgeGroupService
     {
 
-        public KnowledgeGroupService(SubjectDbContext database)
+        public KnowledgeGroupService()
         {
-            _db = database;
+            var connect = new Db();
+            _db = connect.Context;
         }
 
         private readonly SubjectDbContext _db;

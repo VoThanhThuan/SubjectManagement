@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SubjectManagement.Common.Result;
+using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
 using SubjectManagement.Data.Entities;
 
@@ -11,9 +12,10 @@ namespace SubjectManagement.Application.Alternative
 {
     public class AlternativeService : IAlternativeService
     {
-        public AlternativeService(SubjectDbContext db)
+        public AlternativeService()
         {
-            _db = db;
+            var connect = new Db();
+            _db = connect.Context;
         }
 
         private readonly SubjectDbContext _db;
@@ -26,8 +28,8 @@ namespace SubjectManagement.Application.Alternative
                 return new ResultError<string>("Môn này thay thế này đã tồn tại, không thể thêm mới");
             var alter = new AlternativeSubject()
             {
-                IDNew = idSubject,
-                IDOld = idSubjectAlter,
+                IDNew = idSubjectAlter,
+                IDOld = idSubject,
                 IDClass = idClass
             };
             _db.AlternativeSubjects.Add(alter);
@@ -49,9 +51,7 @@ namespace SubjectManagement.Application.Alternative
             var alter = _db.AlternativeSubjects
                 .Where(x => x.IDClass == idClass && x.IDOld == idSubject)
                 .Select(x => x).ToList();
-            if (alter.Count < 1) return null;
-            var subject = _db.Subjects.Where(x => x.ID == alter[0].IDNew && x.IDClass == alter[0].IDClass).ToList();
-            return subject;
+            return alter.Count < 1 ? null : alter.Select(item => _db.Subjects.SingleOrDefault(x => x.ID == item.IDNew && x.IDClass == item.IDClass)).ToList();
         }
     }
 }

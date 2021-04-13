@@ -17,7 +17,7 @@ namespace SubjectManagement.GUI.Controller
     {
         public KnowledgeGroupController(Class _class)
         {
-            _knowledgeGroupService = new KnowledgeGroupService(Db.Context);
+            _knowledgeGroupService = new KnowledgeGroupService();
             _Class = _class;
         }
 

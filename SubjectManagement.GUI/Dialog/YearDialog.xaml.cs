@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using SubjectManagement.Common.Result;
 
 namespace SubjectManagement.GUI.Dialog
 {
@@ -27,6 +28,9 @@ namespace SubjectManagement.GUI.Dialog
 
         private int _year = 2020;
         public string YearResult { get; set; } = "2020";
+
+        public new MyDialogResult.Result DialogResult = MyDialogResult.Result.Close;
+
         private void CreateYear()
         {
             wp_year.Children.Clear();
@@ -65,7 +69,9 @@ namespace SubjectManagement.GUI.Dialog
 
         private void Btn_Accept_OnClick(object sender, RoutedEventArgs e)
         {
+            DialogResult = MyDialogResult.Result.Ok;
             YearResult = tbl_Year.Text;
+            this.Close();
         }
     }
 }

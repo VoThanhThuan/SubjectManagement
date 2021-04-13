@@ -14,7 +14,7 @@
                 <Setter Property="Background"
                         Value="#00ADD8E6" />
                 <Setter Property="Foreground"
-                        Value="#FF00CDD1" />
+                        Value="{DynamicResource OptionColor}" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type Button}">
@@ -27,7 +27,7 @@
                                 <Trigger Property="IsMouseOver"
                                          Value="True">
                                     <Setter Property="Background"
-                                            Value="#009ba0"
+                                            Value="{DynamicResource OptionColor}"
                                             TargetName="Border" />
                                     <Setter Property="Foreground"
                                             Value="White" />
@@ -39,10 +39,11 @@
             </Style>
 
         </Grid.Resources>
+
         <Grid x:Name="RenderBody">
             <TextBlock x:Name="tbl_Class"
                        Text="xxx"
-                       Foreground="#FF00CDD1"
+                       Foreground="{DynamicResource OptionTextColor}"
                        FontSize="20"></TextBlock>
             <Grid Margin="0 25 0 0">
                 <Grid.ColumnDefinitions>
@@ -56,45 +57,48 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center">
-
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
                         <Button x:Name="btn_ViewList"
                                 ToolTip="Danh sách các môn của lớp"
-                                Width="160"
-                                Height="160"
-                                Margin="0 0 0 40"
                                 Click="Btn_ViewList_OnClick">
-                            <materialDesign:PackIcon Kind="ViewSplitHorizontal"
-                                                     Width="120"
-                                                     Height="120" />
-                        </Button>
-                        <TextBlock Text="Danh sách môn"
-                                   FontSize="24"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Center"
-                                   Foreground="#FF00CDD1"></TextBlock>
+                            <Grid Height="200"
+                                  Width="250">
+                                <materialDesign:PackIcon Kind="ViewSplitHorizontal"
+                                                         Width="120"
+                                                         Height="120"
+                                                         HorizontalAlignment="Stretch"
+                                                         VerticalAlignment="Stretch" />
+                                <TextBlock Text="Danh sách môn"
+                                           FontSize="24"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
+                            </Grid>
+                        </Button>
                     </Grid>
                     <Grid Grid.Row="1"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center">
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
                         <Button x:Name="btn_AlternativeSubject"
                                 ToolTip="Học phần thay thế"
-                                Width="160"
-                                Height="160"
-                                Margin="0 0 0 40"
                                 Click="Btn_AlternativeSubject_OnClick">
-                            <materialDesign:PackIcon Kind="CurrentAc"
-                                                     Width="120"
-                                                     Height="120" />
+                            <Grid Height="200"
+                                  Width="250">
+                                <materialDesign:PackIcon Kind="CurrentAc"
+                                                         Width="120"
+                                                         Height="120"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Text="Học phần thay thế"
+                                           FontSize="24"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+
+                            </Grid>
                         </Button>
-                        <TextBlock Text="Học phần thay thế"
-                                   FontSize="24"
-                                   Margin="0 0 0 10"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Center"
-                                   Foreground="#FF00CDD1"></TextBlock>
                     </Grid>
                 </Grid>
 
@@ -103,45 +107,50 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid HorizontalAlignment="Center"
-                          VerticalAlignment="Center">
+                    <Grid HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
 
                         <Button x:Name="btn_AddSemester"
                                 ToolTip="Tùy chỉnh học kỳ cho từng môn"
-                                Width="160"
-                                Height="160"
-                                Margin="0 0 0 40"
                                 Click="Btn_AddSemester_OnClick">
-                            <materialDesign:PackIcon Kind="ClipboardList"
-                                                     Width="120"
-                                                     Height="120" />
-                        </Button>
-                        <TextBlock Text="Tùy chỉnh học kỳ"
-                                   FontSize="24"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Center"
-                                   Foreground="#FF00CDD1"></TextBlock>
+                            <Grid Height="200"
+                                  Width="250">
+                                <materialDesign:PackIcon Kind="ClipboardList"
+                                                         Width="120"
+                                                         Height="120"
+                                                         VerticalAlignment="Center"
+                                                         HorizontalAlignment="Center" />
+                                <TextBlock Text="Tùy chỉnh học kỳ"
+                                           FontSize="24"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
+
+                            </Grid>
+                        </Button>
                     </Grid>
                     <Grid Grid.Row="1"
-                          HorizontalAlignment="Center"
-                          VerticalAlignment="Center">
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
                         <Button x:Name="btn_UserManager"
                                 ToolTip="Tài khoản"
-                                Width="160"
-                                Height="160"
-                                Margin="0 0 0 40"
                                 Click="Btn_UserManager_OnClick">
-                            <materialDesign:PackIcon Kind="User"
-                                                     Width="120"
-                                                     Height="120" />
+                            <Grid Height="200"
+                                  Width="250">
+                                <materialDesign:PackIcon Kind="User"
+                                                         Width="120"
+                                                         Height="120"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Text="Tùy chỉnh tài khoản"
+                                           FontSize="24"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+
+                            </Grid>
                         </Button>
-                        <TextBlock Text="Tùy chỉnh tài khoản"
-                                   FontSize="24"
-                                   Margin="0 0 0 10"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Center"
-                                   Foreground="#FF00CDD1"></TextBlock>
                     </Grid>
                 </Grid>
                 <Grid Grid.Column="2">
@@ -149,23 +158,30 @@
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
-                    <Grid HorizontalAlignment="Center"
-                          VerticalAlignment="Center">
+                    <Grid HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
                         <Button x:Name="btn_Compare"
                                 ToolTip="So sánh chương trình của 2 lớp"
-                                Width="160"
-                                Height="160"
-                                Margin="0 0 0 40"
                                 Click="Btn_Compare_OnClick">
-                            <materialDesign:PackIcon Kind="Compare"
-                                                     Width="120"
-                                                     Height="120" />
+                            <Grid Height="200"
+                                  Width="250">
+                                <materialDesign:PackIcon Kind="Compare"
+                                                         Width="120"
+                                                         Height="120"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Text="So sánh chương trình"
+                                           FontSize="24"
+                                           Margin="0 0 0 20"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+
+                            </Grid>
                         </Button>
-                        <TextBlock Text="So sánh chương trình"
-                                   FontSize="24"
-                                   VerticalAlignment="Bottom"
-                                   HorizontalAlignment="Center"
-                                   Foreground="#FF00CDD1"></TextBlock>
+                    </Grid>
+                    <Grid Grid.Row="1">
+
                     </Grid>
                 </Grid>
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SubjectManagement.Common.Result;
+using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.ViewModels.Subject;
@@ -13,9 +14,10 @@ namespace SubjectManagement.Application.CompareApp
 {
     public class CompareService : ICompareService
     {
-        public CompareService(SubjectDbContext db)
+        public CompareService()
         {
-            _db = db;
+            var connect = new Db();
+            _db = connect.Context;
         }
 
         private readonly SubjectDbContext _db;

@@ -25,10 +25,9 @@ namespace SubjectManagement.GUI.Main
     /// </summary>
     public partial class AddUserWindow : Window
     {
-        public AddUserWindow(Class _class, bool isEdit = false, AppUser user = null)
+        public AddUserWindow(bool isEdit = false, AppUser user = null)
         {
             InitializeComponent();
-            _Class = _class;
             _isEdit = isEdit;
             LoadCombobox();
             if (isEdit is not true) return;
@@ -36,8 +35,6 @@ namespace SubjectManagement.GUI.Main
             btn_AddUser.Content = "Sửa";
             Fillinfor();
         }
-
-        private Class _Class { get; set; }
 
         private bool _isEdit { get; init; }
 
@@ -139,7 +136,7 @@ namespace SubjectManagement.GUI.Main
         private void Btn_AddUser_OnClick(object sender, RoutedEventArgs e)
         {
             if(cbb_Role.SelectedIndex < 0) return;
-            var add = new UserController(_Class);
+            var add = new UserController();
             if(_isEdit is false)
                 add.AddUser(infor());
             else

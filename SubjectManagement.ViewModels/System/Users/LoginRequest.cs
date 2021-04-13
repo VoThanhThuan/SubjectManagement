@@ -12,7 +12,7 @@ namespace SubjectManagement.ViewModels.System.Users
     {
         public string Username { get; set; }
         public string Password { get; set; }
-        public Hashtable ListWindows { get; set; }
+        //public Hashtable ListWindows { get; set; }
     }
 
 }

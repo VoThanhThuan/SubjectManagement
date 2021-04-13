@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Green.Named.Primary.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+        
     </UserControl.Resources>
 
     <Grid>
@@ -33,17 +34,19 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Image Source="/Main/Children/Common/logo_laptop_1HI_icon.ico"
+            <Image Source="/Main/Children/Common/LogoLaptop.png"
                    Stretch="Uniform"
-                   Width="100"
-                   Height="100" />
+                   Width="140"
+                   Height="140"
+                   RenderOptions.BitmapScalingMode="HighQuality" />
 
             <StackPanel Grid.Column="1"
                         Margin="24 0 0 0"
                         VerticalAlignment="Center">
                 <TextBlock Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                            TextWrapping="Wrap"
-                           Text="Welcome to Subject Management of Võ Thành Thuận" />
+                           Foreground="{DynamicResource OptionColor}"
+                           Text="Welcome to Subject Management of&#10;Võ Thành Thuận" />
 
             </StackPanel>
         </Grid>
@@ -100,6 +103,7 @@
                                     <Button Style="{DynamicResource MaterialDesignFlatButton}"
                                             HorizontalAlignment="Left"
                                             x:Name="GitHubButton"
+                                            Foreground="{DynamicResource OptionColor}"
                                             Click="GitHubButton_OnClick">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Github" />
@@ -112,6 +116,7 @@
                                     <Button Style="{DynamicResource MaterialDesignFlatButton}"
                                             HorizontalAlignment="Right"
                                             x:Name="FacebookButton"
+                                            Foreground="{DynamicResource OptionColor}"
                                             Click="FacebookButton_OnClick">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Facebook" />
@@ -131,6 +136,7 @@
                                     <Button Style="{DynamicResource MaterialDesignFlatButton}"
                                             HorizontalAlignment="Left"
                                             x:Name="ChatButton"
+                                            Foreground="{DynamicResource OptionColor}"
                                             Click="ChatButton_OnClick">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Message" />
@@ -143,6 +149,7 @@
                                     <Button Style="{DynamicResource MaterialDesignFlatButton}"
                                             HorizontalAlignment="Right"
                                             x:Name="EmailButton"
+                                            Foreground="{DynamicResource OptionColor}"
                                             Click="EmailButton_OnClick">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Email" />
@@ -197,6 +204,7 @@
                                     <Button Style="{DynamicResource MaterialDesignFlatButton}"
                                             DockPanel.Dock="Right"
                                             x:Name="DonateButton"
+                                            Foreground="{DynamicResource OptionColor}"
                                             Click="DonateButton_OnClick">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="Gift" />
@@ -223,6 +231,7 @@
                                  HorizontalAlignment="Right"
                                  VerticalAlignment="Bottom"
                                  Margin="32"
+                                 Background="{DynamicResource OptionColor}"
                                  Grid.Row="1">
             <StackPanel>
                 <Button ToolTip="GitHub"

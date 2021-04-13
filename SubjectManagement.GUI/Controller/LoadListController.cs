@@ -16,7 +16,7 @@ namespace SubjectManagement.GUI.Controller
     {
         public LoadListController(Class _class)
         {
-            _subjectService = new SubjectService(Db.Context);
+            _subjectService = new SubjectService();
             _Class = _class;
         }
 

@@ -13,9 +13,10 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="{x:Null}"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown">
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        KeyDown="Window_KeyDown">
 
-    <materialDesign:Card UniformCornerRadius="10">
+    <materialDesign:Card UniformCornerRadius="0">
         <materialDesign:Card.Background>
             <ImageBrush x:Name="ImgBackground"
                         ImageSource="/Login/image/WallpaperLaptopLogo.png" />
@@ -29,6 +30,18 @@
                    Width="388" />
             <Grid Margin="0, 0, 388, -1"
                   Background="#CCFFFFFF">
+                <Button x:Name="btn_setting"
+                        VerticalAlignment="Top"
+                        HorizontalAlignment="Left"
+                        Margin="10"
+                        Width="48"
+                        Height="48"
+                        Style="{StaticResource MaterialDesignFlatButton}"
+                        Click="Btn_setting_OnClick">
+
+                    <materialDesign:PackIcon Kind="Settings" />
+
+                </Button>
                 <Label x:Name="label1"
                        Content="Login"
                        HorizontalAlignment="Left"
@@ -99,8 +112,7 @@
 
                 <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}"
                               ToolTip="Facebook Nguyễn Sơn"
-                              Margin="72,376,238,13"
-                              Background="#FF2437B0">
+                              Margin="72,376,238,13">
                     <Hyperlink NavigateUri="https://www.facebook.com/son.dh19pm/"
                                RequestNavigate="Hyperlink_OnRequestNavigate"
                                TextDecorations="none"
@@ -115,8 +127,7 @@
 
                 <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}"
                               ToolTip="Facebook Võ Thuận"
-                              Margin="149,376,161,13"
-                              Background="#FF192889">
+                              Margin="149,376,161,13">
                     <Hyperlink NavigateUri="https://www.facebook.com/anome69"
                                RequestNavigate="Hyperlink_OnRequestNavigate"
                                TextDecorations="none"
@@ -130,8 +141,7 @@
                 </ToggleButton>
                 <ToggleButton Style="{StaticResource MaterialDesignActionToggleButton}"
                               ToolTip="Facebook Nguyễn Thanh Toàn"
-                              Margin="224,376,86,13"
-                              Background="#FF3A5CB7">
+                              Margin="224,376,86,13">
                     <Hyperlink NavigateUri="https://www.facebook.com/profile.php?id=100011405461763"
                                RequestNavigate="Hyperlink_OnRequestNavigate"
                                TextDecorations="none"
@@ -209,7 +219,6 @@
             <RepeatButton x:Name="btn_Login"
                           ToolTip="Đăng nhập"
                           Margin="114,303,502,85"
-                          Background="#FF2B5BEB"
                           BorderBrush="Transparent"
                           Content="Login"
                           Click="BtnLogin_Click">
@@ -218,7 +227,7 @@
 
             <Grid Background="#7F000000"
                   x:Name="Grid_Loading"
-                  Visibility="Visible">
+                  Visibility="Hidden">
                 <ProgressBar Style="{DynamicResource MaterialDesignCircularProgressBar}"
                              IsIndeterminate="True"
                              Value="0"

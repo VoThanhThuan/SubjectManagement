@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore;
 using SubjectManagement.Application.System.Users;
 using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data;
+using SubjectManagement.GUI.Constant;
+using SubjectManagement.GUI.Main;
+using SubjectManagement.GUI.Member;
 using SubjectManagement.ViewModels.System.Users;
 
 namespace SubjectManagement.GUI.Controller
@@ -19,18 +22,41 @@ namespace SubjectManagement.GUI.Controller
 
         public OpenWindowController()
         {
-            _userService = new UserService(Db.Context);
+            _userService = new UserService();
         }
 
         private readonly IUserService _userService;
-
-        public async void OpenWindow(LoginRequest request, Grid grid_Loading)
+        public async Task<bool> OpenWindow(LoginRequest request, Grid grid_Loading)
         {
             grid_Loading.Visibility = Visibility.Visible;
 
+            //var _userService = new UserService();
+
             var result = await _userService.Authenticate(request);
+
+            //await Db.Context.Faculties.LoadAsync();
+            //await Db.Context.Classes.LoadAsync();
+
+            var isSuccess = false;
+
             if (result.IsSuccessed is true)
-                ((Window)request.ListWindows[result.ResultObj.Role])?.Show();
+            {
+                switch (result.ResultObj.Role)
+                {
+                    case "admin":
+                        ConstantInfor.InforUser = result.ResultObj;
+                        var main = new MainWindow();
+                        main.Show();
+                        isSuccess = true;
+                        break;
+                    case "guest":
+                        var mem = new MemberWindow(result.ResultObj);
+                        mem.Show();
+                        isSuccess = true;
+                        break;
+                }
+                //((Window)request.ListWindows[result.ResultObj.Role])?.Show();
+            }
             else
             {
                 var mess = new MessageDialog()
@@ -42,11 +68,8 @@ namespace SubjectManagement.GUI.Controller
                 };
                 mess.ShowDialog();
             }
-
-            await Db.Context.Faculties.LoadAsync();
-            await Db.Context.Classes.LoadAsync();
-
             grid_Loading.Visibility = Visibility.Hidden;
+            return isSuccess;
         }
     }
 }

@@ -28,34 +28,27 @@ namespace SubjectManagement.GUI.Main.Children.Common
 
         private void EmailButton_OnClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                Process.Start(@"mailto:vothuan1407@gmail.com?subject=Test&body=Hello");
-            }
-            catch (Exception exception)
-            {
-
-            }
+            Process.Start("cmd", @"/c start mailto:vothuan1407@gmail.com?subject=Xin%20ch%C3%A0o%20Thu%E1%BA%ADn&body=Hello");
         }
 
         private void DonateButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://www.facebook.com/anome69/");
+            Process.Start("cmd", "/c start https://www.facebook.com/anome69/");
         }
 
         private void ChatButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://zalo.me/anome69");
+            Process.Start("cmd", "/c start https://zalo.me/anome69");
         }
 
         private void GitHubButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://github.com/VoThanhThuan");
+            Process.Start("cmd", "/c start https://vothanhthuan.github.io/vtt");
         }
 
         private void FacebookButton_OnClick(object sender, RoutedEventArgs e)
         {
-            Process.Start("https://www.facebook.com/anome69/");
+            Process.Start("cmd", "/c start https://www.facebook.com/anome69/");
         }
     }
 }

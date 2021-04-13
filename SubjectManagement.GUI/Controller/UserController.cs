@@ -14,13 +14,11 @@ namespace SubjectManagement.GUI.Controller
 {
     public class UserController
     {
-        public UserController(Class _class)
+        public UserController()
         {
-            _userService = new UserService(Db.Context);
-            _Class = _class;
+            _userService = new UserService();
         }
 
-        private Class _Class { get; init; }
         private IUserService _userService;
 
         public List<AppUser> GetListUser()

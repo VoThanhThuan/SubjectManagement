@@ -24,38 +24,35 @@ namespace SubjectManagement.GUI.Main.Children.User
     /// </summary>
     public partial class UserManagerUC : UserControl
     {
-        public UserManagerUC(Class _class)
+        public UserManagerUC()
         {
             InitializeComponent();
-            _Class = _class;
             LoadListUser();
         }
 
-        private Class _Class { get; set; }
-
         private void LoadListUser()
         {
-            var list = new UserController(_Class);
+            var list = new UserController();
             dg_ListUser.ItemsSource = list.GetListUser();
         }
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
         {
-            var viewAdd = new AddUserWindow(_Class);
+            var viewAdd = new AddUserWindow();
             viewAdd.Show();
         }
 
         private void Btn_Edit_OnClick(object sender, RoutedEventArgs e)
         {
             if (dg_ListUser.SelectedIndex < 0) return;
-            var viewEdit = new AddUserWindow(_Class, true, ((AppUser)dg_ListUser.SelectedValue));
+            var viewEdit = new AddUserWindow(true, ((AppUser)dg_ListUser.SelectedValue));
             viewEdit.Show();
         }
 
         private void Btn_Remove_OnClick(object sender, RoutedEventArgs e)
         {
             if(dg_ListUser.SelectedIndex < 0) return;
-            var remove = new UserController(_Class);
+            var remove = new UserController();
             var user = (AppUser)dg_ListUser.SelectedValue;
             remove.RemoveUser(user.ID);
         }

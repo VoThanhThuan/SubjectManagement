@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.GUI.Main;
 
 namespace SubjectManagement.GUI.Login
@@ -26,9 +27,37 @@ namespace SubjectManagement.GUI.Login
         public LoginWindow()
         {
             InitializeComponent();
+            SetBackground();
+            ConnectDatabase();
         }
 
+        private bool IsConnected { get; set; } = false;
 
+        private void ConnectDatabase()
+        {
+            var connect = new SettingController();
+            IsConnected = connect.ReadConnectString();
+            if (!IsConnected) return;
+            connect.ReadConnectString();
+        }
+
+        private async void Login()
+        {
+            if(IsConnected == false) return;
+            var open = new OpenWindowController();
+            var loginInfo = new LoginRequest()
+            {
+                Username = tbx_UserName.Text,
+                Password = tbx_Password.Password
+                //ListWindows = new Hashtable()
+            };
+
+            //loginInfo.ListWindows.Add("admin", new MainWindow());
+            //loginInfo.ListWindows.Add("guest", new MemberWindow());
+            var result = await open.OpenWindow(loginInfo, Grid_Loading);
+            if (result)
+                this.Close();
+        }
 
         /// <summary>
         /// Lấy ảnh nền desktop của người dùng
@@ -56,19 +85,7 @@ namespace SubjectManagement.GUI.Login
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            var open = new OpenWindowController();
-            var loginInfo = new LoginRequest()
-            {
-                Username = tbx_UserName.Text,
-                Password = tbx_Password.Password,
-                ListWindows = new Hashtable() 
-            };
-
-            loginInfo.ListWindows.Add("admin", new MainWindow());
-            loginInfo.ListWindows.Add("guest", new MemberWindow());
-
-            open.OpenWindow(loginInfo, Grid_Loading);
-
+            Login();
         }
 
 
@@ -79,12 +96,30 @@ namespace SubjectManagement.GUI.Login
 
         private void Hyperlink_OnRequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            throw new NotImplementedException();
+            
         }
 
         private void Window_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                Login();
+            }
+        }
+
+        private void Btn_setting_OnClick(object sender, RoutedEventArgs e)
+        {
+            var setting = new SettingWindow()
+            {
+                tab_Class = {Visibility = Visibility.Collapsed}
+            };
+            setting.ShowDialog();
+            ConnectDatabase();
         }
     }
 }

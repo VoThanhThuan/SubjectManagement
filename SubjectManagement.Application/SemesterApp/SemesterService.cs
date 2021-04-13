@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.ViewModels.SubjectOfClass;
@@ -13,9 +14,10 @@ namespace SubjectManagement.Application.SemesterApp
     public class SemesterService : ISemesterService
     {
 
-        public SemesterService(SubjectDbContext db)
+        public SemesterService()
         {
-            _db = db;
+            var connect = new Db();
+            _db = connect.Context;
         }
 
         private readonly SubjectDbContext _db;

@@ -21,7 +21,7 @@ namespace SubjectManagement.GUI.Controller
     {
         public SubjectController(Class _class)
         {
-            _subjectService = new SubjectService(Db.Context);
+            _subjectService = new SubjectService();
             _Class = _class;
         }
 
@@ -59,7 +59,7 @@ namespace SubjectManagement.GUI.Controller
 
         public List<Subject> GetSubjectClass()
         {
-            return _subjectService.LoadSubjectOfClass(_Class.ID); ;
+            return _subjectService.LoadSubjectOfClass(_Class.ID);
         }
 
         public void AddSubject(SubjectRequest request)

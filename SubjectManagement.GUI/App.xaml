@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SubjectManagement.GUI"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-             StartupUri="Main/MainWindow.xaml">
+             StartupUri="Login/LoginWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
 
@@ -12,14 +12,16 @@
                 <ResourceDictionary>
                     <!-- include your primary palette -->
                     <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.TextBlock.xaml" />
+                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.textbox.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
-                        <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/MaterialDesignColor.Indigo.xaml" />
+
                     </ResourceDictionary.MergedDictionaries>
                     <!--
                             include three hues from the primary palette (and the associated forecolours).
@@ -29,14 +31,37 @@
                                      Color="{StaticResource Primary100}" />
                     <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush"
                                      Color="{StaticResource Primary100Foreground}" />
-                    <SolidColorBrush x:Key="PrimaryHueMidBrush"
-                                     Color="#FF00CDD1" />
+                    <!--<SolidColorBrush x:Key="PrimaryHueMidBrush"
+                                     Color="#00bff3" />-->
                     <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush"
                                      Color="{StaticResource Primary500Foreground}" />
                     <SolidColorBrush x:Key="PrimaryHueDarkBrush"
-                                     Color="#FF00CDD1" />
+                                     Color="#00bff3" />
                     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush"
                                      Color="{StaticResource Primary700Foreground}" />
+
+
+                    <LinearGradientBrush x:Key="PrimaryHueMidBrush"
+                                         EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5"
+                                                CenterX="0.5" />
+                                <SkewTransform CenterY="0.5"
+                                               CenterX="0.5" />
+                                <RotateTransform Angle="-90"
+                                                 CenterY="0.5"
+                                                 CenterX="0.5" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#37a2ff"
+                                      Offset="1" />
+                        <GradientStop Color="#1492ff"
+                                      Offset="0" />
+                    </LinearGradientBrush>
+
 
                 </ResourceDictionary>
 

@@ -19,9 +19,11 @@ namespace SubjectManagement.Application.SubjectApp
     public class SubjectService : ISubjectService
     {
 
-        public SubjectService(SubjectDbContext database)
+        public SubjectService()
         {
-            _db = database;
+            //_db = database;
+            var connect = new Db();
+            _db = connect.Context;
         }
 
         private readonly SubjectDbContext _db;

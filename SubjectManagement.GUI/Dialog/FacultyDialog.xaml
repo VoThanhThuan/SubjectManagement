@@ -6,11 +6,17 @@
         xmlns:local="clr-namespace:SubjectManagement.GUI.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="FacultyDialog"
+        Title="Chọn lớp học"
         Height="180"
         Width="400"
-        WindowStyle="None"
-        WindowStartupLocation="CenterOwner">
+        WindowStyle="SingleBorderWindow"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize">
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="1"
+                      CornerRadius="0"
+                      CaptionHeight="0" />
+    </WindowChrome.WindowChrome>
     <Grid>
         <StackPanel Margin="5">
             <ComboBox Style="{StaticResource MaterialDesignFilledComboBox}"

@@ -18,16 +18,17 @@ namespace SubjectManagement.Application.System.Users
     public class UserService : IUserService
     {
 
-        public UserService(SubjectDbContext db)
+        public UserService()
         {
-            _db = db;
+            var connect = new Db();
+            _db = connect.Context;
         }
 
         private readonly SubjectDbContext _db;
 
         public async Task<Result<InfoLogin>> Authenticate(LoginRequest request)
         {
-            await Db.Context.AppUsers.LoadAsync();
+            await _db.AppUsers.LoadAsync();
             //Tìm tài khoản
             var user = await _db.AppUsers.FirstOrDefaultAsync(x => x.Username == request.Username);
 

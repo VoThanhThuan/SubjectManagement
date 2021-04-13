@@ -14,16 +14,55 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         WindowStyle="SingleBorderWindow"
-        SizeToContent="Manual">
+        SizeToContent="Manual"
+        Closing="MainWindow_OnClosing">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <LinearGradientBrush x:Key="OptionColor"
+                                         EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <LinearGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterY="0.5"
+                                                CenterX="0.5" />
+                                <SkewTransform CenterY="0.5"
+                                               CenterX="0.5" />
+                                <RotateTransform Angle="-90"
+                                                 CenterY="0.5"
+                                                 CenterX="0.5" />
+                                <TranslateTransform />
+                            </TransformGroup>
+                        </LinearGradientBrush.RelativeTransform>
+                        <GradientStop Color="#37a2ff"
+                                      Offset="1" />
+                        <GradientStop Color="#1492ff"
+                                      Offset="0" />
+                    </LinearGradientBrush>
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <SolidColorBrush x:Key="OptionTextColor"
+                                     Color="White"></SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome GlassFrameThickness="0"
                       CornerRadius="0"
                       CaptionHeight="0" />
     </WindowChrome.WindowChrome>
     <DockPanel>
+
         <Grid DockPanel.Dock="Top"
-              Background="#009ba0"
+              Background="{DynamicResource OptionColor}"
               MouseDown="UIElement_OnMouseDown">
+            <TextBlock x:Name="tbl_HelloName"
+                       Text="Xin Chào"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Margin="10 0 0 0"></TextBlock>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right">
                 <StackPanel.Resources>
@@ -43,6 +82,8 @@
                                                  Value="True">
                                             <Setter Property="Background"
                                                     Value="#4C000000" />
+                                            <Setter Property="Cursor"
+                                                    Value="Hand"></Setter>
                                         </Trigger>
                                     </ControlTemplate.Triggers>
                                 </ControlTemplate>
@@ -59,15 +100,33 @@
                         Foreground="White">
                     <materialDesign:PackIcon Kind="BellOutline" />
                 </Button>
-
-                <Button Width="40"
-                        Height="30"
-                        BorderBrush="{x:Null}"
-                        Padding="0"
-                        Foreground="White"
-                        Margin="0 0 10 0">
-                    <materialDesign:PackIcon Kind="Settings" />
-                </Button>
+                <materialDesign:PopupBox Width="30"
+                                         HorizontalAlignment="Stretch"
+                                         HorizontalContentAlignment="Center"
+                                         VerticalContentAlignment="Center">
+                    <materialDesign:PopupBox.ToggleContent>
+                        <materialDesign:PackIcon Kind="DotsHorizontal"
+                                                 Foreground="White" />
+                    </materialDesign:PopupBox.ToggleContent>
+                    <ListBox MinWidth="120">
+                        <ListBoxItem MouseUp="Li_NewTab">
+                            Tab mới
+                        </ListBoxItem>
+                        <ListBoxItem MouseUp="li_Account">
+                            Tài khoản
+                        </ListBoxItem>
+                        <ListBoxItem MouseUp="Li_Class">
+                            Lớp học
+                        </ListBoxItem>
+                        <Separator></Separator>
+                        <ListBoxItem MouseUp="Li_Settings">
+                            Cài đặt
+                        </ListBoxItem>
+                        <ListBoxItem MouseUp="li_Shutdown">
+                            Thoát
+                        </ListBoxItem>
+                    </ListBox>
+                </materialDesign:PopupBox>
 
                 <!--BtnHide-->
                 <Button x:Name="Btn_Hide"
@@ -87,7 +146,8 @@
                         Padding="0"
                         Foreground="White"
                         Click="Btn_Zoom_OnClickZoom">
-                    <materialDesign:PackIcon x:Name="Icon_Zoom" Kind="CropSquare" />
+                    <materialDesign:PackIcon x:Name="Icon_Zoom"
+                                             Kind="CropSquare" />
                 </Button>
 
                 <!--Button Exit-->
@@ -105,10 +165,25 @@
 
         <dragablz:TabablzControl ShowDefaultAddButton="True"
                                  ShowDefaultCloseButton="True"
+                                 BorderBrush="{DynamicResource OptionColor}"
                                  x:Name="InitialTabablzControl">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
+            <dragablz:TabablzControl.Resources>
+                <Style TargetType="{x:Type dragablz:TabablzControl}"
+                       BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
+                    <Setter Property="HeaderSuffixContent">
+                        <Setter.Value>
+                            <StackPanel Orientation="Horizontal"
+                                        ToolTip="Powered by Dragablz">
+                                <TextBlock Text="Võ Thành Thuận"></TextBlock>
+                            </StackPanel>
+
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </dragablz:TabablzControl.Resources>
         </dragablz:TabablzControl>
     </DockPanel>
 </Window>

@@ -4,15 +4,18 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
+    <ApplicationIcon>logo_laptop_1HI_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Login\WallpaperLaptopLogo.png" />
     <None Remove="Main\Children\Common\LogoDH19PM.png" />
+    <None Remove="Main\Children\Common\LogoLaptop.png" />
     <None Remove="Main\Children\Common\logo_laptop_1HI_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ClosedXML.Signed" Version="0.95.4" />
     <PackageReference Include="Dragablz" Version="0.0.3.223" />
     <PackageReference Include="MaterialDesignColors" Version="2.0.0" />
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
@@ -25,6 +28,7 @@
   <ItemGroup>
     <Resource Include="Login\image\WallpaperLaptopLogo.png" />
     <Resource Include="Main\Children\Common\LogoDH19PM.png" />
+    <Resource Include="Main\Children\Common\LogoLaptop.png" />
     <Resource Include="Main\Children\Common\logo_laptop_1HI_icon.ico" />
   </ItemGroup>
 

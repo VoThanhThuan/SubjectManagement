@@ -18,7 +18,7 @@ namespace SubjectManagement.GUI.Controller
         public SemesterController(Class _class)
         {
             _Class = _class;
-            _semesterServicel = new SemesterService(Db.Context);
+            _semesterServicel = new SemesterService();
         }
 
         private readonly ISemesterService _semesterServicel;
