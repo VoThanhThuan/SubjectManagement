@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 
@@ -102,6 +103,27 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
             var subject = (Button) sender;
             remove.RemoveAlternative(Guid.Parse($"{subject.Tag}"));
             loadListAlter();
+        }
+
+        private void Btn_Export_OnClick(object sender, RoutedEventArgs e)
+        {
+            var saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Excel (*.xlsx)|*.xlsx|JSON (*.json)|*.json";
+            saveFileDialog.Title = "Xuất file";
+            saveFileDialog.FileName = DateTime.Now.ToString("yyyyMMddTHHmmss");
+            if (saveFileDialog.ShowDialog() != true) return;
+            var filename = saveFileDialog.FileName;
+            var export = new ExportController(_Class);
+
+            switch (saveFileDialog.FilterIndex)
+            {
+                case 1:
+                    export.ExportAlternativeForExcel(filename);
+                    break;
+                case 2:
+                    export.ExportSubjectForJSON(filename);
+                    break;
+            }
         }
     }
 }

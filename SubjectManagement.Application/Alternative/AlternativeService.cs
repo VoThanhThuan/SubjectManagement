@@ -43,6 +43,7 @@ namespace SubjectManagement.Application.Alternative
                 x.IDClass == idClass && x.IDNew == idSubject);
             if (alter is null) return new ResultError<string>("Lỗi Không xóa được học phần thay thế này");
             _db.AlternativeSubjects.Remove(alter);
+            _db.SaveChanges();
             return new ResultSuccess<string>("Xóa thành công");
         }
 

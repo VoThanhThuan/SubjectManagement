@@ -78,6 +78,7 @@
                             materialDesign:ButtonAssist.CornerRadius="10"
                             BorderBrush="#FF673EAE"
                             Margin="5"
+                            IsDefault="True"
                             Click="Btn_OK_OnClick">
                         OK
                     </Button>
@@ -97,6 +98,7 @@
                 <ScrollViewer>
                     <TextBox x:Name="tbx_Value"
                              Margin="5"
+                             Focusable="True"
                              materialDesign:HintAssist.Hint="Nội dung"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              VerticalAlignment="Center" x:FieldModifier="public" />

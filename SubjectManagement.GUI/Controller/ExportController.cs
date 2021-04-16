@@ -13,6 +13,7 @@ using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Windows.Media;
+using SubjectManagement.Application.Alternative;
 
 namespace SubjectManagement.GUI.Controller
 {
@@ -21,10 +22,12 @@ namespace SubjectManagement.GUI.Controller
         public ExportController(Class _class)
         {
             _subjectService = new SubjectService();
+            _alternativeService = new AlternativeService();
             _Class = _class;
         }
 
         private readonly ISubjectService _subjectService;
+        private readonly IAlternativeService _alternativeService;
         private Class _Class { get; init; }
 
         public static DataTable ToDataTable<T>(IList<T> data)
@@ -44,12 +47,12 @@ namespace SubjectManagement.GUI.Controller
             return table;
         }
 
-        public async void ExportForExcel(string filename)
+        public void ExportSubjectForExcel(string filename)
         {
             try
             {
                 using var workbook = new XLWorkbook();
-                var group = await _subjectService.LoadKnowledgeGroup();
+                var group = _subjectService.LoadKnowledgeGroup();
                 var worksheet = workbook.Worksheets.Add("Sample Sheet");
 
                 var cell = 1;
@@ -68,7 +71,8 @@ namespace SubjectManagement.GUI.Controller
                     worksheet.Cell($"D{cell}").Value = "Loại học phần";
                     worksheet.Cell($"E{cell}").Value = "Tiết lý thuyết";
                     worksheet.Cell($"F{cell}").Value = "Tiết thực hành";
-                    worksheet.Cell($"G{cell}").Value = "Mô tả";
+                    worksheet.Cell($"G{cell}").Value = "Học kỳ";
+                    worksheet.Cell($"H{cell}").Value = "Mô tả";
 
                     worksheet.Cell($"A{cell}").Style.Font.Bold = true;
                     worksheet.Cell($"B{cell}").Style.Font.Bold = true;
@@ -77,6 +81,7 @@ namespace SubjectManagement.GUI.Controller
                     worksheet.Cell($"E{cell}").Style.Font.Bold = true;
                     worksheet.Cell($"F{cell}").Style.Font.Bold = true;
                     worksheet.Cell($"G{cell}").Style.Font.Bold = true;
+                    worksheet.Cell($"H{cell}").Style.Font.Bold = true;
 
                     cell++;
                     foreach (var subject in subjectInGroup)
@@ -87,7 +92,8 @@ namespace SubjectManagement.GUI.Controller
                         worksheet.Cell($"D{cell}").Value = subject.TypeCourse;
                         worksheet.Cell($"E{cell}").Value = subject.NumberOfTheory;
                         worksheet.Cell($"F{cell}").Value = subject.NumberOfPractice;
-                        worksheet.Cell($"G{cell}").Value = subject.Details;
+                        worksheet.Cell($"G{cell}").Value = subject.Semester;
+                        worksheet.Cell($"H{cell}").Value = subject.Details;
                         cell++;
                     }
 
@@ -115,11 +121,11 @@ namespace SubjectManagement.GUI.Controller
             mess1.ShowDialog();
         }
 
-        public async void ExportForJSON(string filename)
+        public async void ExportSubjectForJSON(string filename)
         {
             try
             {
-                var groups = await _subjectService.LoadKnowledgeGroup();
+                var groups = _subjectService.LoadKnowledgeGroup();
 
                 var _data = new List<PrintJSON>();
 
@@ -186,6 +192,50 @@ namespace SubjectManagement.GUI.Controller
                 Topmost = true
             };
             mess1.ShowDialog();
+        }
+
+        public void ExportAlternativeForExcel(string filename)
+        {
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("AlternativeSubject");
+            var subjects = _subjectService.GetSubject(_Class.ID);
+            var cell = 1;
+            worksheet.Cell($"A{cell}").Value = "Nhhóm học phần cũ";
+            worksheet.Range("A1:D1").Merge();
+            worksheet.Cell($"E{cell}").Value = "Nhhóm học phần mới";
+            worksheet.Range("E1:H1").Merge();
+            foreach (var subject in subjects)
+            {
+                cell++;
+                worksheet.Cell($"A{cell}").Value = "Mã môn";
+                worksheet.Cell($"B{cell}").Value = "Tên môn";
+                worksheet.Cell($"C{cell}").Value = "Tín chỉ";
+                worksheet.Cell($"D{cell}").Value = "Học kỳ";
+                worksheet.Cell($"E{cell}").Value = "Mã môn";
+                worksheet.Cell($"F{cell}").Value = "Tên môn";
+                worksheet.Cell($"G{cell}").Value = "Tín chỉ";
+                worksheet.Cell($"H{cell}").Value = "Học kỳ";
+                var alterSubjects = _alternativeService.GetAlternative(_Class.ID, subject.ID);
+                if (alterSubjects == null) continue;
+                cell++;
+
+                worksheet.Cell($"A{cell}").Value = subject.CourseCode;
+                worksheet.Cell($"B{cell}").Value = subject.Name;
+                worksheet.Cell($"C{cell}").Value = subject.Credit;
+                worksheet.Cell($"D{cell}").Value = subject.Semester;
+                
+                foreach (var alter in alterSubjects)
+                {
+                    worksheet.Cell($"E{cell}").Value = alter.CourseCode;
+                    worksheet.Cell($"F{cell}").Value = alter.Name;
+                    worksheet.Cell($"G{cell}").Value = alter.Credit;
+                    worksheet.Cell($"H{cell}").Value = alter.Semester;
+                    cell++;
+                }
+
+            }
+
+            workbook.SaveAs(filename);
         }
 
     }

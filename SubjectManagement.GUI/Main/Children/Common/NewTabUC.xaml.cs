@@ -20,6 +20,7 @@ namespace SubjectManagement.GUI.Main.Children.Common
         public NewTabUC(TabItem Tab, Window mainWindow)
         {
             InitializeComponent();
+            _MainWindow = mainWindow;
             _titleTab = Tab;
             var faculty = new FacultyDialog(){Owner = mainWindow };
             faculty.ShowDialog();
@@ -30,7 +31,7 @@ namespace SubjectManagement.GUI.Main.Children.Common
         private TabItem _titleTab;
         public Class _Class { get; init; }
 
-        
+        private Window _MainWindow { get; set; } 
 
         private void Btn_ViewList_OnClick(object sender, RoutedEventArgs e)
         {
@@ -51,7 +52,7 @@ namespace SubjectManagement.GUI.Main.Children.Common
 
         private void Btn_Compare_OnClick(object sender, RoutedEventArgs e)
         {
-            var compare = new CompareDialog(_Class){ Owner = System.Windows.Application.Current.MainWindow };
+            var compare = new CompareDialog(_Class){ Owner = _MainWindow };
             compare.ShowDialog();
             if (compare.DialogResult != true) return;
             _titleTab.Header = "So Sánh";

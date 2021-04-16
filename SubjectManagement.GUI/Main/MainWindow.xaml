@@ -177,7 +177,7 @@
                         <Setter.Value>
                             <StackPanel Orientation="Horizontal"
                                         ToolTip="Powered by Dragablz">
-                                <TextBlock Text="Võ Thành Thuận"></TextBlock>
+                                <!--<TextBlock Text="Võ Thành Thuận"></TextBlock>-->
                             </StackPanel>
 
                         </Setter.Value>

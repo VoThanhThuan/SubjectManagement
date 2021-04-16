@@ -40,6 +40,8 @@
                                                     Binding="{Binding NumberOfTheory}" />
                                 <DataGridTextColumn Header="Tiết Thực Hành"
                                                     Binding="{Binding NumberOfPractice}" />
+                                <DataGridTextColumn Header="Học kỳ"
+                                                    Binding="{Binding Semester}" />
                                 <DataGridTextColumn Header="Mô tả"
                                                     Binding="{Binding Details}" />
                             </DataGrid.Columns>

@@ -49,36 +49,37 @@ namespace SubjectManagement.Application.SubjectApp
 
             return result;
         }
-        public async Task<List<KnowledgeGroup>> LoadKnowledgeGroup()
+        public List<KnowledgeGroup> LoadKnowledgeGroup()
         {
-            await _db.KnowledgeGroups.LoadAsync();
+            _db.KnowledgeGroups.Load();
             var group = _db.KnowledgeGroups.Select(x => x).ToList();
             return group;
         }
 
-        public  List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass)
+        public List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass)
         {
             var subjectInGroup = from sig in _db.SubjectInKnowledgeGroups
-                where sig.IDClass == idClass && sig.IDKnowledgeGroup == IDGroup 
-                select sig;
+                                 where sig.IDClass == idClass && sig.IDKnowledgeGroup == IDGroup
+                                 select sig;
 
             var subject = from s in _db.Subjects where s.IDClass == idClass select s;
 
             var result = (from sig in subjectInGroup
-                join s in subject on sig.IDSubject equals s.ID
-                    select s).ToList();
+                          join s in subject on sig.IDSubject equals s.ID
+                          select s).ToList();
 
             return result;
         }
 
-        public List<KnowledgeGroup> FindKnowledgeGroup(Guid idSubject)
+        public Result<KnowledgeGroup> FindKnowledgeGroup(Guid idSubject)
         {
-            var knowledge =  (from k in _db.KnowledgeGroups
-                             join sig in _db.SubjectInKnowledgeGroups on k.ID equals sig.IDKnowledgeGroup
-                             where sig.IDSubject == idSubject
-                             select k).ToList();
+            var sik = _db.SubjectInKnowledgeGroups.FirstOrDefault(x => x.IDSubject == idSubject);
+            if (sik is null) return new ResultError<KnowledgeGroup>("Lỗi tìm mã môn trong nhóm môn học");
 
-            return knowledge;
+            var knowG = _db.KnowledgeGroups.Find(sik.IDKnowledgeGroup);
+            if (knowG is null) return new ResultError<KnowledgeGroup>("Lỗi truy suất nhóm môn học");
+
+            return new ResultSuccess<KnowledgeGroup>(knowG, "OK");
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace SubjectManagement.Application.SubjectApp
                 IDKnowledgeGroup = request.IDKnowledgeGroup
             };
 
-            _db.SubjectInKnowledgeGroups.Add(sig); 
+            _db.SubjectInKnowledgeGroups.Add(sig);
             _db.SaveChanges();
 
 
@@ -135,12 +136,23 @@ namespace SubjectManagement.Application.SubjectApp
         public Result<string> CopyListSubject(int idClassOld, int idClassNew)
         {
             var oldSubject = from sik in _db.SubjectInKnowledgeGroups
-                join s in _db.Subjects on sik.IDSubject equals s.ID 
-                select new
-                {
-                    s.ID,s.CourseCode, s.Name, s.Credit, s.TypeCourse, s.NumberOfTheory, s.NumberOfPractice, s.Prerequisite, s.LearnFirst,
-                    s.Parallel, s.Details, s.IDClass, sik.IDKnowledgeGroup
-                };
+                             join s in _db.Subjects on sik.IDSubject equals s.ID
+                             select new
+                             {
+                                 s.ID,
+                                 s.CourseCode,
+                                 s.Name,
+                                 s.Credit,
+                                 s.TypeCourse,
+                                 s.NumberOfTheory,
+                                 s.NumberOfPractice,
+                                 s.Prerequisite,
+                                 s.LearnFirst,
+                                 s.Parallel,
+                                 s.Details,
+                                 s.IDClass,
+                                 sik.IDKnowledgeGroup
+                             };
             //var oldSubject = _db.Subjects.Where(x => x.IDClass == idClassOld).Select(x => x);
             if (oldSubject.ToList().Count <= 0)
                 return new ResultError<string>("Không có dữ liệu để sao chép");
@@ -173,7 +185,7 @@ namespace SubjectManagement.Application.SubjectApp
                     Parallel = item.Parallel,
                     Details = item.Details
                 };
-                
+
                 _db.Subjects.Add(subject);
                 //thêm môn học vào khối kiến thức
                 var sig = new SubjectInKnowledgeGroup()
@@ -267,5 +279,10 @@ namespace SubjectManagement.Application.SubjectApp
             return new ResultSuccess<string>($"Đã xóa thành công môn học {subject.Name}");
         }
 
+        public List<Subject> GetSubject(int idClass)
+        {
+            var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x).ToList();
+            return subject;
+        }
     }
 }

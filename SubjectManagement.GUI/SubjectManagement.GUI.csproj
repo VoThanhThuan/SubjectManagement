@@ -4,7 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>logo_laptop_1HI_icon.ico</ApplicationIcon>
+    <ApplicationIcon>LogoLaptop.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>

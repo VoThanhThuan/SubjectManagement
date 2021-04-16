@@ -35,36 +35,64 @@ namespace SubjectManagement.GUI.Main
         private void loadCombobox()
         {
             var load = new SubjectController(_Class);
-            load.LoadCombobox(cbb_CoursesGroup);
+            cbb_CoursesGroup.ItemsSource = load.LoadCombobox(); ;
+            cbb_CoursesGroup.DisplayMemberPath = "Name"; 
         }
 
         public bool IsEdit { get; set; } = false;
+
+        public Guid _IdKnowledgeGroupEdit = Guid.Empty;
+        public int _IdSemesterEdit = 0;
+
         public Hashtable OldValue { get; set; }
 
         private Class _Class { get; init; }
 
+        public void SetValueCombobox()
+        {
+            if (IsEdit)
+            {
+                foreach (var item in cbb_CoursesGroup.Items)
+                {
+                    if (((KnowledgeGroup)item).ID == _IdKnowledgeGroupEdit)
+                        cbb_CoursesGroup.SelectedValue = item;
+                }
+
+                cbb_Semester.SelectedIndex = _IdSemesterEdit-1;
+            }
+        }
+
         private SubjectRequest InfoSubject()
         {
-
-            var subject = new SubjectRequest()
+            try
             {
-                ID = IsEdit is false ? Guid.NewGuid() : (Guid)OldValue["ID"],
-                CourseCode = tbx_CourseCode.Text,
-                Name = tbx_Name.Text,
-                Credit = string.IsNullOrEmpty(tbx_Credit.Text) ? 0 : Convert.ToInt32(tbx_Credit.Text),
-                TypeCourse = chk_TypeCourse.IsChecked ?? true,
-                NumberOfTheory = Convert.ToInt32(tbx_NumberOfTheory.Text),
-                NumberOfPractice = Convert.ToInt32(tbx_NumberOfPractice.Text),
-                Prerequisite = string.IsNullOrEmpty(tbx_Prerequisite.Text) ? 0 :  Convert.ToInt32(tbx_Prerequisite.Text),
-                LearnFirst = string.IsNullOrEmpty(tbx_LearnFirst.Text) ? 0 : Convert.ToInt32(tbx_LearnFirst.Text),
-                Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
-                Details = tbx_Details.Text,
+                var subject = new SubjectRequest()
+                {
+                    ID = IsEdit is false ? Guid.NewGuid() : (Guid)OldValue["ID"],
+                    CourseCode = tbx_CourseCode.Text,
+                    Name = tbx_Name.Text,
+                    Credit = string.IsNullOrEmpty(tbx_Credit.Text) ? 0 : Convert.ToInt32(tbx_Credit.Text),
+                    TypeCourse = chk_TypeCourse.IsChecked ?? true,
+                    NumberOfTheory = string.IsNullOrEmpty(tbx_NumberOfTheory.Text) ? 0 : Convert.ToInt32(tbx_NumberOfTheory.Text),
+                    NumberOfPractice = string.IsNullOrEmpty(tbx_NumberOfPractice.Text) ? 0 : Convert.ToInt32(tbx_NumberOfPractice.Text),
+                    Prerequisite = string.IsNullOrEmpty(tbx_Prerequisite.Text) ? 0 : Convert.ToInt32(tbx_Prerequisite.Text),
+                    LearnFirst = string.IsNullOrEmpty(tbx_LearnFirst.Text) ? 0 : Convert.ToInt32(tbx_LearnFirst.Text),
+                    Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
+                    Semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}"),
+                    Details = tbx_Details.Text,
 
-                IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
-                IDKnowledgeGroupOld = (Guid?) OldValue?["IDKnowledgeGroupOld"] ?? Guid.Empty,
-                IdClass = _Class.ID 
-            };
-            return subject;
+                    IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
+                    IDKnowledgeGroupOld = (Guid?)OldValue?["IDKnowledgeGroupOld"] ?? Guid.Empty,
+                    IdClass = _Class.ID
+                };
+                return subject;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return null;
+            }
+
         }
 
         private void Btn_AddCategory_OnClick(object sender, RoutedEventArgs e)
@@ -113,8 +141,22 @@ namespace SubjectManagement.GUI.Main
 
         private void btn_AddProduct_Click(object sender, RoutedEventArgs e)
         {
-            if (cbb_CoursesGroup.SelectedIndex < -1) return;
+            if (cbb_CoursesGroup.SelectedIndex < 0) return;
+            if(cbb_Semester.SelectedIndex < 0) return;
             var subject = InfoSubject();
+            if (subject == null)
+            {
+                var mess = new MessageDialog()
+                {
+                    tbl_Title = { Text = $"Dữ liệu bạn nhập có lỗi" },
+                    tbl_Message = { Text = $"Bạn hãy nhập lại dữ liệu." },
+                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                    Topmost = true
+                };
+                mess.ShowDialog();
+                return;
+            }
+
             var add = new SubjectController(_Class);
             if(IsEdit is not true)
                 add.AddSubject(subject);
@@ -133,5 +175,6 @@ namespace SubjectManagement.GUI.Main
         {
             tbl_TypeCourse.Text = chk_TypeCourse.IsChecked == true ? "Bắt buộc" : "Tự chọn";
         }
+
     }
 }

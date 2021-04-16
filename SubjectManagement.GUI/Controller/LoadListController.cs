@@ -27,25 +27,50 @@ namespace SubjectManagement.GUI.Controller
             //new Thread(DoSomething).Start();
         }
 
-        public async void LoadList(Grid renderBody, Grid g_loading)
+        public void LoadList(Grid renderBody, Grid g_loading)
         {
             g_loading.Visibility = Visibility.Visible;
 
-            var group = await _subjectService.LoadKnowledgeGroup();
+            var group = _subjectService.LoadKnowledgeGroup();
             var viewList = new ListExpanderCoursesUC(renderBody) {_g_loading = g_loading, _Class = _Class};
-            foreach (var expander in from item in @group 
-                let subjectInGroup = _subjectService.LoadSubjectWithGroup(item.ID, _Class.ID) 
-                select new ExpanderCoursesUC()
+            //foreach (var expander in from item in @group 
+            //    let subjectInGroup = _subjectService.LoadSubjectWithGroup(item.ID, _Class.ID) 
+            //    select new ExpanderCoursesUC()
+            //{
+            //    exp_courses =
+            //    {
+            //        Header = $"{item.Name}" +
+            //                 $" - {subjectInGroup.Sum(x => x.Credit)} TC " +
+            //                 $" - {subjectInGroup.Count(x => x.TypeCourse == true)} Bắt buộc"
+            //    },
+            //    dg_ListCourses = {ItemsSource = subjectInGroup}
+            //})
+            //{
+            //    viewList.renderExpander.Children.Add(expander);
+            //}
+
+            foreach (var item in group)
             {
-                exp_courses =
+                var subjectInGroup = _subjectService.LoadSubjectWithGroup(item.ID, _Class.ID);
+                var obligatory = subjectInGroup.Where(x => x.TypeCourse == true).Sum(x => x.Credit);
+                var listElective = subjectInGroup.Where(x => x.TypeCourse == false).Select(x => x.Credit).ToList();
+                var tc = new List<int>(){0};
+                foreach (var itc in listElective)
                 {
-                    Header = $"{item.Name}" +
-                             $" - {subjectInGroup.Sum(x => x.Credit)} TC " +
-                             $" - {subjectInGroup.Count(x => x.TypeCourse == true)} Bắt buộc"
-                },
-                dg_ListCourses = {ItemsSource = subjectInGroup}
-            })
-            {
+                    if(!tc.Contains(itc))
+                        tc.Add(itc);
+                }
+
+                var expander = new ExpanderCoursesUC()
+                {
+                    exp_courses =
+                    {
+                        Header = $"{item.Name}" +
+                                 $" - {obligatory+tc.Sum()} TC " +
+                                 $" - {subjectInGroup.Count(x => x.TypeCourse == true)} Bắt buộc"
+                    },
+                    dg_ListCourses = { ItemsSource = subjectInGroup }
+                };
                 viewList.renderExpander.Children.Add(expander);
             }
 

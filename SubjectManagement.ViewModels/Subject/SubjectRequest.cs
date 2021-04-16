@@ -19,6 +19,7 @@ namespace SubjectManagement.ViewModels.Subject
         public int? Prerequisite { get; set; } //Tiên Quyết
         public int? LearnFirst { get; set; } //Học Trước
         public int? Parallel { get; set; } // Song Hành
+        public int? Semester { get; set; } //Học kỳ
         public string Details { get; set; }
 
         public Guid IDKnowledgeGroup { get; set; }

@@ -14,11 +14,14 @@
         AllowsTransparency="True"
         Background="{x:Null}"
         MouseLeftButtonDown="MessageDialog_OnMouseLeftButtonDown">
-    <materialDesign:Card UniformCornerRadius="10" Margin="5">
-            <DockPanel>
-                <Grid DockPanel.Dock="Top">
-                    <materialDesign:ColorZone x:Name="title_color" Mode="PrimaryMid"
-                                              Height="40" x:FieldModifier="public">
+    <materialDesign:Card UniformCornerRadius="10"
+                         Margin="5">
+        <DockPanel>
+            <Grid DockPanel.Dock="Top">
+                <materialDesign:ColorZone x:Name="title_color"
+                                          Mode="PrimaryMid"
+                                          Height="40"
+                                          x:FieldModifier="public">
                     <materialDesign:ColorZone.Background>
                         <LinearGradientBrush EndPoint="0.5,1"
                                              StartPoint="0.5,0">
@@ -40,75 +43,79 @@
                         </LinearGradientBrush>
                     </materialDesign:ColorZone.Background>
                     <TextBlock x:Name="tbl_Title"
-                                   Text="Title Message"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Left"
-                                   Margin="10,0,0,0" x:FieldModifier="public" />
-
-                    </materialDesign:ColorZone>
-
-                    <ToggleButton x:Name="btn_Close"
-                                  Style="{StaticResource MaterialDesignFlatButton}"
-                                  ToolTip="Close"
-                                  HorizontalAlignment="Right"
-                                  Click="Btn_Close_OnClick"
-                                  Margin="0,0,10,0">
-                        <materialDesign:PackIcon Kind="Close"
-                                                 Height="15"
-                                                 Width="15"
-                                                 Foreground="White" />
-                    </ToggleButton>
-                </Grid>
-
-
-                <Grid VerticalAlignment="Bottom"
-                      DockPanel.Dock="Bottom"
-                      Margin="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-
-
-                    <Button x:Name="btn_OK"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            ToolTip="Đồng ý"
-                            VerticalAlignment="Bottom"
-                            materialDesign:ButtonAssist.CornerRadius="10"
-                            BorderBrush="#FF673EAE"
-                            Margin="5"
-                            Click="Btn_OK_OnClick"
-                            Grid.Column="0">
-                        OK
-                    </Button>
-
-                    <Button x:Name="btn_Cancel"
-                            Grid.Column="1"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            ToolTip="Không đồng ý"
-                            VerticalAlignment="Bottom"
-                            materialDesign:ButtonAssist.CornerRadius="10"
-                            BorderBrush="#FF673EAE"
-                            Margin="5"
-                            Click="Btn_Cancel_OnClick">
-                        Cancel
-                    </Button>
-
-                </Grid>
-
-                <ScrollViewer>
-                    <TextBlock x:Name="tbl_Message"
-                               Text="Message"
+                               Text="Title Message"
+                               VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               VerticalAlignment="Top"
-                               TextWrapping="Wrap"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Margin="10,5,0,0" x:FieldModifier="public" />
-                </ScrollViewer>
+                               Margin="10,0,0,0"
+                               x:FieldModifier="public" />
 
-            </DockPanel>
+                </materialDesign:ColorZone>
 
-        </materialDesign:Card>
+                <ToggleButton x:Name="btn_Close"
+                              Style="{StaticResource MaterialDesignFlatButton}"
+                              ToolTip="Close"
+                              HorizontalAlignment="Right"
+                              Click="Btn_Close_OnClick"
+                              Margin="0,0,10,0">
+                    <materialDesign:PackIcon Kind="Close"
+                                             Height="15"
+                                             Width="15"
+                                             Foreground="White" />
+                </ToggleButton>
+            </Grid>
+
+
+            <Grid VerticalAlignment="Bottom"
+                  DockPanel.Dock="Bottom"
+                  Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+
+                <Button x:Name="btn_OK"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        ToolTip="Đồng ý"
+                        VerticalAlignment="Bottom"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        BorderBrush="#FF673EAE"
+                        Margin="5"
+                        IsDefault="True"
+                        Click="Btn_OK_OnClick"
+                        Grid.Column="0">
+                    OK
+                </Button>
+
+                <Button x:Name="btn_Cancel"
+                        Grid.Column="1"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        ToolTip="Không đồng ý"
+                        VerticalAlignment="Bottom"
+                        materialDesign:ButtonAssist.CornerRadius="10"
+                        BorderBrush="#FF673EAE"
+                        Margin="5"
+                        IsCancel="True"
+                        Click="Btn_Cancel_OnClick">
+                    Cancel
+                </Button>
+
+            </Grid>
+
+            <ScrollViewer>
+                <TextBlock x:Name="tbl_Message"
+                           Text="Message"
+                           HorizontalAlignment="Left"
+                           VerticalAlignment="Top"
+                           TextWrapping="Wrap"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="10,5,0,0"
+                           x:FieldModifier="public" />
+            </ScrollViewer>
+
+        </DockPanel>
+
+    </materialDesign:Card>
 
 </Window>

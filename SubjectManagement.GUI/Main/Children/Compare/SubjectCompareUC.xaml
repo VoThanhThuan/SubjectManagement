@@ -15,7 +15,8 @@
                     Margin="0 2 0 0">
             <TextBlock x:Name="tbl_nameClass"
                        Foreground="#FF00B9FF"
-                       Text="Class xxxx vs Class xxxx"></TextBlock>
+                       Text="Class xxxx vs Class xxxx"
+                       FontSize="24"></TextBlock>
             <StackPanel Orientation="Horizontal"
                         Margin="5 0 0 0">
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
@@ -54,7 +55,7 @@
                   SelectionMode="Extended"
                   IsReadOnly="True"
                   AutoGenerateColumns="False"
-                  Margin="0 20 0 0">
+                  Margin="0 40 0 0">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>

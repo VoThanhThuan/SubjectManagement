@@ -15,11 +15,12 @@ namespace SubjectManagement.Application.SubjectApp
         List<Subject> LoadSubject();
         List<Subject> LoadSubjectOfClass(int idClass);
         List<Subject> LoadSubjectDifferentSemester(int? term, int idClass);
-        Task<List<KnowledgeGroup>> LoadKnowledgeGroup();
+        List<KnowledgeGroup> LoadKnowledgeGroup();
         List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass);
 
-        List<KnowledgeGroup> FindKnowledgeGroup(Guid idSubject);
+        Result<KnowledgeGroup> FindKnowledgeGroup(Guid idSubject);
 
+        List<Subject> GetSubject(int idClass);
         Result<string> AddSubject(SubjectRequest request);
 
         Result<string> EditSubject(SubjectRequest request);

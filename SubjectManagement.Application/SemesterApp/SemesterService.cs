@@ -24,7 +24,11 @@ namespace SubjectManagement.Application.SemesterApp
 
         public Result<string> AddSubject(Subject request, int semester)
         {
-            request.Semester = semester;
+            //request.Semester = semester;
+
+            var subject = _db.Subjects.Find(request.ID, request.IDClass);
+            if (subject == null) return new ResultError<string>("Lỗi tìm kiếm môn học");
+            subject.Semester = semester;
 
             _db.SaveChanges();
             return new ResultSuccess<string>("Thêm thành công");

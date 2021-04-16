@@ -37,7 +37,7 @@ namespace SubjectManagement.GUI.Controller
                 list[i].ID = list[i+1].ID;
                 list[i].IdClass = list[i].IdClass;
                 list[i].CourseCode = $"{list[i].CourseCode} {Environment.NewLine}>> {list[i + 1].CourseCode}";
-                list[i].Name = $"{list[i].Name} {Environment.NewLine}{list[i + 1].Name}";
+                list[i].Name = $"{list[i + 1].Name}{Environment.NewLine}{list[i].Name} ";
                 list[i].Credit = $"{list[i].Credit} {Environment.NewLine}{list[i + 1].Credit}";
                 list[i].TypeCourse = list[i].TypeCourse;
                 list[i].NumberOfTheory = $"{list[i].NumberOfTheory} {Environment.NewLine}{list[i + 1].NumberOfTheory}";

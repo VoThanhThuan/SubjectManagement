@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SubjectManagement.GUI.Main"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AddUser" Height="auto" Width="800">
+        Title="AddUser" Height="360" Width="800">
     <Grid>
         <StackPanel>
             <StackPanel  x:Name="card_Product">

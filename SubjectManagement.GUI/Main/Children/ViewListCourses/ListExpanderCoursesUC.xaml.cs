@@ -111,10 +111,10 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             switch (saveFileDialog.FilterIndex)
             {
                 case 1:
-                    export.ExportForExcel(filename);
+                    export.ExportSubjectForExcel(filename);
                     break;
                 case 2:
-                    export.ExportForJSON(filename);
+                    export.ExportSubjectForJSON(filename);
                     break;
             }
 

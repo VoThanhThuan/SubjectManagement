@@ -29,11 +29,10 @@ namespace SubjectManagement.GUI.Controller
 
         public Class _Class { get; init; }
 
-        public async void LoadCombobox(ComboBox cbb)
+        public List<KnowledgeGroup> LoadCombobox()
         {
-            var value = await _subjectService.LoadKnowledgeGroup();
-            cbb.ItemsSource = value;
-            cbb.DisplayMemberPath = "Name";
+            var value = _subjectService.LoadKnowledgeGroup();
+            return value;
         }
 
         public Subject FindSubject(string codeSubject)
@@ -65,7 +64,7 @@ namespace SubjectManagement.GUI.Controller
         public void AddSubject(SubjectRequest request)
         {
              var result = _subjectService.AddSubject(request);
-             if (!result.IsSuccessed) return;
+             if (result.IsSuccessed) return;
              var mess = new MessageDialog()
              {
                  tbl_Title = { Text = $"{result.Message}" },
@@ -97,7 +96,7 @@ namespace SubjectManagement.GUI.Controller
             var oldValue = new Hashtable
             {
                 { "ID", result.ResultObj.ID },
-                { "IDKnowledgeGroupOld", knowledge[0].ID }
+                { "IDKnowledgeGroupOld", knowledge.ResultObj.ID }
             };
 
             var editWindow = new AddSubjectWindow(_Class)
@@ -113,14 +112,17 @@ namespace SubjectManagement.GUI.Controller
                 tbx_LearnFirst = { Text = $"{result.ResultObj.LearnFirst}" },
                 tbx_Parallel = { Text = $"{result.ResultObj.Parallel}" },
                 tbx_Details = { Text = result.ResultObj.Details },
-                cbb_CoursesGroup = { SelectedValue = knowledge[0] },
-
+                _IdKnowledgeGroupEdit = knowledge.ResultObj.ID,
+                _IdSemesterEdit = result.ResultObj.Semester??1,
                 IsEdit = true,
                 OldValue = oldValue
             };
 
-
+            //editWindow.cbb_CoursesGroup.SelectedValue = knowledge.ResultObj;
+            editWindow.SetValueCombobox();
             editWindow.Show();
+            
+
         }
 
         public void EditSubject(SubjectRequest request)
@@ -172,7 +174,7 @@ namespace SubjectManagement.GUI.Controller
 
             //Tìm kiếm nhóm môn
             var group = _subjectService.FindKnowledgeGroup(subject.ResultObj.ID);
-            if (group.Count == 0)
+            if (!group.IsSuccessed)
             {
                 var mess = new MessageDialog()
                 {
@@ -182,14 +184,14 @@ namespace SubjectManagement.GUI.Controller
                     Topmost = true
                 };
                 mess.ShowDialog();
-                //return;
+                return;
             }
 
             //Tiến hành xóa
             var request = new SubjectRequest()
             {
                 ID = subject.ResultObj.ID,
-                IDKnowledgeGroup = group.Count == 0 ? Guid.Empty : group[0].ID 
+                IDKnowledgeGroup = group.ResultObj.ID
             };
 
             var result = _subjectService.RemoveSubject(request);
