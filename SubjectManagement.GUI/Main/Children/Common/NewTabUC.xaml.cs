@@ -56,7 +56,8 @@ namespace SubjectManagement.GUI.Main.Children.Common
             compare.ShowDialog();
             if (compare.DialogResult != true) return;
             _titleTab.Header = "So Sánh";
-            var compareUC = new SubjectCompareUC(_Class, compare._ClassCompare);
+            //var compareUC = new SubjectCompareUC(_Class, compare._ClassCompare);
+            var compareUC = new SubjectCompare2TableUC(_Class, compare._ClassCompare);
             MainBody.Children.Clear();
             MainBody.Children.Add(compareUC);
         }

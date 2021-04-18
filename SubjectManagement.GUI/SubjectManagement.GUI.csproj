@@ -32,4 +32,17 @@
     <Resource Include="Main\Children\Common\logo_laptop_1HI_icon.ico" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Main\Children\Compare\SubjectCompare2TableUC.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Main\Children\Compare\SubjectCompare2TableUC.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
 </Project>
