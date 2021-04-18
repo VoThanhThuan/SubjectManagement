@@ -127,7 +127,7 @@ namespace SubjectManagement.GUI.Controller
             {
                 var groups = _subjectService.LoadKnowledgeGroup();
 
-                var _data = new List<PrintJSON>();
+                var _data = new List<PrintSubjectJSON>();
 
                 foreach (var item in groups)
                 {
@@ -137,7 +137,7 @@ namespace SubjectManagement.GUI.Controller
                                 $" - {subjectInGroup.Sum(x => x.Credit)} TC " +
                                 $" - {subjectInGroup.Count(x => x.TypeCourse == true)} Bắt buộc";
 
-                    var contentJson = new PrintJSON();//Chứa nội dung file json
+                    var contentJson = new PrintSubjectJSON();//Chứa nội dung file json
 
                     contentJson.KnowledgeGroup = title;//dang sách các nhóm học phần
 
@@ -238,13 +238,48 @@ namespace SubjectManagement.GUI.Controller
             workbook.SaveAs(filename);
         }
 
+        public async void ExportAlternativeForJson(string filename)
+        {
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("AlternativeSubject");
+            var subjects = _subjectService.GetSubject(_Class.ID);
+            var _data = new List<PrintAlternativeJSON>();
+            foreach (var subject in subjects)
+            {
+                var content = new PrintAlternativeJSON();
+                content.Subject = subject;
+
+                var alterSubjects = _alternativeService.GetAlternative(_Class.ID, subject.ID);
+                if (alterSubjects == null) continue;
+                foreach (var alter in alterSubjects)
+                {
+                    content.SubjectsAlternative.Add(alter);
+                }
+                _data.Add(content);
+            }
+
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                WriteIndented = true
+            };
+
+            await using var createStream = File.Create(filename);
+            await JsonSerializer.SerializeAsync(createStream, _data, options);
+
+        }
     }
 
-    class PrintJSON
+    class PrintSubjectJSON
     {
         public string KnowledgeGroup { get; set; }
         public List<Subject> Subjects { get; set; }
 
     }
+    class PrintAlternativeJSON
+    {
+        public Subject Subject { get; set; }
+        public List<Subject> SubjectsAlternative { get; set; }
 
+    }
 }

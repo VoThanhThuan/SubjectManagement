@@ -121,7 +121,7 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
                     export.ExportAlternativeForExcel(filename);
                     break;
                 case 2:
-                    export.ExportSubjectForJSON(filename);
+                    export.ExportAlternativeForJson(filename);
                     break;
             }
         }
