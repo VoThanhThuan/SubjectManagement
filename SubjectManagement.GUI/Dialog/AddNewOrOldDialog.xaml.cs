@@ -30,7 +30,9 @@ namespace SubjectManagement.GUI.Dialog
 
         private Class _Class { get; init; }
         public bool? IsCopy { get; set; } = null;
-        public int IdClassNew { get; set; } 
+        public int IdClassNew { get; set; }
+
+        public bool IsAddOneSubject { get; set; } = true;
 
         private void LoadClass()
         {
@@ -54,6 +56,12 @@ namespace SubjectManagement.GUI.Dialog
         private void Cbb_Class_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             IdClassNew = ((Class) cbb_Class.SelectedValue).ID;
+        }
+
+        private void Cbb_ModeAdd_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbb_ModeAdd.SelectedIndex < 0) return;
+            IsAddOneSubject = cbb_ModeAdd.SelectedIndex == 0;
         }
     }
 }

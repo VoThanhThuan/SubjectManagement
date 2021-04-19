@@ -106,7 +106,21 @@
                                    Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                                    Margin="25,0,0,0"
                                    CaretBrush="#FF2B5BEB"
-                                   BorderBrush="#FF696FD0" />
+                                   BorderBrush="#FF696FD0"/>
+                    <Button x:Name="btn_ShowPass"
+                            Width="20"
+                            Height="20"
+                            Padding="0"
+                            HorizontalAlignment="Right"
+                            Background="{x:Null}"
+                            BorderThickness="0"
+                            Click="Btn_ShowPass_OnClick">
+                        <materialDesign:PackIcon 
+                                                 Kind="Eye"
+                                                 Foreground="{Binding BorderBrush, ElementName=txt_Password}"
+                                                 VerticalAlignment="Bottom"/>
+
+                    </Button>
                 </Grid>
 
 

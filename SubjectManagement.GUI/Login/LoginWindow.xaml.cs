@@ -33,6 +33,7 @@ namespace SubjectManagement.GUI.Login
 
         private bool IsConnected { get; set; } = false;
 
+        private bool IsShowPassword { get; set; } = true;
         private void ConnectDatabase()
         {
             var connect = new SettingController();
@@ -120,6 +121,29 @@ namespace SubjectManagement.GUI.Login
             };
             setting.ShowDialog();
             ConnectDatabase();
+        }
+
+        private string _passShow = "";
+        private void Btn_ShowPass_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (IsShowPassword)
+            {
+                MaterialDesignThemes.Wpf.HintAssist.SetHint(tbx_Password, tbx_Password.Password);
+                _passShow = tbx_Password.Password;
+                tbx_Password.Password = "";
+                tbx_Password.IsEnabled = false;
+                IsShowPassword = false;
+            }
+            else
+            {
+                MaterialDesignThemes.Wpf.HintAssist.SetHint(tbx_Password, "Password");
+                tbx_Password.Password = _passShow;
+                IsShowPassword = true;
+                tbx_Password.IsEnabled = true;
+
+            }
+
+
         }
     }
 }

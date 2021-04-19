@@ -83,7 +83,16 @@
                                              Width="64" />
                 </Grid>
             </Button>
-        </Grid>
+            <ComboBox Grid.Row="2"
+                      x:Name="cbb_ModeAdd"
+                      materialDesign:HintAssist.Hint="Hình tạo mới"
+                      Margin="5"
+                      SelectionChanged="Cbb_ModeAdd_OnSelectionChanged">
+                <ComboBoxItem>Thêm 1 môn</ComboBoxItem>
+                <ComboBoxItem>Thêm 1 danh sách</ComboBoxItem>
+            </ComboBox>
 
+        </Grid>
+        
     </Grid>
 </Window>

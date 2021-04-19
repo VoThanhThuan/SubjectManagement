@@ -47,22 +47,40 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new AddNewOrOldDialog(_Class){Owner = Window.GetWindow(this) };
+            var dialog = new AddNewOrOldDialog(_Class) { Owner = Window.GetWindow(this) };
             dialog.ShowDialog();
             switch (dialog.IsCopy)
             {
                 case true:
-                {
-                    var copy = new SubjectController(_Class);
-                    copy.CopyListSubject(dialog.IdClassNew, _Class.ID);
-                    break;
-                }
+                    {
+                        var mess = new MessageDialog()
+                        {
+                            tbl_Title = { Text = $"Lưu ý nè bà con ơi!!" },
+                            tbl_Message = { Text = $"Hành động copy này sẽ xóa toàn bộ dữ liệu cũ á!" },
+                            title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                            Topmost = true
+                        };
+                        mess.ShowDialog();
+                        if (mess.DialogResult != MyDialogResult.Result.Ok) return;
+                        var copy = new SubjectController(_Class);
+                        copy.CopyListSubject(dialog.IdClassNew, _Class.ID);
+                        break;
+                    }
                 case false:
-                {
-                    var addSubject = new AddSubjectWindow(_Class);
-                    addSubject.Show();
-                    break;
-                }
+                    {
+                        if (dialog.IsAddOneSubject)
+                        {
+                            var addSubject = new AddSubjectWindow(_Class);
+                            addSubject.Show();
+                        }
+                        else
+                        {
+                            var addSubject = new AddListSubjectWindow(_Class);
+                            addSubject.Show();
+                        }
+
+                        break;
+                    }
             }
         }
 
@@ -75,7 +93,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
         {
             var prompt = new PromptDialog()
             {
-                tbl_Title = {Text = "Nhập mã môn học cần sửa."}
+                tbl_Title = { Text = "Nhập mã môn học cần sửa." }
             };
             prompt.ShowDialog();
 

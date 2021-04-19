@@ -56,10 +56,14 @@ namespace SubjectManagement.GUI.Main.Children.Common
             compare.ShowDialog();
             if (compare.DialogResult != true) return;
             _titleTab.Header = "So Sánh";
-            //var compareUC = new SubjectCompareUC(_Class, compare._ClassCompare);
-            var compareUC = new SubjectCompare2TableUC(_Class, compare._ClassCompare);
+            ////var compareUC = new SubjectCompareUC(_Class, compare._ClassCompare);
+            //var compareUC = new SubjectCompare2TableUC(_Class, compare._ClassCompare);
+            //MainBody.Children.Clear();
+            //MainBody.Children.Add(compareUC);
+            var containerCompare = new ContainerSubjectCompare(_Class, compare._ClassCompare);
             MainBody.Children.Clear();
-            MainBody.Children.Add(compareUC);
+            MainBody.Children.Add(containerCompare);
+
         }
 
         private void Btn_AlternativeSubject_OnClick(object sender, RoutedEventArgs e)
@@ -78,6 +82,12 @@ namespace SubjectManagement.GUI.Main.Children.Common
             var user = new UserManagerUC();
             MainBody.Children.Clear();
             MainBody.Children.Add(user);
+        }
+
+        private void Btn_Setting_OnClick(object sender, RoutedEventArgs e)
+        {
+            var setting = new SettingWindow(true);
+            setting.ShowDialog();
         }
     }
 }

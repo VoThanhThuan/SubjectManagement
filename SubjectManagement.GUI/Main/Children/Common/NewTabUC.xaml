@@ -12,7 +12,7 @@
         <Grid.Resources>
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Background"
-                        Value="#00ADD8E6" />
+                        Value="#0C000000" />
                 <Setter Property="Foreground"
                         Value="{DynamicResource OptionColor}" />
                 <Setter Property="Template">
@@ -44,7 +44,8 @@
             <TextBlock x:Name="tbl_Class"
                        Text="xxx"
                        Foreground="{DynamicResource OptionTextColor}"
-                       FontSize="20"></TextBlock>
+                       FontSize="24"
+                       Margin="10 0 0 0"></TextBlock>
             <Grid Margin="0 25 0 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>
@@ -61,7 +62,8 @@
                           VerticalAlignment="Stretch">
                         <Button x:Name="btn_ViewList"
                                 ToolTip="Danh sách các môn của lớp"
-                                Click="Btn_ViewList_OnClick">
+                                Click="Btn_ViewList_OnClick"
+                                Margin="2">
                             <Grid Height="200"
                                   Width="250">
                                 <materialDesign:PackIcon Kind="ViewSplitHorizontal"
@@ -83,7 +85,8 @@
                           VerticalAlignment="Stretch">
                         <Button x:Name="btn_AlternativeSubject"
                                 ToolTip="Học phần thay thế"
-                                Click="Btn_AlternativeSubject_OnClick">
+                                Click="Btn_AlternativeSubject_OnClick"
+                                Margin="2">
                             <Grid Height="200"
                                   Width="250">
                                 <materialDesign:PackIcon Kind="CurrentAc"
@@ -112,7 +115,8 @@
 
                         <Button x:Name="btn_AddSemester"
                                 ToolTip="Tùy chỉnh học kỳ cho từng môn"
-                                Click="Btn_AddSemester_OnClick">
+                                Click="Btn_AddSemester_OnClick"
+                                Margin="2">
                             <Grid Height="200"
                                   Width="250">
                                 <materialDesign:PackIcon Kind="ClipboardList"
@@ -135,7 +139,8 @@
                           VerticalAlignment="Stretch">
                         <Button x:Name="btn_UserManager"
                                 ToolTip="Tài khoản"
-                                Click="Btn_UserManager_OnClick">
+                                Click="Btn_UserManager_OnClick"
+                                Margin="2">
                             <Grid Height="200"
                                   Width="250">
                                 <materialDesign:PackIcon Kind="User"
@@ -162,7 +167,8 @@
                           VerticalAlignment="Stretch">
                         <Button x:Name="btn_Compare"
                                 ToolTip="So sánh chương trình của 2 lớp"
-                                Click="Btn_Compare_OnClick">
+                                Click="Btn_Compare_OnClick"
+                                Margin="2">
                             <Grid Height="200"
                                   Width="250">
                                 <materialDesign:PackIcon Kind="Compare"
@@ -172,7 +178,6 @@
                                                          VerticalAlignment="Center" />
                                 <TextBlock Text="So sánh chương trình"
                                            FontSize="24"
-                                           Margin="0 0 0 20"
                                            VerticalAlignment="Bottom"
                                            HorizontalAlignment="Center"
                                            Foreground="{DynamicResource OptionTextColor}"></TextBlock>
@@ -180,7 +185,28 @@
                             </Grid>
                         </Button>
                     </Grid>
-                    <Grid Grid.Row="1">
+                    <Grid Grid.Row="1"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch">
+                        <Button x:Name="btn_Setting"
+                                ToolTip="So sánh chương trình của 2 lớp"
+                                Margin="2"
+                                Click="Btn_Setting_OnClick">
+                            <Grid Height="200"
+                                  Width="250">
+                                <materialDesign:PackIcon Kind="Settings"
+                                                         Width="120"
+                                                         Height="120"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Center" />
+                                <TextBlock Text="Cài đặt"
+                                           FontSize="24"
+                                           VerticalAlignment="Bottom"
+                                           HorizontalAlignment="Center"
+                                           Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+
+                            </Grid>
+                        </Button>
 
                     </Grid>
                 </Grid>

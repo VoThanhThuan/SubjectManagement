@@ -30,7 +30,7 @@
                     Padding="0"
                     Height="40"
                     BorderBrush="{x:Null}"
-                    Foreground="#FF858585"
+                    Foreground="Black"
                     Click="Btn_Export_OnClick">
                 <Grid Width="132"
                       Height="44">

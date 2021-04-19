@@ -24,9 +24,9 @@ namespace SubjectManagement.GUI.Main
     /// <summary>
     /// Interaction logic for AddSubjectWindow.xaml
     /// </summary>
-    public partial class AddSubjectWindow : Window
+    public partial class AddListSubjectWindow : Window
     {
-        public AddSubjectWindow(Class _class)
+        public AddListSubjectWindow(Class _class)
         {
             InitializeComponent();
             loadCombobox();
@@ -42,6 +42,8 @@ namespace SubjectManagement.GUI.Main
         public Hashtable OldValue { get; set; }
 
         private Class _Class { get; init; }
+
+        private List<SubjectRequest> _listSubject = new();
 
         #region Methods
 
@@ -167,14 +169,15 @@ namespace SubjectManagement.GUI.Main
                 mess.ShowDialog();
                 return;
             }
+            _listSubject.Add(subject);
+            dg_PreviewAdd.ItemsSource = _listSubject;
+            //var add = new SubjectController(_Class);
+            //if (IsEdit is not true)
+            //    add.AddSubject(subject);
+            //else
+            //    add.EditSubject(subject);
 
-            var add = new SubjectController(_Class);
-            if (IsEdit is not true)
-                add.AddSubject(subject);
-            else
-                add.EditSubject(subject);
-
-            this.Close();
+            //this.Close();
         }
 
         private void Btn_CLose_OnClick(object sender, RoutedEventArgs e)

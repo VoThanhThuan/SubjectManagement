@@ -33,12 +33,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Main\AddListSubjectWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Main\Children\Compare\SubjectCompare2TableUC.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Main\AddListSubjectWindow.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Main\Children\Compare\SubjectCompare2TableUC.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
