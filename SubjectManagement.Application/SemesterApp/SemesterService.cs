@@ -22,7 +22,7 @@ namespace SubjectManagement.Application.SemesterApp
 
         private readonly SubjectDbContext _db;
 
-        public Result<string> AddSubject(Subject request, int semester)
+        public Result<string> AddSubject(Subject request, string semester)
         {
             //request.Semester = semester;
 
@@ -34,7 +34,7 @@ namespace SubjectManagement.Application.SemesterApp
             return new ResultSuccess<string>("Thêm thành công");
         }
 
-        public List<Subject> LoadSubject(int idSemester, int idClass)
+        public List<Subject> LoadSubject(string idSemester, int idClass)
         {
             //var subject = (from sis in _db.SubjectInSemesters
             //    join s in _db.Subjects on sis.IDSubject equals s.ID
@@ -46,7 +46,7 @@ namespace SubjectManagement.Application.SemesterApp
             return subject;
         }
 
-        public Result<string> RemoveSubject(Guid idSubject, int term)
+        public Result<string> RemoveSubject(Guid idSubject, string term)
         {
             var s = _db.Subjects.Find(idSubject);
             if (s is null)

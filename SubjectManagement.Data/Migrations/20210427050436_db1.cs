@@ -32,7 +32,8 @@ namespace SubjectManagement.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CodeClass = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Year = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Year = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CanEdit = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,7 +94,7 @@ namespace SubjectManagement.Data.Migrations
                     LearnFirst = table.Column<int>(type: "int", nullable: true),
                     Parallel = table.Column<int>(type: "int", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Semester = table.Column<int>(type: "int", nullable: true)
+                    Semester = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -228,11 +229,11 @@ namespace SubjectManagement.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Class",
-                columns: new[] { "ID", "CodeClass", "Name", "Year" },
+                columns: new[] { "ID", "CanEdit", "CodeClass", "Name", "Year" },
                 values: new object[,]
                 {
-                    { 1, "DH19PM", "Kỹ thuật phầm mềm", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2, "DH20PM", "Kỹ thuật phầm mềm", new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1, true, "DH19PM", "Kỹ thuật phầm mềm", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2, true, "DH20PM", "Kỹ thuật phầm mềm", new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(

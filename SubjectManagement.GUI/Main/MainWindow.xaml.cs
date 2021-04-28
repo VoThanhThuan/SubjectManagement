@@ -84,6 +84,7 @@ namespace SubjectManagement.GUI.Main
             var newItem = new TabItem() { Header = "NewTab" };
             newItem.Content = new NewTabUC(newItem, this);
             InitialTabablzControl.Items.Add(newItem);
+            InitialTabablzControl.SelectedItem = newItem;
         }
 
         private void Btn_Hide_OnClickHide(object sender, RoutedEventArgs e)
@@ -151,6 +152,11 @@ namespace SubjectManagement.GUI.Main
             if (setting.DialogResult != MyDialogResult.Result.Ok) return;
             _IsReset = true;
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void BtnNewTab_OnClick(object sender, RoutedEventArgs e)
+        {
+            NewTab();
         }
     }
 }

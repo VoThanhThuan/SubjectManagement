@@ -87,6 +87,17 @@ namespace SubjectManagement.Application.FacultyApp
             _db.SaveChanges();
             return new ResultSuccess<string>("Xóa thành công");
         }
+
+        public Result<string> UnlockClass(int id, bool isLock)
+        {
+            var clss = _db.Classes.FirstOrDefault(x => x.ID == id);
+            if (clss == null) return new ResultError<string>("Không tìm thấy lớp");
+            clss.CanEdit = isLock;
+            _db.SaveChanges();
+            var mess = isLock ? "Mở khóa thành công" : "Khóa thành công";
+            return new ResultSuccess<string>(mess);
+
+        }
     }
     
 }

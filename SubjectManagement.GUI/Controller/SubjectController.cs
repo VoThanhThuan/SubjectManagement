@@ -50,7 +50,7 @@ namespace SubjectManagement.GUI.Controller
             return null;
         }
 
-        public List<Subject> GetSubjectSemester(int? semester = null)
+        public List<Subject> GetSubjectSemester(string semester = "")
         {
  
             return _subjectService.LoadSubjectDifferentSemester(semester, _Class.ID);
@@ -111,9 +111,10 @@ namespace SubjectManagement.GUI.Controller
                 tbx_Prerequisite = { Text = $"{result.ResultObj.Prerequisite}" },
                 tbx_LearnFirst = { Text = $"{result.ResultObj.LearnFirst}" },
                 tbx_Parallel = { Text = $"{result.ResultObj.Parallel}" },
+                tbl_Semeter = {Text = result.ResultObj.Semester},
                 tbx_Details = { Text = result.ResultObj.Details },
                 _IdKnowledgeGroupEdit = knowledge.ResultObj.ID,
-                _IdSemesterEdit = result.ResultObj.Semester??1,
+                _IdSemesterEdit = result.ResultObj.Semester??"",
                 IsEdit = true,
                 OldValue = oldValue
             };

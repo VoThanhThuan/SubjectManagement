@@ -13,7 +13,7 @@
         Width="900"
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
-        WindowStyle="SingleBorderWindow"
+        WindowStyle="ThreeDBorderWindow"
         SizeToContent="Manual"
         Closing="MainWindow_OnClosing">
     <Window.Resources>
@@ -53,6 +53,7 @@
                       CornerRadius="0"
                       CaptionHeight="0" />
     </WindowChrome.WindowChrome>
+
     <DockPanel>
 
         <Grid DockPanel.Dock="Top"
@@ -120,7 +121,7 @@
                         </ListBoxItem>
                         <Separator></Separator>
                         <ListBoxItem MouseUp="Li_Settings">
-                            Cài đặt
+                            Cài đặt (Beta)
                         </ListBoxItem>
                         <ListBoxItem MouseUp="li_Shutdown">
                             Thoát
@@ -170,13 +171,24 @@
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
+            <dragablz:TabablzControl.HeaderPrefixContent>
+                <Button x:Name="btnNewTab"
+                        Click="BtnNewTab_OnClick"
+                        Background="{x:Null}"
+                        BorderThickness="0"
+                        Width="26"
+                        ToolTip="New tab"
+                        Foreground="{DynamicResource OptionTextColor}">
+                    <materialDesign:PackIcon Kind="File" />
+                </Button>
+            </dragablz:TabablzControl.HeaderPrefixContent>
             <dragablz:TabablzControl.Resources>
                 <Style TargetType="{x:Type dragablz:TabablzControl}"
                        BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
                     <Setter Property="HeaderSuffixContent">
                         <Setter.Value>
                             <StackPanel Orientation="Horizontal"
-                                        ToolTip="Powered by Dragablz">
+                                        ToolTip="Đồ án của Võ Thành Thuận">
                                 <!--<TextBlock Text="Võ Thành Thuận"></TextBlock>-->
                             </StackPanel>
 
@@ -186,4 +198,5 @@
             </dragablz:TabablzControl.Resources>
         </dragablz:TabablzControl>
     </DockPanel>
+
 </Window>

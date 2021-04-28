@@ -29,28 +29,41 @@ namespace SubjectManagement.GUI.Main.Children.Semester
             InitializeComponent();
             _Class = _class;
             tbl_NameClass.Text = _class.Name;
+            if (_class.CanEdit == false)
+            {
+                btn_Add.IsEnabled = false;
+                btn_remove.IsEnabled = false;
+                var result = new MessageDialog()
+                {
+                    tbl_Title = { Text = $"Đã khóa" },
+                    tbl_Message = { Text = $"Lớp này đã bị khóa, không thể sửa đổi dữ liệu" },
+                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                    Topmost = true
+                };
+                result.ShowDialog();
+            }
             LoadListSubject();
 
         }
 
         public Class _Class { get; init; }
 
-        private void LoadListSubject(int? semester = null)
+        private void LoadListSubject(string semester = "")
         {
             var load = new SubjectController(_Class);
             dg_ListAllSubject.ItemsSource = load.GetSubjectSemester(semester);
         }
 
-        private void LoadSubjectInSemester(int semester)
+        private void LoadSubjectInSemester(string semester)
         {
-            if (semester < 0) return;
+            if (string.IsNullOrEmpty(semester)) return;
             var load = new SemesterController(_Class);
             dg_SubjectOfSemester.ItemsSource = load.LoadSubject(semester);
         }
 
         private void Cbb_Semester_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}");
+            var semester = $"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}";
 
             //Load lại data grid
             LoadListSubject(semester);
@@ -77,7 +90,7 @@ namespace SubjectManagement.GUI.Main.Children.Semester
             var subject = (Subject)dg_ListAllSubject.SelectedValue;
             var add = new SemesterController(_Class);
 
-            var semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}");
+            var semester = $"{((ComboBoxItem) cbb_Semester.SelectedItem).Content}";
 
 
             add.AddSubject(subject, semester);
@@ -94,7 +107,7 @@ namespace SubjectManagement.GUI.Main.Children.Semester
             var remove = new SemesterController(_Class);
 
             var subject = (Subject)dg_SubjectOfSemester.SelectedValue;
-            var semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}");
+            var semester = $"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}";
 
             remove.RemoveSubject(subject.ID, semester);
 

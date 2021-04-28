@@ -45,7 +45,23 @@ namespace SubjectManagement.GUI.Controller
             return items;
         }
 
-        public void CreateConnectString(string connectString)
+        public string CreateConnectString(bool isWindowsAuthentication, string serverName, string databaseName,string username = "", string password = "")
+        {
+            var connectString = "";
+            if (isWindowsAuthentication)
+            {
+                connectString = $@"Server ={serverName}; Database={databaseName}; Trusted_Connection=True;";
+            }
+            else
+            {
+                connectString = $@"Server ={serverName}; Database={databaseName}; User Id={username}; Password={password}; Trusted_Connection=True; MultipleActiveResultSets=true;";
+            }
+
+            return connectString;
+        }
+
+
+        public void WriteConnectString(string connectString)
         {
             var conn = _connect.CreateConnectString(connectString);
             if (conn.IsSuccessed)

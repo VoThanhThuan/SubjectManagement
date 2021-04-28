@@ -19,7 +19,12 @@
         </ResourceDictionary>
         
     </UserControl.Resources>
-
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn"
+                                             Duration="0:0:0.8" />
+            <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
+        </materialDesign:TransitioningContent.OpeningEffects>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -271,4 +276,6 @@
             </StackPanel>
         </materialDesign:PopupBox>
     </Grid>
+
+    </materialDesign:TransitioningContent>
 </UserControl>

@@ -4,6 +4,7 @@ using SubjectManagement.ViewModels.System.Users;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -13,6 +14,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using DocumentFormat.OpenXml.VariantTypes;
+using MaterialDesignThemes.Wpf;
 using SubjectManagement.GUI.Controller;
 using SubjectManagement.GUI.Dialog;
 using SubjectManagement.GUI.Main;
@@ -29,6 +32,7 @@ namespace SubjectManagement.GUI.Login
             InitializeComponent();
             SetBackground();
             ConnectDatabase();
+
         }
 
         private bool IsConnected { get; set; } = false;
@@ -123,7 +127,19 @@ namespace SubjectManagement.GUI.Login
             ConnectDatabase();
         }
 
+
+        private void tbx_Password_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            btn_ShowPass.Visibility = tbx_Password.Password.Length switch
+            {
+                > 0 => Visibility.Visible,
+                0 when IsShowPassword == false => Visibility.Hidden,
+                _ => btn_ShowPass.Visibility
+            };
+        }
+
         private string _passShow = "";
+
         private void Btn_ShowPass_OnClick(object sender, RoutedEventArgs e)
         {
             if (IsShowPassword)
@@ -133,6 +149,7 @@ namespace SubjectManagement.GUI.Login
                 tbx_Password.Password = "";
                 tbx_Password.IsEnabled = false;
                 IsShowPassword = false;
+                icon_btnShowPass.Kind = PackIconKind.EyeOff;
             }
             else
             {
@@ -140,9 +157,8 @@ namespace SubjectManagement.GUI.Login
                 tbx_Password.Password = _passShow;
                 IsShowPassword = true;
                 tbx_Password.IsEnabled = true;
-
+                icon_btnShowPass.Kind = PackIconKind.Eye;
             }
-
 
         }
     }

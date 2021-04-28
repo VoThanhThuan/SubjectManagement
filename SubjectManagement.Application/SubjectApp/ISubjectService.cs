@@ -14,7 +14,7 @@ namespace SubjectManagement.Application.SubjectApp
     {
         List<Subject> LoadSubject();
         List<Subject> LoadSubjectOfClass(int idClass);
-        List<Subject> LoadSubjectDifferentSemester(int? term, int idClass);
+        List<Subject> LoadSubjectDifferentSemester(string term, int idClass);
         List<KnowledgeGroup> LoadKnowledgeGroup();
         List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass);
 

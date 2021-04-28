@@ -23,7 +23,7 @@ namespace SubjectManagement.GUI.Controller
 
         private readonly ISemesterService _semesterServicel;
         private Class _Class { get; init; }
-        public void AddSubject(Subject request, int semester)
+        public void AddSubject(Subject request, string semester)
         {
             var result = _semesterServicel.AddSubject(request, semester);
             var mess = new MessageDialog()
@@ -35,7 +35,7 @@ namespace SubjectManagement.GUI.Controller
             };
             mess.ShowDialog();
         }
-        public void RemoveSubject(Guid idSubject, int term)
+        public void RemoveSubject(Guid idSubject, string term)
         {
             var result = _semesterServicel.RemoveSubject(idSubject, term);
 
@@ -48,7 +48,7 @@ namespace SubjectManagement.GUI.Controller
             };
             mess.ShowDialog();
         }
-        public List<Subject> LoadSubject(int idSemester)
+        public List<Subject> LoadSubject(string idSemester)
         {
             return _semesterServicel.LoadSubject(idSemester, _Class.ID);
 

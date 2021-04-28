@@ -12,6 +12,12 @@
     <UserControl.Resources>
         <viewListCourses:ConvertTypeCourses x:Key="ConvertTypeCourses" />
     </UserControl.Resources>
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn"
+                                             Duration="0:0:0.8" />
+            <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
+        </materialDesign:TransitioningContent.OpeningEffects>
     <Grid>
 
         <Grid>
@@ -218,49 +224,6 @@
                                             Binding="{Binding Details}" />
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button x:Name="btn_Remove"
-                        ToolTip="Thêm mới"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Stretch"
-                        Margin="0,0,-45,0"
-                        Padding="0"
-                        Height="48"
-                        Width="48"
-                        BorderBrush="{x:Null}"
-                        Foreground="#FF00B9FF"
-                        Click="Btn_Remove_OnClick"
-                        RenderTransformOrigin="0.5,0.5">
-                    <Button.Background>
-                        <LinearGradientBrush EndPoint="0.5,1"
-                                             StartPoint="0.5,0">
-                            <LinearGradientBrush.RelativeTransform>
-                                <TransformGroup>
-                                    <ScaleTransform CenterY="0.5"
-                                                    CenterX="0.5" />
-                                    <SkewTransform CenterY="0.5"
-                                                   CenterX="0.5" />
-                                    <RotateTransform Angle="-45"
-                                                     CenterY="0.5"
-                                                     CenterX="0.5" />
-                                    <TranslateTransform />
-                                </TransformGroup>
-                            </LinearGradientBrush.RelativeTransform>
-                            <GradientStop Color="#FF00BFF3"
-                                          Offset="1" />
-                            <GradientStop Color="Magenta"
-                                          Offset="0" />
-                        </LinearGradientBrush>
-                    </Button.Background>
-                    <Button.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform />
-                            <SkewTransform />
-                            <RotateTransform Angle="90" />
-                            <TranslateTransform />
-                        </TransformGroup>
-                    </Button.RenderTransform>
-                </Button>
-
             </Grid>
         </Grid>
         <Grid x:Name="g_loading"
@@ -276,4 +239,6 @@
                      FontSize="32">waiting for love..</TextBox>
         </Grid>
     </Grid>
+
+    </materialDesign:TransitioningContent>
 </UserControl>

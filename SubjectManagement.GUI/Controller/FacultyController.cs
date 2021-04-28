@@ -110,5 +110,18 @@ namespace SubjectManagement.GUI.Controller
             result.ShowDialog();
         }
 
+        public void UnlockClass(int id, bool isLock)
+        {
+            var result = _facultyService.UnlockClass(id, isLock);
+            var mess = new MessageDialog()
+            {
+                tbl_Title = { Text = $"{result.Message}" },
+                tbl_Message = { Text = $"{result.Message}" },
+                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                Topmost = true
+            };
+            mess.ShowDialog();
+        }
+
     }
 }

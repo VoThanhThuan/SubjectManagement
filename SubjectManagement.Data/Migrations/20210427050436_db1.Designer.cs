@@ -10,7 +10,7 @@ using SubjectManagement.Data.EF;
 namespace SubjectManagement.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20210406145842_db1")]
+    [Migration("20210427050436_db1")]
     partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -137,6 +137,9 @@ namespace SubjectManagement.Data.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<bool>("CanEdit")
+                        .HasColumnType("bit");
+
                     b.Property<string>("CodeClass")
                         .HasColumnType("nvarchar(max)");
 
@@ -154,6 +157,7 @@ namespace SubjectManagement.Data.Migrations
                         new
                         {
                             ID = 1,
+                            CanEdit = true,
                             CodeClass = "DH19PM",
                             Name = "Kỹ thuật phầm mềm",
                             Year = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -161,6 +165,7 @@ namespace SubjectManagement.Data.Migrations
                         new
                         {
                             ID = 2,
+                            CanEdit = true,
                             CodeClass = "DH20PM",
                             Name = "Kỹ thuật phầm mềm",
                             Year = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -313,8 +318,8 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<int?>("Prerequisite")
                         .HasColumnType("int");
 
-                    b.Property<int?>("Semester")
-                        .HasColumnType("int");
+                    b.Property<string>("Semester")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TypeCourse")
                         .HasColumnType("bit");

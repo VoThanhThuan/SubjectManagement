@@ -17,5 +17,8 @@ namespace SubjectManagement.Application.FacultyApp
 
         Result<string> AddClass(Class c, int idFaculty);
         Result<string> RemoveClass(int id);
+
+        Result<string> UnlockClass(int id, bool isLock);
+
     }
 }

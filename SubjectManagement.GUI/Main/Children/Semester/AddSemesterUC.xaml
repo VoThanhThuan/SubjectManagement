@@ -12,6 +12,12 @@
     <UserControl.Resources>
         <viewListCourses:ConvertTypeCourses x:Key="ConvertTypeCourses" />
     </UserControl.Resources>
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn"
+                                             Duration="0:0:0.8" />
+            <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
+        </materialDesign:TransitioningContent.OpeningEffects>
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -141,4 +147,6 @@
                      FontSize="32">waiting for love..</TextBox>
         </Grid>
     </Grid>
+
+    </materialDesign:TransitioningContent>
 </UserControl>

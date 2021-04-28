@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +18,7 @@ using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Constant;
 using SubjectManagement.GUI.Controller;
 using SubjectManagement.GUI.Dialog;
+using Path = System.IO.Path;
 
 namespace SubjectManagement.GUI.Dialog
 {
@@ -36,13 +39,26 @@ namespace SubjectManagement.GUI.Dialog
 
         public new MyDialogResult.Result DialogResult = MyDialogResult.Result.Close;
 
+        private void RunOrtherApp()
+        {
+            var proc = new Process();
+            var exist = Process.GetProcessesByName("StickerPOP");
+            var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\tool\\StickerPOP.exe";
+            if (!File.Exists(path) || exist.Length != 0) return;
+            proc.StartInfo.FileName = path;
+            proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
+            proc.Start();
+            //Process.Start($"{path}\\tool\\StickerPOP.exe");
+        }
+
         private void LoadFaculty()
         {
-            if(IsInMainApp == false) return;
+            if (IsInMainApp == false) return;
             var faculty = new FacultyController();
             faculty.GetFaculty(cbb_Faculty);
             faculty.GetFaculty(cbb_FacultyOfClass);
             faculty.GetClass(cbb_Class);
+            faculty.GetClass(cbb_ClassLock);
         }
 
         private void LoadDefaultColor()
@@ -62,17 +78,17 @@ namespace SubjectManagement.GUI.Dialog
         }
 
         private void SetColorTitleSimulator()
-        {           
+        {
             //var color = (Color)ColorConverter.ConvertFromString("#FFDFD991");
             //var c = new GradientStopCollection();
             //c.Add(new GradientStop(ClrPcker_BackgroundLeft.Color, 0.0));
             //c.Add(new GradientStop(ClrPcker_BackgroundRight.Color, 1.0));
-            var linear = new LinearGradientBrush() { StartPoint = new Point(0,0), EndPoint = new Point(1, 1)};
+            var linear = new LinearGradientBrush() { StartPoint = new Point(0, 0), EndPoint = new Point(1, 1) };
             linear.GradientStops.Add(new GradientStop(ClrPcker_BackgroundLeft.Color, 0.0));
             linear.GradientStops.Add(new GradientStop(ClrPcker_BackgroundRight.Color, 1.0));
 
             TitleSimulator.Background = linear;
-            
+
         }
 
         private SettingApp GetInfor()
@@ -117,7 +133,7 @@ namespace SubjectManagement.GUI.Dialog
 
         private void Btn_RemoveFaculty_OnClick(object sender, RoutedEventArgs e)
         {
-            if(cbb_Faculty.SelectedIndex < 0) return;
+            if (cbb_Faculty.SelectedIndex < 0) return;
             var remove = new FacultyController();
             remove.RemoveFaculty(((Faculty)cbb_Faculty.SelectedValue).ID);
             LoadFaculty();
@@ -125,7 +141,7 @@ namespace SubjectManagement.GUI.Dialog
 
         private void Btn_AddClass_OnClick(object sender, RoutedEventArgs e)
         {
-            if(cbb_FacultyOfClass.SelectedIndex < 0) return;
+            if (cbb_FacultyOfClass.SelectedIndex < 0) return;
             var add = new FacultyController();
             var clss = new Class
             {
@@ -148,7 +164,9 @@ namespace SubjectManagement.GUI.Dialog
         private void Btn_CreateConnect_OnClick(object sender, RoutedEventArgs e)
         {
             var setting = new SettingController();
-            setting.CreateConnectString(tbx_ConnectString.Text);
+            var connectString = "";
+            connectString = cbb_ModeCreate.SelectedIndex == 0 ? setting.CreateConnectString(true,tbx_ServerName.Text, tbx_DatabaseName.Text) : setting.CreateConnectString(false, tbx_ServerName.Text, tbx_DatabaseName.Text,tbx_Username.Text, tbx_Password.Password);
+            setting.WriteConnectString(connectString);
         }
 
         private void Btn_TestConnect_OnClick(object sender, RoutedEventArgs e)
@@ -160,10 +178,55 @@ namespace SubjectManagement.GUI.Dialog
 
         private void Btn_ChooseYear_OnClick(object sender, RoutedEventArgs e)
         {
-            var yd = new YearDialog(){Owner = this};
+            var yd = new YearDialog() { Owner = this };
             yd.ShowDialog();
             if (yd.DialogResult == MyDialogResult.Result.Ok)
                 tbl_Year.Text = yd.tbl_Year.Text;
+        }
+
+        private void Btn_StickerPOP_OnClick(object sender, RoutedEventArgs e)
+        {
+            RunOrtherApp();
+        }
+
+        private void Cbb_ClassLock_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbb_ClassLock.SelectedIndex < 0) return;
+            var clss = (Class)cbb_ClassLock.SelectedValue;
+            if (clss.CanEdit == false)
+            {
+                btn_ClassLock.Background = new SolidColorBrush(Color.FromRgb(21, 146, 255));
+                btn_ClassLock.Content = "Mở khóa";
+            }
+            else
+            {
+                btn_ClassLock.Background = new SolidColorBrush(Colors.Red);
+                btn_ClassLock.Content = "khóa lớp";
+            }
+        }
+
+        private void Btn_ClassLock_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (cbb_ClassLock.SelectedIndex < 0) return;
+
+            var lockClass = new FacultyController();
+            var clss = (Class)cbb_ClassLock.SelectedValue;
+            lockClass.UnlockClass(clss.ID, !clss.CanEdit);
+            lockClass.GetClass(cbb_ClassLock);
+        }
+
+        private void ModeCreate_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (cbb_ModeCreate.SelectedIndex == 0)
+            {
+                tbx_Username.IsEnabled = false;
+                tbx_Password.IsEnabled = false;
+            }
+            else
+            {
+                tbx_Username.IsEnabled = true;
+                tbx_Password.IsEnabled = true;
+            }
         }
     }
 }

@@ -1,60 +1,72 @@
 ﻿<UserControl x:Class="SubjectManagement.GUI.Main.Children.ViewListCourses.ExpanderCoursesUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SubjectManagement.GUI.Main.Children.ViewListCourses"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d"
+             d:DesignHeight="450"
+             d:DesignWidth="800">
     <UserControl.Resources>
         <local:ConvertTypeCourses x:Key="ConvertTypeCourses" />
     </UserControl.Resources>
-    <Grid>
-        <materialDesign:Card 
-            Background="{DynamicResource MaterialDesignBackground}"
-            Margin="10 5 10 5">
-            <StackPanel>
-                <Expander x:Name="exp_courses" HorizontalAlignment="Stretch"
-                          Header="Expander Example 2a">
-                    <StackPanel Orientation="Vertical"
-                                TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                                Margin="24,8,24,16">
-                        <DataGrid x:Name="dg_ListCourses"
-                                  CanUserAddRows="False"
-                                  SelectionUnit="FullRow"
-                                  SelectionMode="Extended"
-                                  IsReadOnly="True"
-                                  AutoGenerateColumns="False">
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Header="Mã Môn"
-                                                    Width="100"
-                                                    Binding="{Binding CourseCode}" />
-                                <DataGridTextColumn Header="Tên Môn"
-                                                    Binding="{Binding Name}" />
-                                <DataGridTextColumn Header="Tín Chỉ"
-                                                    Binding="{Binding Credit}" />
-                                <DataGridTextColumn Header="Loại Học Phần"
-                                                    Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
-                                <DataGridTextColumn Header="Tiết Lý Thuyết"
-                                                    Binding="{Binding NumberOfTheory}" />
-                                <DataGridTextColumn Header="Tiết Thực Hành"
-                                                    Binding="{Binding NumberOfPractice}" />
-                                <DataGridTextColumn Header="Học kỳ"
-                                                    Binding="{Binding Semester}" />
-                                <DataGridTextColumn Header="Mô tả"
-                                                    Binding="{Binding Details}" />
-                            </DataGrid.Columns>
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn"
+                                             Duration="0:0:0.8" />
+            <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
+        </materialDesign:TransitioningContent.OpeningEffects>
+        <Grid>
+            <materialDesign:Card Background="{DynamicResource MaterialDesignBackground}"
+                                 Margin="10 5 10 5">
+                <StackPanel>
+                    <Expander x:Name="exp_courses"
+                              HorizontalAlignment="Stretch"
+                              Header="Expander Example 2a">
+                        <StackPanel Orientation="Vertical"
+                                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                    Margin="24,8,24,16">
+                            <DataGrid x:Name="dg_ListCourses"
+                                      CanUserAddRows="False"
+                                      SelectionUnit="FullRow"
+                                      SelectionMode="Extended"
+                                      IsReadOnly="True"
+                                      AutoGenerateColumns="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Mã Môn"
+                                                        Width="100"
+                                                        Binding="{Binding CourseCode}" />
+                                    <DataGridTextColumn Header="Tên Môn"
+                                                        Binding="{Binding Name}" />
+                                    <DataGridTextColumn Header="Tín Chỉ"
+                                                        Binding="{Binding Credit}" />
+                                    <DataGridTextColumn Header="Loại Học Phần"
+                                                        Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
+                                    <DataGridTextColumn Header="Tiết Lý Thuyết"
+                                                        Binding="{Binding NumberOfTheory}" />
+                                    <DataGridTextColumn Header="Tiết Thực Hành"
+                                                        Binding="{Binding NumberOfPractice}" />
+                                    <DataGridTextColumn Header="Học kỳ"
+                                                        Binding="{Binding Semester}" />
+                                    <DataGridTextColumn Header="Học trước"
+                                                        Binding="{Binding LearnFirst}" />
 
-                        </DataGrid>
-                    </StackPanel>
-                </Expander>
-                <Border Background="{DynamicResource MaterialDesignDivider}"
-                        Height="1"
-                        HorizontalAlignment="Stretch"
-                        SnapsToDevicePixels="True" />
-            </StackPanel>
-        </materialDesign:Card>
+                                    <DataGridTextColumn Header="Mô tả"
+                                                        Binding="{Binding Details}" />
+                                </DataGrid.Columns>
 
-    </Grid>
+                            </DataGrid>
+                        </StackPanel>
+                    </Expander>
+                    <Border Background="{DynamicResource MaterialDesignDivider}"
+                            Height="1"
+                            HorizontalAlignment="Stretch"
+                            SnapsToDevicePixels="True" />
+                </StackPanel>
+            </materialDesign:Card>
+
+        </Grid>
+
+    </materialDesign:TransitioningContent>
 </UserControl>

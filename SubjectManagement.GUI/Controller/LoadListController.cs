@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using SubjectManagement.Application.SubjectApp;
+using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Main.Children.ViewListCourses;
@@ -33,6 +35,20 @@ namespace SubjectManagement.GUI.Controller
 
             var group = _subjectService.LoadKnowledgeGroup();
             var viewList = new ListExpanderCoursesUC(renderBody) {_g_loading = g_loading, _Class = _Class};
+            if (_Class.CanEdit == false)
+            {
+                viewList.btn_Add.IsEnabled = false;
+                viewList.btn_Edit.IsEnabled = false;
+                viewList.btn_Remove.IsEnabled = false;
+                var result = new MessageDialog()
+                {
+                    tbl_Title = { Text = $"Đã khóa" },
+                    tbl_Message = { Text = $"Lớp này đã bị khóa, không thể sửa đổi dữ liệu" },
+                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                    Topmost = true
+                };
+                result.ShowDialog();
+            }
             //foreach (var expander in from item in @group 
             //    let subjectInGroup = _subjectService.LoadSubjectWithGroup(item.ID, _Class.ID) 
             //    select new ExpanderCoursesUC()

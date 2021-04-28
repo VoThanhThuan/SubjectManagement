@@ -89,7 +89,7 @@ namespace SubjectManagement.GUI.Controller
                         worksheet.Cell($"A{cell}").Value = subject.CourseCode;
                         worksheet.Cell($"B{cell}").Value = subject.Name;
                         worksheet.Cell($"C{cell}").Value = subject.Credit;
-                        worksheet.Cell($"D{cell}").Value = subject.TypeCourse;
+                        worksheet.Cell($"D{cell}").Value = subject.TypeCourse?"Bắt buộc":"Tự chọn";
                         worksheet.Cell($"E{cell}").Value = subject.NumberOfTheory;
                         worksheet.Cell($"F{cell}").Value = subject.NumberOfPractice;
                         worksheet.Cell($"G{cell}").Value = subject.Semester;
@@ -223,7 +223,8 @@ namespace SubjectManagement.GUI.Controller
                 worksheet.Cell($"B{cell}").Value = subject.Name;
                 worksheet.Cell($"C{cell}").Value = subject.Credit;
                 worksheet.Cell($"D{cell}").Value = subject.Semester;
-                
+
+                var startColor = cell;
                 foreach (var alter in alterSubjects)
                 {
                     worksheet.Cell($"E{cell}").Value = alter.CourseCode;
@@ -232,7 +233,7 @@ namespace SubjectManagement.GUI.Controller
                     worksheet.Cell($"H{cell}").Value = alter.Semester;
                     cell++;
                 }
-
+                worksheet.Range($"A{startColor}:H{cell}").Style.Fill.BackgroundColor = XLColor.PowderBlue;
             }
 
             workbook.SaveAs(filename);

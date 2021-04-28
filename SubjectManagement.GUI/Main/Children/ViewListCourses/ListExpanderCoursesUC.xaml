@@ -8,6 +8,12 @@
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
+    <materialDesign:TransitioningContent>
+        <materialDesign:TransitioningContent.OpeningEffects>
+            <materialDesign:TransitionEffect Kind="ExpandIn"
+                                             Duration="0:0:0.8" />
+            <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
+        </materialDesign:TransitioningContent.OpeningEffects>
     <Grid
           Margin="0,5,0,0">
         <DockPanel>
@@ -175,4 +181,6 @@
             <StackPanel x:Name="renderExpander"></StackPanel>
         </ScrollViewer>
     </Grid>
+
+    </materialDesign:TransitioningContent>
 </UserControl>

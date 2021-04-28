@@ -38,7 +38,7 @@ namespace SubjectManagement.Application.SubjectApp
             var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x).ToList();
             return subject;
         }
-        public List<Subject> LoadSubjectDifferentSemester(int? term, int idClass)
+        public List<Subject> LoadSubjectDifferentSemester(string term, int idClass)
         {
             var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x);
 
@@ -104,6 +104,7 @@ namespace SubjectManagement.Application.SubjectApp
                 Prerequisite = request.Prerequisite,
                 LearnFirst = request.LearnFirst,
                 Parallel = request.Parallel,
+                Semester = request.Semester,
                 Details = request.Details,
                 IDClass = request.IdClass
             };
@@ -150,6 +151,7 @@ namespace SubjectManagement.Application.SubjectApp
                                  s.LearnFirst,
                                  s.Parallel,
                                  s.Details,
+                                 s.Semester,
                                  s.IDClass,
                                  sik.IDKnowledgeGroup
                              };
@@ -232,6 +234,7 @@ namespace SubjectManagement.Application.SubjectApp
             subject.Prerequisite = request.Prerequisite;
             subject.LearnFirst = request.LearnFirst;
             subject.Parallel = request.Parallel;
+            subject.Semester = request.Semester;
             subject.Details = request.Details;
 
             _db.Subjects.Update(subject);

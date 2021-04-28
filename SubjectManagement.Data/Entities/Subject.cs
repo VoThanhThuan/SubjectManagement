@@ -18,7 +18,7 @@ namespace SubjectManagement.Data.Entities
         public int? Parallel { get; set; } // Song Hành
         public string Details { get; set; }
 
-        public int? Semester { get; set; }
+        public string Semester { get; set; }
         public int IDClass { get; set; }
 
         public Class Class { get; set; }

@@ -12,7 +12,7 @@ namespace SubjectManagement.Data.Entities
         public string CodeClass { get; set; }
         public string Name { get; set; }
         public DateTime Year { get; set; }
-
+        public bool CanEdit { get; set; } = true;
         public ClassInFaculty ClassInFaculty { get; set; }
         public List<Subject> Subject { get; set; }
         public List<AlternativeSubject> AlternativeSubjects { get; set; }

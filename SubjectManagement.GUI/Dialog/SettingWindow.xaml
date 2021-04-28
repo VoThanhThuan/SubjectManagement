@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:SubjectManagement.GUI.Dialog"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Cài đặt"
-        Height="450"
+        Title="Cài đặt (Beta v0.2)"
+        Height="532"
         Width="800">
     <Grid>
 
@@ -15,17 +15,45 @@
                     TabStripPlacement="Left">
             <TabItem Header="Tùy chọn"
                      Height="40">
-                <Grid Height="70"
-                      VerticalAlignment="Top">
+                <Grid VerticalAlignment="Top">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition Width="90"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <TextBox x:Name="tbx_ConnectString"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             VerticalAlignment="Stretch"
-                             Margin="10"
-                             materialDesign:HintAssist.Hint="This is a text area" />
+                    <StackPanel>
+                        <ComboBox x:Name="cbb_ModeCreate"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}"
+                                  Height="48"
+                                  Margin="10"
+                                  Padding="15"
+                                  materialDesign:HintAssist.Hint="Authentication"
+                                  VerticalContentAlignment="Center"
+                                  SelectionChanged="ModeCreate_OnSelectionChanged">
+                            <ComboBoxItem>Windows Authentication</ComboBoxItem>
+                            <ComboBoxItem>SQL Server Authentication</ComboBoxItem>
+                        </ComboBox>
+                        <TextBox x:Name="tbx_ServerName"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 VerticalAlignment="Stretch"
+                                 Margin="10"
+                                 materialDesign:HintAssist.Hint="Server Name" />
+                        <TextBox x:Name="tbx_DatabaseName"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 VerticalAlignment="Stretch"
+                                 Margin="10"
+                                 materialDesign:HintAssist.Hint="Database Name" />
+                        <TextBox x:Name="tbx_Username"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 VerticalAlignment="Stretch"
+                                 Margin="10"
+                                 materialDesign:HintAssist.Hint="Username" />
+                        <PasswordBox x:Name="tbx_Password"
+                                     Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
+                                     VerticalAlignment="Stretch"
+                                     Margin="10"
+                                     materialDesign:HintAssist.Hint="Password" />
+
+                    </StackPanel>
                     <Button x:Name="btn_CreateConnect"
                             Grid.Column="1"
                             Content="Tạo"
@@ -256,6 +284,19 @@
                                     </StackPanel>
                                 </StackPanel>
 
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="5 20 0 0">
+                                    <ComboBox x:Name="cbb_ClassLock"
+                                              Width="300"
+                                              Margin="5"
+                                              materialDesign:HintAssist.Hint="Nhập mã của lớp bạn muốn thêm"
+                                              SelectionChanged="Cbb_ClassLock_OnSelectionChanged"></ComboBox>
+                                    <Button x:Name="btn_ClassLock"
+                                            Margin="20 0 0 0"
+                                            Content="Khóa lớp"
+                                            Background="Red"
+                                            Click="Btn_ClassLock_OnClick"></Button>
+                                </StackPanel>
 
                             </StackPanel>
 
@@ -265,7 +306,14 @@
                 </ScrollViewer>
             </TabItem>
             <TabItem Header="Chức năng đang phát triển"
-                     Height="40"></TabItem>
+                     Height="40">
+                <StackPanel>
+                    <Button x:Name="btn_StickerPOP"
+                            Content="Hiển thị con mèo vô dụng trên màn hình"
+                            BorderBrush="Red"
+                            Click="Btn_StickerPOP_OnClick" />
+                </StackPanel>
+            </TabItem>
         </TabControl>
     </Grid>
 </Window>

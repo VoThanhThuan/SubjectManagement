@@ -37,7 +37,7 @@ namespace SubjectManagement.GUI.Main
         public bool IsEdit { get; set; } = false;
 
         public Guid _IdKnowledgeGroupEdit = Guid.Empty;
-        public int _IdSemesterEdit = 0;
+        public string _IdSemesterEdit = "";
 
         public Hashtable OldValue { get; set; }
 
@@ -61,16 +61,17 @@ namespace SubjectManagement.GUI.Main
 
         public void SetValueCombobox()
         {
-            if (IsEdit)
-            {
-                foreach (var item in cbb_CoursesGroup.Items)
-                {
-                    if (((KnowledgeGroup)item).ID == _IdKnowledgeGroupEdit)
-                        cbb_CoursesGroup.SelectedValue = item;
-                }
+            //đang lỗi
+            //if (IsEdit)
+            //{
+            //    foreach (var item in cbb_CoursesGroup.Items)
+            //    {
+            //        if (((KnowledgeGroup)item).ID == _IdKnowledgeGroupEdit)
+            //            cbb_CoursesGroup.SelectedValue = item;
+            //    }
 
-                cbb_Semester.SelectedIndex = _IdSemesterEdit - 1;
-            }
+            //    cbb_Semester.SelectedIndex = _IdSemesterEdit;
+            //}
         }
 
         private SubjectRequest InfoSubject()
@@ -89,7 +90,7 @@ namespace SubjectManagement.GUI.Main
                     Prerequisite = string.IsNullOrEmpty(tbx_Prerequisite.Text) ? 0 : Convert.ToInt32(tbx_Prerequisite.Text),
                     LearnFirst = string.IsNullOrEmpty(tbx_LearnFirst.Text) ? 0 : Convert.ToInt32(tbx_LearnFirst.Text),
                     Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
-                    Semester = int.Parse($"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}"),
+                    Semester = tbl_Semeter.Text,
                     Details = tbx_Details.Text,
 
                     IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
@@ -206,6 +207,34 @@ namespace SubjectManagement.GUI.Main
             };
             mess.ShowDialog();
             txt.Text = "";
+        }
+
+        private string _ListSemeter = "";
+        private void Btn_AddSemeter_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(cbb_Semester.SelectedIndex < 0) return;
+            var semeter = $"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}";
+            if(_ListSemeter.Contains(semeter)) return;
+            if (string.IsNullOrEmpty(_ListSemeter))
+                _ListSemeter += $"{semeter}";
+            else
+                _ListSemeter += $",{semeter}";
+            tbl_Semeter.Text = _ListSemeter;
+        }
+
+        private void Btn_RemoveSemeter_OnClick(object sender, RoutedEventArgs e)
+        {
+            if(string.IsNullOrEmpty(tbl_Semeter.Text)) return;
+            if (tbl_Semeter.Text.Length > 1)
+            {
+                _ListSemeter = _ListSemeter.Remove(_ListSemeter.Length - 2, 2);
+                tbl_Semeter.Text = _ListSemeter;
+            }
+            else
+            {
+                _ListSemeter = _ListSemeter.Remove(_ListSemeter.Length - 1);
+                tbl_Semeter.Text = _ListSemeter;
+            }
         }
     }
 }

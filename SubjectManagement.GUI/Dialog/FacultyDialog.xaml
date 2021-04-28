@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Chọn lớp học"
-        Height="180"
+        Height="163"
         Width="400"
         WindowStyle="SingleBorderWindow"
         WindowStartupLocation="CenterOwner"

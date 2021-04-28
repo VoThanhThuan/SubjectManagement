@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 
@@ -86,6 +87,19 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
 
         private void Btn_AddInCell_OnClick(object sender, RoutedEventArgs e)
         {
+            if (_Class.CanEdit == false)
+            {
+                var mess = new MessageDialog()
+                {
+                    tbl_Title = { Text = $"Lỗi" },
+                    tbl_Message = { Text = $"Lớp học này đã bị khóa, bạn không thể thực hiện hành động này" },
+                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                    Topmost = true
+                };
+                mess.ShowDialog();
+                return;
+            }
+
             var btn = (Button) (sender);
             
             if ((dg_ListAllSubject.SelectedIndex < 0)) return;
@@ -99,6 +113,19 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
 
         private void Btn_RemoveInCell_OnClick(object sender, RoutedEventArgs e)
         {
+            if (_Class.CanEdit == false)
+            {
+                var mess = new MessageDialog()
+                {
+                    tbl_Title = { Text = $"Lỗi" },
+                    tbl_Message = { Text = $"Lớp học này đã bị khóa, bạn không thể thực hiện hành động này" },
+                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
+                    Topmost = true
+                };
+                mess.ShowDialog();
+                return;
+            }
+
             var remove = new AlternativeController(_Class);
             var subject = (Button) sender;
             remove.RemoveAlternative(Guid.Parse($"{subject.Tag}"));
