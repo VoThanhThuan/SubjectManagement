@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using SubjectManagement.Application.System.Users;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.GUI.Dialog;
 
 namespace SubjectManagement.GUI.Controller
 {

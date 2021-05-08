@@ -4,26 +4,20 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Data;
 
 namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 {
-    public class ConvertTypeCourses : IValueConverter
+    public class IsNullConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if ((bool)value)
-            {
-                return "Bắt Buộc";
-            }
-
-            return "Tự Chọn";
+            return (value == null);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            throw new InvalidOperationException("IsNullConverter can only be used OneWay.");
         }
     }
 }

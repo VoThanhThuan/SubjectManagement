@@ -1,5 +1,4 @@
-﻿using SubjectManagement.Common.Dialog;
-using SubjectManagement.Data.Entities;
+﻿using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
 using SubjectManagement.GUI.Main;
 using System.Windows;

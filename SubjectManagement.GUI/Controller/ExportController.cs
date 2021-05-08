@@ -1,6 +1,5 @@
 ﻿using ClosedXML.Excel;
 using SubjectManagement.Application.SubjectApp;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
 using System;
@@ -14,6 +13,7 @@ using System.Text.Json;
 using System.Text.Unicode;
 using System.Windows.Media;
 using SubjectManagement.Application.Alternative;
+using SubjectManagement.GUI.Dialog;
 
 namespace SubjectManagement.GUI.Controller
 {

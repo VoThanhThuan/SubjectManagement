@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Data.SqlClient;
+using SubjectManagement.Common.InfoDatabase;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data;
 using SubjectManagement.Data.EF;
@@ -14,16 +17,31 @@ namespace SubjectManagement.Application.ConnectStringApp
     public class MyConnectString : IMyConnectString
     {
 
-        public Result<string> CreateConnectString(string connectString)
+        private string EncodeOrUncode(bool isEncode, string str)
         {
-            var encode = Uri.EscapeUriString(connectString);
+            return isEncode 
+                ? str.Select(c => Convert.ToInt32(c) + 1)
+                    .Aggregate("", (current, num) => current + num) 
+                : str.Select(c => Convert.ToInt32(c) - 1)
+                    .Aggregate("", (current, num) => current + num);
+        }
+
+        public Result<string> CreateConnectString(InfoDb infoDb)
+        {
             try
             {
-                using var binWriter = new BinaryWriter(new FileStream("ConnectString.json", FileMode.Create, FileAccess.Write));
-                foreach (var num in encode.Select(c => Convert.ToInt32(c) + 1))
+                infoDb.Uid = EncodeOrUncode(true, infoDb.Uid);
+
+                infoDb.Password = EncodeOrUncode(true, infoDb.Password);
+
+
+                var options = new JsonSerializerOptions
                 {
-                    binWriter.Write(num);
-                }
+                    Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                    WriteIndented = true
+                };
+                using var createStream = File.Create("ConnectString.json");
+                JsonSerializer.SerializeAsync(createStream, infoDb, options);
             }
             catch (Exception e)
             {
@@ -34,32 +52,45 @@ namespace SubjectManagement.Application.ConnectStringApp
             return new ResultSuccess<string>("Đã tạo chuỗi kết nối");
         }
 
-        public Result<string> ReadConnectString()
+        public Result<InfoDb> ReadConnectString()
         {
-            if (File.Exists("ConnectString.json") != true) return new ResultError<string>("Không tìm thấy chuỗi kết nối");
+            if (File.Exists("ConnectString.json") != true) return new ResultError<InfoDb>("Không tìm thấy chuỗi kết nối");
+            var items = new InfoDb();
             try
             {
-                //Đọc file
-                using var binReader = new BinaryReader(new FileStream("ConnectString.json", FileMode.Open, FileAccess.Read));
+                using var r = new StreamReader("ConnectString.json");
+                var json = r.ReadToEnd();
+                items = JsonSerializer.Deserialize<InfoDb>(json);
 
-                //Giải mã
-                var connectString = "";
-                while (binReader.BaseStream.Position != binReader.BaseStream.Length)
-                {
-                    var text = char.ConvertFromUtf32(binReader.ReadInt32() - 1);
-                    connectString += text;
-                }
-                MyConnect.ConnectString = Uri.UnescapeDataString(connectString);
+                items.Uid = EncodeOrUncode(false, items.Uid);
+                items.Password = EncodeOrUncode(false, items.Password);
+
+                ////Đọc file
+                //using var binReader = new BinaryReader(new FileStream("ConnectString.json", FileMode.Open, FileAccess.Read));
+
+                ////Giải mã
+                //var connectString = "";
+                //while (binReader.BaseStream.Position != binReader.BaseStream.Length)
+                //{
+                //    var text = char.ConvertFromUtf32(binReader.ReadInt32() - 1);
+                //    connectString += text;
+                //}
+                if (items.AccessMode == "authentication")
+                    MyConnect.ConnectString = $@"Server ={items.ServerName}; Database={items.DatabaseName}; Trusted_Connection=True;";
+                else
+                    MyConnect.ConnectString = $@"Server ={items.ServerName}; Database={items.DatabaseName}; User Id={items.Uid}; Password={items.Password}; Trusted_Connection=True; MultipleActiveResultSets=true;";
+                
             }
             catch (Exception e)
             {
-                return new ResultError<string>("Lỗi đọc chuỗi kết nối");
+                return new ResultError<InfoDb>("Lỗi đọc chuỗi kết nối");
                 throw;
             }
 
             var check = TestConnectString();
-            if (!check) return new ResultError<string>("không kết nối được CSDL");
-            return new ResultSuccess<string>("Đã lấy được chuỗi kế nối");
+            if (!check) return new ResultError<InfoDb>("không kết nối được CSDL");
+            return new ResultSuccess<InfoDb>(items, "Đã lấy được chuỗi kế nối");
+
         }
 
         public bool TestConnectString()

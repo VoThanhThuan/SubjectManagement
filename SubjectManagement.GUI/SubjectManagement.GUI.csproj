@@ -5,6 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>LogoLaptop.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SubjectManagement.Application\SubjectManagement.Application.csproj" />
+    <ProjectReference Include="..\SubjectManagement.Common\SubjectManagement.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +44,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Update="Dialog\MessageDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
+    <Page Update="Dialog\PromptDialog.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+    </Page>
     <Page Update="Main\AddListSubjectWindow.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>

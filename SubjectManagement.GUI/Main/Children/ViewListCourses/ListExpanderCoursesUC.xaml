@@ -140,7 +140,6 @@
                                    Height="27">Xóa</TextBlock>
                     </Grid>
                 </Button>
-
                 <Button x:Name="btn_Reload"
                         ToolTip="Xóa"
                         HorizontalAlignment="Left"
@@ -177,9 +176,19 @@
         </DockPanel>
 
         <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
                       Margin="0 69 0 0">
-            <StackPanel x:Name="renderExpander"></StackPanel>
+                    <StackPanel x:Name="renderExpander"></StackPanel>
         </ScrollViewer>
+        <Button x:Name="btn_ChangeView" Style="{StaticResource MaterialDesignIconButton}"
+                ToolTip="MaterialDesignIconButton"
+                Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Click="Btn_ChangeView_OnClick">
+                <materialDesign:PackIcon Kind="ArchiveEyeOutline" />
+        </Button>
+
     </Grid>
 
     </materialDesign:TransitioningContent>

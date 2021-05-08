@@ -44,9 +44,9 @@ namespace SubjectManagement.Data.Migrations
                 name: "ElectiveGroup",
                 columns: table => new
                 {
-                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Details = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("00000000-0000-0000-0000-000000000000")),
+                    IDClass = table.Column<int>(type: "int", nullable: false),
+                    Semester = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -94,7 +94,8 @@ namespace SubjectManagement.Data.Migrations
                     LearnFirst = table.Column<int>(type: "int", nullable: true),
                     Parallel = table.Column<int>(type: "int", nullable: true),
                     Details = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Semester = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Semester = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    IDElectiveGroup = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -105,6 +106,12 @@ namespace SubjectManagement.Data.Migrations
                         principalTable: "Class",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Subject_ElectiveGroup_IDElectiveGroup",
+                        column: x => x.IDElectiveGroup,
+                        principalTable: "ElectiveGroup",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,33 +167,6 @@ namespace SubjectManagement.Data.Migrations
                         principalTable: "Subject",
                         principalColumns: new[] { "ID", "IDClass" },
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SubjectInElectiveGroup",
-                columns: table => new
-                {
-                    ID = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    IDSubject = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IDCLass = table.Column<int>(type: "int", nullable: false),
-                    IDElectiveGroup = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SubjectInElectiveGroup", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_SubjectInElectiveGroup_ElectiveGroup_IDElectiveGroup",
-                        column: x => x.IDElectiveGroup,
-                        principalTable: "ElectiveGroup",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_SubjectInElectiveGroup_Subject_IDSubject_IDCLass",
-                        columns: x => new { x.IDSubject, x.IDCLass },
-                        principalTable: "Subject",
-                        principalColumns: new[] { "ID", "IDClass" },
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,15 +242,15 @@ namespace SubjectManagement.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Subject",
-                columns: new[] { "ID", "IDClass", "CourseCode", "Credit", "Details", "LearnFirst", "Name", "NumberOfPractice", "NumberOfTheory", "Parallel", "Prerequisite", "Semester", "TypeCourse" },
+                columns: new[] { "ID", "IDClass", "CourseCode", "Credit", "Details", "IDElectiveGroup", "LearnFirst", "Name", "NumberOfPractice", "NumberOfTheory", "Parallel", "Prerequisite", "TypeCourse" },
                 values: new object[,]
                 {
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010"), 1, "SEE101", 1, "", null, "Giới thiệu ngành – ĐH KTPM", 0, 15, null, null, null, false },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011"), 1, "COS106", 4, "", null, "Lập trình căn bản", 50, 35, null, null, null, false },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012"), 1, "TIE501", 4, "", 20, "Lập trình .Net", 60, 30, null, null, null, false },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013"), 1, "SEE301", 2, "", null, "Nhập môn công nghệ phần mềm", 20, 20, null, null, null, true },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014"), 1, "SEE508", 2, "", 38, "Quản lý dự án phần mềm", 20, 20, null, null, null, true },
-                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015"), 1, "SEE505", 3, "", 38, "Phân tích và thiết kế phần mềm hướng đối tượng", 30, 30, null, null, null, true }
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0010"), 1, "SEE101", 1, "", null, null, "Giới thiệu ngành – ĐH KTPM", 0, 15, null, null, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0011"), 1, "COS106", 4, "", null, null, "Lập trình căn bản", 50, 35, null, null, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0012"), 1, "TIE501", 4, "", null, 20, "Lập trình .Net", 60, 30, null, null, false },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0013"), 1, "SEE301", 2, "", null, null, "Nhập môn công nghệ phần mềm", 20, 20, null, null, true },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0014"), 1, "SEE508", 2, "", null, 38, "Quản lý dự án phần mềm", 20, 20, null, null, true },
+                    { new Guid("0f7b55fc-4968-49d8-b9bd-402301fa0015"), 1, "SEE505", 3, "", null, 38, "Phân tích và thiết kế phần mềm hướng đối tượng", 30, 30, null, null, true }
                 });
 
             migrationBuilder.InsertData(
@@ -313,15 +293,9 @@ namespace SubjectManagement.Data.Migrations
                 column: "IDClass");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SubjectInElectiveGroup_IDElectiveGroup",
-                table: "SubjectInElectiveGroup",
+                name: "IX_Subject_IDElectiveGroup",
+                table: "Subject",
                 column: "IDElectiveGroup");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_SubjectInElectiveGroup_IDSubject_IDCLass",
-                table: "SubjectInElectiveGroup",
-                columns: new[] { "IDSubject", "IDCLass" },
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectInKnowledgeGroup_IDKnowledgeGroup",
@@ -347,16 +321,10 @@ namespace SubjectManagement.Data.Migrations
                 name: "ClassInFaculty");
 
             migrationBuilder.DropTable(
-                name: "SubjectInElectiveGroup");
-
-            migrationBuilder.DropTable(
                 name: "SubjectInKnowledgeGroup");
 
             migrationBuilder.DropTable(
                 name: "Faculty");
-
-            migrationBuilder.DropTable(
-                name: "ElectiveGroup");
 
             migrationBuilder.DropTable(
                 name: "KnowledgeGroup");
@@ -366,6 +334,9 @@ namespace SubjectManagement.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Class");
+
+            migrationBuilder.DropTable(
+                name: "ElectiveGroup");
         }
     }
 }

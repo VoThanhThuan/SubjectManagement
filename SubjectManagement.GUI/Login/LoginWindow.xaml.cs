@@ -41,7 +41,7 @@ namespace SubjectManagement.GUI.Login
         private void ConnectDatabase()
         {
             var connect = new SettingController();
-            IsConnected = connect.ReadConnectString();
+            IsConnected = connect.ReadConnectString().IsSuccessed;
             if (!IsConnected) return;
             connect.ReadConnectString();
         }

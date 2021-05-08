@@ -309,9 +309,20 @@
                      Height="40">
                 <StackPanel>
                     <Button x:Name="btn_StickerPOP"
+                            Margin="0 5 0 5"
                             Content="Hiển thị con mèo vô dụng trên màn hình"
                             BorderBrush="Red"
                             Click="Btn_StickerPOP_OnClick" />
+                    <Button x:Name="btn_Backup"
+                            Margin="0 5 0 5"
+                            Content="Sao lưu dữ liệu"
+                            BorderBrush="Red"
+                            Click="Btn_Backup_OnClick" />
+                    <Button x:Name="btn_Restore"
+                            Margin="0 5 0 5"
+                            Content="Khôi phục dữ liệu"
+                            BorderBrush="Red"
+                            Click="Btn_Restore_OnClick" />
                 </StackPanel>
             </TabItem>
         </TabControl>

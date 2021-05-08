@@ -13,8 +13,12 @@ namespace SubjectManagement.Data.Configurations
         {
             builder.ToTable("Subject");
             builder.HasKey(x => new {x.ID, x.IDClass});
+            builder.Property(x => x.Semester).HasDefaultValue(0);
+            builder.Property(x => x.IDElectiveGroup).HasDefaultValue(null);
             builder.HasOne(x => x.Class).WithMany(x => x.Subject)
                 .HasForeignKey(x => x.IDClass);
+            builder.HasOne(x => x.ElectiveGroup).WithMany(x => x.Subjects)
+                .HasForeignKey(x => x.IDElectiveGroup);
         }
     }
 }

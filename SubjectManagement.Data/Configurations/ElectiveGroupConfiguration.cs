@@ -12,6 +12,9 @@ namespace SubjectManagement.Data.Configurations
         public void Configure(EntityTypeBuilder<ElectiveGroup> builder)
         {
             builder.ToTable("ElectiveGroup");
+            builder.HasKey(x => x.ID);
+            builder.Property(x => x.ID).HasDefaultValue(Guid.Empty);
+            builder.Property(x => x.TotalSubject).HasDefaultValue(0);
         }
     }
 }

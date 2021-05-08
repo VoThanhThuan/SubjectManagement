@@ -11,6 +11,7 @@ namespace SubjectManagement.Application.KnowledgeGroupApp
     public interface IKnowledgeGroupService
     {
         public List<KnowledgeGroup> GetKnowledgeGroups();
+        public KnowledgeGroup FindKnowledgeGroup(Guid idClass);
         public Result<string> AddKnowledge(string name);
         public Result<string> EditKnowledge(Guid id, string name);
         public Result<string> RemoveKnowledge(Guid id);

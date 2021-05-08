@@ -11,8 +11,8 @@ namespace SubjectManagement.Application.SemesterApp
 {
     public interface ISemesterService
     {
-        List<Subject> LoadSubject(string idSemester, int idClass);
-        Result<string> AddSubject(Subject request, string semester);
-        Result<string> RemoveSubject(Guid idSubject, string term);
+        List<Subject> LoadSubject(int idSemester, int idClass);
+        Result<string> AddSubject(Subject request, int semester);
+        Result<string> RemoveSubject(Guid idSubject, int term);
     }
 }

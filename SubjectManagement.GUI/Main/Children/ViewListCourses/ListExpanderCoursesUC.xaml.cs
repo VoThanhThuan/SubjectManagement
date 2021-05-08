@@ -14,7 +14,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using SubjectManagement.Application.SubjectApp;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
@@ -42,7 +41,14 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
         private void LoadListSubject()
         {
             var load = new LoadListController(_Class);
+
             load.LoadList(_renderBody, _g_loading);
+        }
+
+        private void LoadListSubjectInSemester()
+        {
+            var load = new LoadListController(_Class);
+            load.LoadListInSemester(_renderBody, _g_loading);
         }
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
@@ -137,6 +143,29 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             }
 
 
+        }
+
+        private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (sender is not ScrollViewer scv) return;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+        }
+
+        public bool _isViewSemester { get; set; } = false;
+
+        private void Btn_ChangeView_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (_isViewSemester == false)
+            {
+                LoadListSubjectInSemester();
+                _isViewSemester = true;
+            }
+            else
+            {
+                LoadListSubject();
+                _isViewSemester = false;
+            }
         }
     }
 }

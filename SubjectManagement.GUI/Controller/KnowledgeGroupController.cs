@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using SubjectManagement.Application.KnowledgeGroupApp;
 using SubjectManagement.Application.SubjectApp;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.GUI.Dialog;
 
 namespace SubjectManagement.GUI.Controller
 {
@@ -24,6 +24,10 @@ namespace SubjectManagement.GUI.Controller
         private readonly IKnowledgeGroupService _knowledgeGroupService;
         public Class _Class { get; init; }
 
+        public KnowledgeGroup FindKnơKnowledgeGroup(Guid idSubject)
+        {
+            return _knowledgeGroupService.FindKnowledgeGroup(idSubject);
+        }
 
         public List<KnowledgeGroup> GetKnowledgeGroups()
         {

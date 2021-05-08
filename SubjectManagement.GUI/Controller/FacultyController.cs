@@ -7,10 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using SubjectManagement.Application.FacultyApp;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.GUI.Dialog;
 
 namespace SubjectManagement.GUI.Controller
 {

@@ -128,28 +128,16 @@
                 <ComboBoxItem>3</ComboBoxItem>
                 <ComboBoxItem>4</ComboBoxItem>
                 <ComboBoxItem>5</ComboBoxItem>
+                <ComboBoxItem>6</ComboBoxItem>
                 <ComboBoxItem>7</ComboBoxItem>
                 <ComboBoxItem>8</ComboBoxItem>
             </ComboBox>
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btn_AddSemeter"
-                        Margin="10 0 10 0"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
-                        Click="Btn_AddSemeter_OnClick"
-                        Content="Thêm" />
                 <TextBlock Text="Học kỳ:"
                            VerticalAlignment="Center"></TextBlock>
                 <TextBlock x:Name="tbl_Semeter"
                            Text=""
                            VerticalAlignment="Center"></TextBlock>
-                <Button x:Name="btn_RemoveSemeter"
-                        Margin="10 0 10 0"
-                        Style="{StaticResource MaterialDesignOutlinedButton}"
-                        Click="Btn_RemoveSemeter_OnClick"
-                        Content="Xóa"
-                        BorderBrush="#FFFF008B"
-                        Foreground="#FFFF008B" />
-
             </StackPanel>
 
         </StackPanel>

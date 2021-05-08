@@ -18,13 +18,17 @@ namespace SubjectManagement.Data.Entities
         public int? Parallel { get; set; } // Song Hành
         public string Details { get; set; }
 
-        public string Semester { get; set; }
+        public int Semester { get; set; }
         public int IDClass { get; set; }
+
+        public Guid? IDElectiveGroup { get; set; }
 
         public Class Class { get; set; }
         public List<AlternativeSubject> AlternativeSubjects{ get; set; }
-        public SubjectInElectiveGroup SubjectInElectiveGroup { get; set; }
         public SubjectInKnowledgeGroup SubjectInKnowledgeGroup { get; set; }
+        public ElectiveGroup ElectiveGroup { get; set; }
+
+
 
     }
 }

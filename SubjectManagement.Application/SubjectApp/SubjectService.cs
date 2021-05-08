@@ -38,14 +38,14 @@ namespace SubjectManagement.Application.SubjectApp
             var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x).ToList();
             return subject;
         }
-        public List<Subject> LoadSubjectDifferentSemester(string term, int idClass)
+        public List<Subject> LoadSubjectDifferentSemester(int term, int idClass)
         {
             var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x);
 
             //var semester = _db.SubjectInSemesters
             //    .Select(x => x.IDSubject);
 
-            var result = subject.Where(x => x.Semester == null).ToList();
+            var result = subject.Where(x => x.Semester == 0).ToList();
 
             return result;
         }

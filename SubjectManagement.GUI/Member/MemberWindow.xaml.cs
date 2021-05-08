@@ -3,7 +3,6 @@ using SubjectManagement.GUI.Controller;
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.System.Users;

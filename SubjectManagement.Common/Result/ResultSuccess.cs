@@ -6,14 +6,14 @@ namespace SubjectManagement.Common.Result
 {
     public class ResultSuccess<T> : Result<T>
     { 
-        public ResultSuccess(T resultObj, string message)
+        public ResultSuccess(T resultObj, string message = "")
         {
             IsSuccessed = true;
             ResultObj = resultObj;
             Message = message;
         }
 
-        public ResultSuccess(string message)
+        public ResultSuccess(string message = "")
         {
             IsSuccessed = true;
             Message = message;

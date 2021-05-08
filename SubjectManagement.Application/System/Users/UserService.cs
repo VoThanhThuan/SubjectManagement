@@ -34,7 +34,8 @@ namespace SubjectManagement.Application.System.Users
 
             if (user is null) return new ResultError<InfoLogin>("Tài khoản không tồn tại");
 
-            var pass = ServiceForUser.PasswordHash(request.Password);
+            var service = new ServiceForUser();
+            var pass = service.PasswordHash(request.Password);
 
             if (user.PasswordHash != pass) return new ResultError<InfoLogin>("Sai mật khẩu");
 
@@ -66,9 +67,10 @@ namespace SubjectManagement.Application.System.Users
         public Result<string> EditUser(AppUser infor)
         {
             var user = _db.AppUsers.Find(infor.ID);
+            var service = new ServiceForUser();
             if (user is null) return new ResultError<string>("Người dùng không tồn tại");
             user.Username = infor.Username;
-            user.PasswordHash = string.IsNullOrEmpty(infor.PasswordHash) ? user.PasswordHash : ServiceForUser.PasswordHash(infor.PasswordHash);
+            user.PasswordHash = string.IsNullOrEmpty(infor.PasswordHash) ? user.PasswordHash : service.PasswordHash(infor.PasswordHash);
             user.FirstName = infor.FirstName;
             user.LastName = infor.LastName;
             user.Avatar = infor.Avatar == null ? user.Avatar : SaveFile(infor.Avatar);

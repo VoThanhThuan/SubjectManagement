@@ -10,8 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using SubjectManagement.Application;
 using SubjectManagement.Application.ConnectStringApp;
-using SubjectManagement.Common.Dialog;
+using SubjectManagement.Common.InfoDatabase;
+using SubjectManagement.Common.Result;
 using SubjectManagement.GUI.Constant;
+using SubjectManagement.GUI.Dialog;
 using Color = DocumentFormat.OpenXml.Spreadsheet.Color;
 using ConnectString = DocumentFormat.OpenXml.Wordprocessing.ConnectString;
 
@@ -45,25 +47,34 @@ namespace SubjectManagement.GUI.Controller
             return items;
         }
 
-        public string CreateConnectString(bool isWindowsAuthentication, string serverName, string databaseName,string username = "", string password = "")
+        public InfoDb CreateConnectString(bool isWindowsAuthentication, string serverName, string databaseName,string username = "", string password = "")
         {
-            var connectString = "";
+            //var connectString = "";
+            var infoDb = new InfoDb();
             if (isWindowsAuthentication)
             {
-                connectString = $@"Server ={serverName}; Database={databaseName}; Trusted_Connection=True;";
+                infoDb.AccessMode = "authentication";
+                infoDb.ServerName = serverName;
+                infoDb.DatabaseName = databaseName;
+                //connectString = $@"Server ={serverName}; Database={databaseName}; Trusted_Connection=True;";
             }
             else
             {
-                connectString = $@"Server ={serverName}; Database={databaseName}; User Id={username}; Password={password}; Trusted_Connection=True; MultipleActiveResultSets=true;";
+                infoDb.AccessMode = "uid";
+                infoDb.ServerName = serverName;
+                infoDb.DatabaseName = databaseName;
+                infoDb.Uid = username;
+                infoDb.Password = password;
+                // = $@"Server ={serverName}; Database={databaseName}; User Id={username}; Password={password}; Trusted_Connection=True; MultipleActiveResultSets=true;";
             }
 
-            return connectString;
+            return infoDb;
         }
 
 
-        public void WriteConnectString(string connectString)
+        public void WriteConnectString(InfoDb infoDb)
         {
-            var conn = _connect.CreateConnectString(connectString);
+            var conn = _connect.CreateConnectString(infoDb);
             if (conn.IsSuccessed)
             {
                 var mess = new MessageDialog()
@@ -89,10 +100,10 @@ namespace SubjectManagement.GUI.Controller
 
         }
 
-        public bool ReadConnectString()
+        public Result<InfoDb> ReadConnectString()
         {
             var conn = _connect.ReadConnectString();
-            if (conn.IsSuccessed) return true;
+            if (conn.IsSuccessed) return conn;
             var mess = new MessageDialog()
             {
                 tbl_Title = { Text = $"{conn.Message}" },
@@ -101,7 +112,7 @@ namespace SubjectManagement.GUI.Controller
                 Topmost = true
             };
             mess.ShowDialog();
-            return false;
+            return conn;
         }
 
         public void TestConnect()

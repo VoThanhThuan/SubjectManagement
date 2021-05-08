@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using Microsoft.Win32;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Constant;
 using SubjectManagement.GUI.Controller;
-using SubjectManagement.GUI.Dialog;
-using Path = System.IO.Path;
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using SubjectManagement.Common.InfoDatabase;
 
 namespace SubjectManagement.GUI.Dialog
 {
@@ -39,11 +30,11 @@ namespace SubjectManagement.GUI.Dialog
 
         public new MyDialogResult.Result DialogResult = MyDialogResult.Result.Close;
 
-        private void RunOrtherApp()
+        private void RunOrtherApp(string app)
         {
             var proc = new Process();
             var exist = Process.GetProcessesByName("StickerPOP");
-            var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\tool\\StickerPOP.exe";
+            var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\tool\\AmiPOP\\StickerPOP.exe";
             if (!File.Exists(path) || exist.Length != 0) return;
             proc.StartInfo.FileName = path;
             proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
@@ -164,16 +155,23 @@ namespace SubjectManagement.GUI.Dialog
         private void Btn_CreateConnect_OnClick(object sender, RoutedEventArgs e)
         {
             var setting = new SettingController();
-            var connectString = "";
-            connectString = cbb_ModeCreate.SelectedIndex == 0 ? setting.CreateConnectString(true,tbx_ServerName.Text, tbx_DatabaseName.Text) : setting.CreateConnectString(false, tbx_ServerName.Text, tbx_DatabaseName.Text,tbx_Username.Text, tbx_Password.Password);
-            setting.WriteConnectString(connectString);
+            var info = new InfoDb()
+            {
+                AccessMode = cbb_ModeCreate.SelectedIndex == 0 ? "authentication" : "uid",
+                ServerName = tbx_ServerName.Text,
+                DatabaseName = tbx_DatabaseName.Text,
+                Uid = tbx_Username.Text,
+                Password = tbx_Password.Password
+            };
+            //connectString = cbb_ModeCreate.SelectedIndex == 0 ? setting.CreateConnectString(true,tbx_ServerName.Text, tbx_DatabaseName.Text) : setting.CreateConnectString(false, tbx_ServerName.Text, tbx_DatabaseName.Text,tbx_Username.Text, tbx_Password.Password);
+            setting.WriteConnectString(info);
         }
 
         private void Btn_TestConnect_OnClick(object sender, RoutedEventArgs e)
         {
             var setting = new SettingController();
             setting.ReadConnectString();
-            setting.TestConnect();
+            //setting.TestConnect();
         }
 
         private void Btn_ChooseYear_OnClick(object sender, RoutedEventArgs e)
@@ -186,7 +184,57 @@ namespace SubjectManagement.GUI.Dialog
 
         private void Btn_StickerPOP_OnClick(object sender, RoutedEventArgs e)
         {
-            RunOrtherApp();
+            //RunOrtherApp();
+            var proc = new Process();
+            var exist = Process.GetProcessesByName("StickerPOP");
+            var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\tool\\AmiPOP\\StickerPOP.exe";
+            if (!File.Exists(path) || exist.Length != 0) return;
+            proc.StartInfo.FileName = path;
+            proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
+            proc.Start();
+        }
+        private void Btn_Backup_OnClick(object sender, RoutedEventArgs e)
+        {
+            var save = new SaveFileDialog();
+            save.FileName = DateTime.Now.ToString("yyyyMMddTHHmmss");
+            save.Filter = "DH19PM Backup | *.dh19pmbak";
+            if (save.ShowDialog() != true) return;
+
+            var setting = new SettingController();
+            var infoDb = setting.ReadConnectString().ResultObj;
+
+            var proc = new Process();
+            var exist = Process.GetProcessesByName("DH19PMToolBackupSQL");
+            var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\tool\\BackupTool\\DH19PMToolBackupSQL.exe";
+            if (!File.Exists(path) || exist.Length != 0) return;
+            if(infoDb.AccessMode == "uid")
+                proc.StartInfo.Arguments = $"/AccessMode {infoDb.AccessMode} /server {infoDb.ServerName} /database {infoDb.DatabaseName} /uid {infoDb.Uid} /password {infoDb.Password} /Mode backup /path {save.FileName}";
+            else
+                proc.StartInfo.Arguments = $"/AccessMode {infoDb.AccessMode} /server {infoDb.ServerName} /database {infoDb.DatabaseName} /Mode backup /path {save.FileName}";
+
+            proc.StartInfo.FileName = path;
+            proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
+            proc.Start();
+
+        }
+
+        private void Btn_Restore_OnClick(object sender, RoutedEventArgs e)
+        {
+            var save = new OpenFileDialog();
+            save.Filter = "DH19PM Backup | *.dh19pmbak";
+            if (save.ShowDialog() != true) return;
+
+            var setting = new SettingController();
+            var infoDb = setting.ReadConnectString().ResultObj;
+
+            var proc = new Process();
+            var exist = Process.GetProcessesByName("DH19PMToolBackupSQL");
+            var path = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location) + "\\tool\\BackupTool\\DH19PMToolBackupSQL.exe";
+            if (!File.Exists(path) || exist.Length != 0) return;
+            proc.StartInfo.Arguments = $"/AccessMode {infoDb.AccessMode} /server {infoDb.ServerName} /database {infoDb.DatabaseName} /uid {infoDb.Uid} /password {infoDb.Password} /Mode restore /path {save.FileName}";
+            proc.StartInfo.FileName = path;
+            proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
+            proc.Start();
         }
 
         private void Cbb_ClassLock_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -228,5 +276,8 @@ namespace SubjectManagement.GUI.Dialog
                 tbx_Password.IsEnabled = true;
             }
         }
+
+
+
     }
 }

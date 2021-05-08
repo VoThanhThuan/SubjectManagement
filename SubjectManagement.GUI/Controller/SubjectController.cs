@@ -6,12 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
+using DocumentFormat.OpenXml.VariantTypes;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using SubjectManagement.Application.SubjectApp;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.GUI.Main;
 using SubjectManagement.ViewModels.Subject;
 
@@ -50,7 +51,7 @@ namespace SubjectManagement.GUI.Controller
             return null;
         }
 
-        public List<Subject> GetSubjectSemester(string semester = "")
+        public List<Subject> GetSubjectSemester(int semester = 0)
         {
  
             return _subjectService.LoadSubjectDifferentSemester(semester, _Class.ID);
@@ -99,7 +100,26 @@ namespace SubjectManagement.GUI.Controller
                 { "IDKnowledgeGroupOld", knowledge.ResultObj.ID }
             };
 
-            var editWindow = new AddSubjectWindow(_Class)
+            var subject = new SubjectRequest()
+            {
+                ID = result.ResultObj.ID,
+                CourseCode = result.ResultObj.CourseCode,
+                Name = result.ResultObj.Name,
+                Credit = result.ResultObj.Credit,
+                TypeCourse = result.ResultObj.TypeCourse,
+                NumberOfTheory = result.ResultObj.NumberOfTheory,
+                NumberOfPractice = result.ResultObj.NumberOfPractice,
+                Prerequisite = result.ResultObj.Prerequisite,
+                LearnFirst = result.ResultObj.LearnFirst,
+                Parallel = result.ResultObj.Parallel,
+                Semester = result.ResultObj.Semester,
+                Details = result.ResultObj.Details,
+
+                IDKnowledgeGroup = knowledge.ResultObj.ID,
+                IdClass = _Class.ID
+            };
+
+            var editWindow = new AddSubjectWindow(subject, _Class)
             {
                 btn_AddProduct = { Content = "Sửa" },
                 tbx_CourseCode = { Text = result.ResultObj.CourseCode },
@@ -111,12 +131,10 @@ namespace SubjectManagement.GUI.Controller
                 tbx_Prerequisite = { Text = $"{result.ResultObj.Prerequisite}" },
                 tbx_LearnFirst = { Text = $"{result.ResultObj.LearnFirst}" },
                 tbx_Parallel = { Text = $"{result.ResultObj.Parallel}" },
-                tbl_Semeter = {Text = result.ResultObj.Semester},
+                tbl_Semeter = {Text = $"{result.ResultObj.Semester}"},
                 tbx_Details = { Text = result.ResultObj.Details },
-                _IdKnowledgeGroupEdit = knowledge.ResultObj.ID,
-                _IdSemesterEdit = result.ResultObj.Semester??"",
+                OldValue = oldValue,
                 IsEdit = true,
-                OldValue = oldValue
             };
 
             //editWindow.cbb_CoursesGroup.SelectedValue = knowledge.ResultObj;

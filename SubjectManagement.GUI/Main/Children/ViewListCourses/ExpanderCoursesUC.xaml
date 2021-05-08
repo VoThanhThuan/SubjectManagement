@@ -10,6 +10,9 @@
              d:DesignWidth="800">
     <UserControl.Resources>
         <local:ConvertTypeCourses x:Key="ConvertTypeCourses" />
+        <local:IsNullConverter  x:Key="isNullConverter" />
+        <CollectionViewSource x:Key="ItemCollectionViewSource"
+                              CollectionViewType="ListCollectionView" />
     </UserControl.Resources>
     <materialDesign:TransitioningContent>
         <materialDesign:TransitioningContent.OpeningEffects>
@@ -27,13 +30,73 @@
                         <StackPanel Orientation="Vertical"
                                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                                     Margin="24,8,24,16">
+                            <TextBlock x:Name="tbl_Vis_itemCM"
+                                       Visibility="Collapsed"
+                                       Height="0"
+                                       Width="0"></TextBlock>
                             <DataGrid x:Name="dg_ListCourses"
                                       CanUserAddRows="False"
                                       SelectionUnit="FullRow"
                                       SelectionMode="Extended"
                                       IsReadOnly="True"
-                                      AutoGenerateColumns="False">
+                                      ScrollViewer.CanContentScroll="True"
+                                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                      ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                      AutoGenerateColumns="False"
+                                      SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
+
+                                <DataGrid.Resources >
+
+                                    <ContextMenu StaysOpen="true"
+                                                 x:Key="RowMenu">
+                                        <MenuItem x:Name="mi_Group" 
+                                                  Header="Group"
+                                                  Visibility="{Binding Source={x:Reference tbl_Vis_itemCM}, Path=Visibility}"
+                                                  Click="mi_Group_Click" />
+                                        <MenuItem x:Name="mi_Edit"
+                                                  Click="mi_Edit_Click">
+                                            <MenuItem.Header>
+                                                    <TextBlock x:Name="tbl_mi_SubjectCode" Text="{Binding CourseCode, StringFormat= 'Edit - {0}'}"></TextBlock>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+                                        <MenuItem x:Name="mi_Delete"
+                                                  Click="mi_Delete_Click">
+                                            <MenuItem.Header>
+                                                <TextBlock Text="{Binding CourseCode, StringFormat= 'Delect - {0}'}"></TextBlock>
+                                            </MenuItem.Header>
+                                        </MenuItem>
+
+                                    </ContextMenu>
+                                </DataGrid.Resources>
+                                <DataGrid.RowStyle>
+                                    <Style TargetType="DataGridRow">
+                                        <Setter Property="ContextMenu"
+                                                Value="{StaticResource RowMenu}" />
+                                        <Style.Triggers>
+                                            <!--Hiệu ứng hover-->
+                                            <Trigger Property="DataGridRow.IsSelected"
+                                                     Value="True">
+                                                <Setter Property="Background"
+                                                        Value="#CCDAFF" />
+                                                <Setter Property="BorderBrush"
+                                                        Value="Black" />
+                                            </Trigger>
+                                            <!--Hiệu ứng gôm nhóm-->
+                                            <DataTrigger Binding="{Binding IDElectiveGroup, Converter={StaticResource isNullConverter}}"
+                                                         Value="False">
+                                                <Setter Property="Foreground"
+                                                        Value="BlueViolet"></Setter>
+                                            </DataTrigger>
+
+
+                                        </Style.Triggers>
+
+                                    </Style>
+
+                                </DataGrid.RowStyle>
+
                                 <DataGrid.Columns>
+
                                     <DataGridTextColumn Header="Mã Môn"
                                                         Width="100"
                                                         Binding="{Binding CourseCode}" />

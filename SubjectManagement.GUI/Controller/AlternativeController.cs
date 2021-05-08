@@ -7,9 +7,9 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using SubjectManagement.Application.Alternative;
 using SubjectManagement.Application.SubjectApp;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.Subject;
 
 namespace SubjectManagement.GUI.Controller

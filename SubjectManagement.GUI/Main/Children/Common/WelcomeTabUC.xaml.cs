@@ -50,5 +50,11 @@ namespace SubjectManagement.GUI.Main.Children.Common
         {
             Process.Start("cmd", "/c start https://www.facebook.com/anome69/");
         }
+
+        private void Btn_web_github_OnClick(object sender, RoutedEventArgs e)
+        {
+            grid_BodyWelcome.Visibility = Visibility.Hidden;
+            webBrowser.Visibility = Visibility.Visible;
+        }
     }
 }

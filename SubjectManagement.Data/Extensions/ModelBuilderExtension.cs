@@ -14,13 +14,13 @@ namespace SubjectManagement.Data.Extensions
     {
         public static void Seed(this ModelBuilder modelBuilder)
         {
-
+            var service = new ServiceForUser();
             modelBuilder.Entity<AppUser>().HasData(
                 new AppUser()
                 {
                     ID = "TK01",
                     Username = "thuan",
-                    PasswordHash = ServiceForUser.PasswordHash("thuan"),
+                    PasswordHash = service.PasswordHash("thuan"),
                     FirstName = "Thuận",
                     LastName = "Võ Thành",
                     Avatar = "",
@@ -30,7 +30,7 @@ namespace SubjectManagement.Data.Extensions
                 {
                     ID = "TK02",
                     Username = "son",
-                    PasswordHash = ServiceForUser.PasswordHash("son"),
+                    PasswordHash = service.PasswordHash("son"),
                     FirstName = "Sơn",
                     LastName = "Nguyễn Ngọc",
                     Avatar = "",
@@ -40,7 +40,7 @@ namespace SubjectManagement.Data.Extensions
                 {
                     ID = "TK03",
                     Username = "truyen",
-                    PasswordHash = ServiceForUser.PasswordHash("truyen"),
+                    PasswordHash = service.PasswordHash("truyen"),
                     FirstName = "Truyền",
                     LastName = "Nguyễn Thị Mỹ",
                     Avatar = "",
@@ -50,7 +50,7 @@ namespace SubjectManagement.Data.Extensions
                 {
                     ID = "TK04",
                     Username = "toan",
-                    PasswordHash = ServiceForUser.PasswordHash("toan"),
+                    PasswordHash = service.PasswordHash("toan"),
                     FirstName = "Toàn",
                     LastName = "Nguyễn Thanh",
                     Avatar = "",

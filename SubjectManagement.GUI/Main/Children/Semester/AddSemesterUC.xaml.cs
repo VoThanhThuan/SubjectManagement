@@ -12,9 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.SubjectOfClass;
 
 namespace SubjectManagement.GUI.Main.Children.Semester
@@ -48,22 +48,22 @@ namespace SubjectManagement.GUI.Main.Children.Semester
 
         public Class _Class { get; init; }
 
-        private void LoadListSubject(string semester = "")
+        private void LoadListSubject(int semester = 0)
         {
             var load = new SubjectController(_Class);
             dg_ListAllSubject.ItemsSource = load.GetSubjectSemester(semester);
         }
 
-        private void LoadSubjectInSemester(string semester)
+        private void LoadSubjectInSemester(int semester)
         {
-            if (string.IsNullOrEmpty(semester)) return;
+            if (semester < 1) return;
             var load = new SemesterController(_Class);
             dg_SubjectOfSemester.ItemsSource = load.LoadSubject(semester);
         }
 
         private void Cbb_Semester_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var semester = $"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}";
+            var semester = cbb_Semester.SelectedIndex+1;
 
             //Load lại data grid
             LoadListSubject(semester);
@@ -90,7 +90,7 @@ namespace SubjectManagement.GUI.Main.Children.Semester
             var subject = (Subject)dg_ListAllSubject.SelectedValue;
             var add = new SemesterController(_Class);
 
-            var semester = $"{((ComboBoxItem) cbb_Semester.SelectedItem).Content}";
+            var semester = cbb_Semester.SelectedIndex+1;
 
 
             add.AddSubject(subject, semester);
@@ -107,7 +107,7 @@ namespace SubjectManagement.GUI.Main.Children.Semester
             var remove = new SemesterController(_Class);
 
             var subject = (Subject)dg_SubjectOfSemester.SelectedValue;
-            var semester = $"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}";
+            var semester = cbb_Semester.SelectedIndex+1;
 
             remove.RemoveSubject(subject.ID, semester);
 

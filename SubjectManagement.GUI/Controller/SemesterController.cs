@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using SubjectManagement.Application.SemesterApp;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.SubjectOfClass;
 
 namespace SubjectManagement.GUI.Controller
@@ -23,7 +23,7 @@ namespace SubjectManagement.GUI.Controller
 
         private readonly ISemesterService _semesterServicel;
         private Class _Class { get; init; }
-        public void AddSubject(Subject request, string semester)
+        public void AddSubject(Subject request, int semester)
         {
             var result = _semesterServicel.AddSubject(request, semester);
             var mess = new MessageDialog()
@@ -35,7 +35,7 @@ namespace SubjectManagement.GUI.Controller
             };
             mess.ShowDialog();
         }
-        public void RemoveSubject(Guid idSubject, string term)
+        public void RemoveSubject(Guid idSubject, int term)
         {
             var result = _semesterServicel.RemoveSubject(idSubject, term);
 
@@ -48,7 +48,7 @@ namespace SubjectManagement.GUI.Controller
             };
             mess.ShowDialog();
         }
-        public List<Subject> LoadSubject(string idSemester)
+        public List<Subject> LoadSubject(int idSemester)
         {
             return _semesterServicel.LoadSubject(idSemester, _Class.ID);
 

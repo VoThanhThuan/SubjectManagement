@@ -13,9 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.System.Users;
 
 namespace SubjectManagement.GUI.Main

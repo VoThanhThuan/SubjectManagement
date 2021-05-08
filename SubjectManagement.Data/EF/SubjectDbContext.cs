@@ -26,7 +26,6 @@ namespace SubjectManagement.Data.EF
 
             modelBuilder.ApplyConfiguration(new SubjectConfiguration());
             modelBuilder.ApplyConfiguration(new ElectiveGroupConfiguration());
-            modelBuilder.ApplyConfiguration(new SubjectInElectiveGroupConfiguration());
 
             modelBuilder.ApplyConfiguration(new ClassConfiguration());
             modelBuilder.ApplyConfiguration(new FacultyConfiguration());
@@ -39,7 +38,6 @@ namespace SubjectManagement.Data.EF
         public DbSet<AlternativeSubject> AlternativeSubjects { get; set; }
         public DbSet<Subject> Subjects { get; set; }
         public DbSet<ElectiveGroup> ElectiveGroups { get; set; }
-        public DbSet<SubjectInElectiveGroup> SubjectInElectiveGroups { get; set; }
         public DbSet<KnowledgeGroup> KnowledgeGroups { get; set; }
         public DbSet<SubjectInKnowledgeGroup> SubjectInKnowledgeGroups { get; set; }
 

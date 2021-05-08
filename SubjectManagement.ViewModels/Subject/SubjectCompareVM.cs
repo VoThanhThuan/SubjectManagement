@@ -19,11 +19,18 @@ namespace SubjectManagement.ViewModels.Subject
         public string Prerequisite { get; set; } //Tiên Quyết
         public string LearnFirst { get; set; } //Học Trước
         public string Parallel { get; set; } // Song Hành
+        public int Semester { get; set; }
+
         public string Details { get; set; }
 
         public SubjectDifferent.Different Different { get; set; } //để phục phụ cho việc so sánh 2 subject //true là khác //flase là môn mới //null là không khác
 
-        public override bool Equals(object? obj)
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
         {
             if (obj == null || GetType() != obj.GetType()) return false;
 
@@ -37,7 +44,8 @@ namespace SubjectManagement.ViewModels.Subject
                    && NumberOfPractice ==subject.NumberOfPractice
                    && Prerequisite ==subject.Prerequisite
                    && LearnFirst == subject.LearnFirst
-                   && Parallel == subject.Parallel;
+                   && Parallel == subject.Parallel
+                   && Semester == subject.Semester;
         }
     }
 }

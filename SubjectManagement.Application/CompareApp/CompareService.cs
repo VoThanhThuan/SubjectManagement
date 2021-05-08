@@ -51,6 +51,7 @@ namespace SubjectManagement.Application.CompareApp
                 subjectSmall = class_1;
             }
 
+
             //Lấy mảng nhỏ hởn so sánh mảng lớn hơn
             for (var i = 0; i < indexSmall; indexSmall--)
             {

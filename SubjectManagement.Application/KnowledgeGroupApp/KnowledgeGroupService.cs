@@ -22,6 +22,11 @@ namespace SubjectManagement.Application.KnowledgeGroupApp
 
         private readonly SubjectDbContext _db;
 
+        public KnowledgeGroup FindKnowledgeGroup(Guid idClass)
+        {
+            return _db.SubjectInKnowledgeGroups.FirstOrDefault(x => x.IDSubject == idClass)?.KnowledgeGroup;
+        }
+
         public Result<string> AddKnowledge(string name)
         {
             var group = new KnowledgeGroup()

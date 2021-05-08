@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SubjectManagement.Common.Result;
 
-namespace SubjectManagement.Common.Dialog
+namespace SubjectManagement.GUI.Dialog
 {
     public partial class MessageDialog : Window
     {

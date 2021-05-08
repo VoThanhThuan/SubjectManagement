@@ -22,7 +22,7 @@ namespace SubjectManagement.Application.SemesterApp
 
         private readonly SubjectDbContext _db;
 
-        public Result<string> AddSubject(Subject request, string semester)
+        public Result<string> AddSubject(Subject request, int semester)
         {
             //request.Semester = semester;
 
@@ -34,7 +34,7 @@ namespace SubjectManagement.Application.SemesterApp
             return new ResultSuccess<string>("Thêm thành công");
         }
 
-        public List<Subject> LoadSubject(string idSemester, int idClass)
+        public List<Subject> LoadSubject(int idSemester, int idClass)
         {
             //var subject = (from sis in _db.SubjectInSemesters
             //    join s in _db.Subjects on sis.IDSubject equals s.ID
@@ -46,13 +46,13 @@ namespace SubjectManagement.Application.SemesterApp
             return subject;
         }
 
-        public Result<string> RemoveSubject(Guid idSubject, string term)
+        public Result<string> RemoveSubject(Guid idSubject, int term)
         {
             var s = _db.Subjects.Find(idSubject);
             if (s is null)
                 return new ResultError<string>($"Môn học không tồn tại");
 
-            s.Semester = null;
+            s.Semester = 0;
 
             _db.SaveChanges();
             return new ResultSuccess<string>($"Xóa thành công môn học khỏi học kỳ {term}");

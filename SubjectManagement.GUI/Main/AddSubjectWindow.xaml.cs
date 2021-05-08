@@ -13,10 +13,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using SubjectManagement.Common.Dialog;
 using SubjectManagement.Common.Result;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.Subject;
 
 namespace SubjectManagement.GUI.Main
@@ -28,20 +28,29 @@ namespace SubjectManagement.GUI.Main
     {
         public AddSubjectWindow(Class _class)
         {
+            Main(_class);
+        }
+        public AddSubjectWindow(SubjectRequest request, Class _class)
+        {
+            Main(_class);
+            _SubjectRequest = request;
+            SetValueCombobox();
+        }
+
+        private void Main(Class _class)
+        {
             InitializeComponent();
             loadCombobox();
             _Class = _class;
         }
 
-
         public bool IsEdit { get; set; } = false;
 
-        public Guid _IdKnowledgeGroupEdit = Guid.Empty;
-        public string _IdSemesterEdit = "";
+        private SubjectRequest _SubjectRequest = new();
 
         public Hashtable OldValue { get; set; }
 
-        private Class _Class { get; init; }
+        private Class _Class { get; set; }
 
         #region Methods
 
@@ -62,16 +71,13 @@ namespace SubjectManagement.GUI.Main
         public void SetValueCombobox()
         {
             //đang lỗi
-            //if (IsEdit)
-            //{
-            //    foreach (var item in cbb_CoursesGroup.Items)
-            //    {
-            //        if (((KnowledgeGroup)item).ID == _IdKnowledgeGroupEdit)
-            //            cbb_CoursesGroup.SelectedValue = item;
-            //    }
+            foreach (var item in cbb_CoursesGroup.Items)
+            {
+                if (((KnowledgeGroup)item).ID == _SubjectRequest.IDKnowledgeGroup)
+                    cbb_CoursesGroup.SelectedValue = item;
+            }
 
-            //    cbb_Semester.SelectedIndex = _IdSemesterEdit;
-            //}
+            cbb_Semester.SelectedIndex = _SubjectRequest.Semester - 1;
         }
 
         private SubjectRequest InfoSubject()
@@ -90,11 +96,11 @@ namespace SubjectManagement.GUI.Main
                     Prerequisite = string.IsNullOrEmpty(tbx_Prerequisite.Text) ? 0 : Convert.ToInt32(tbx_Prerequisite.Text),
                     LearnFirst = string.IsNullOrEmpty(tbx_LearnFirst.Text) ? 0 : Convert.ToInt32(tbx_LearnFirst.Text),
                     Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
-                    Semester = tbl_Semeter.Text,
+                    Semester = cbb_Semester.SelectedIndex + 1,
                     Details = tbx_Details.Text,
 
                     IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
-                    IDKnowledgeGroupOld = (Guid?)OldValue?["IDKnowledgeGroupOld"] ?? Guid.Empty,
+                    IDKnowledgeGroupOld = (Guid?)OldValue?["IDKnowledgeGroupOld"] ?? ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
                     IdClass = _Class.ID
                 };
                 return subject;
@@ -209,32 +215,5 @@ namespace SubjectManagement.GUI.Main
             txt.Text = "";
         }
 
-        private string _ListSemeter = "";
-        private void Btn_AddSemeter_OnClick(object sender, RoutedEventArgs e)
-        {
-            if(cbb_Semester.SelectedIndex < 0) return;
-            var semeter = $"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}";
-            if(_ListSemeter.Contains(semeter)) return;
-            if (string.IsNullOrEmpty(_ListSemeter))
-                _ListSemeter += $"{semeter}";
-            else
-                _ListSemeter += $",{semeter}";
-            tbl_Semeter.Text = _ListSemeter;
-        }
-
-        private void Btn_RemoveSemeter_OnClick(object sender, RoutedEventArgs e)
-        {
-            if(string.IsNullOrEmpty(tbl_Semeter.Text)) return;
-            if (tbl_Semeter.Text.Length > 1)
-            {
-                _ListSemeter = _ListSemeter.Remove(_ListSemeter.Length - 2, 2);
-                tbl_Semeter.Text = _ListSemeter;
-            }
-            else
-            {
-                _ListSemeter = _ListSemeter.Remove(_ListSemeter.Length - 1);
-                tbl_Semeter.Text = _ListSemeter;
-            }
-        }
     }
 }

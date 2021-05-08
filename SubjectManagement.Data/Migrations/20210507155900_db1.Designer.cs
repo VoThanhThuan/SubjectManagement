@@ -10,7 +10,7 @@ using SubjectManagement.Data.EF;
 namespace SubjectManagement.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20210427050436_db1")]
+    [Migration("20210507155900_db1")]
     partial class db1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -215,13 +215,14 @@ namespace SubjectManagement.Data.Migrations
                 {
                     b.Property<Guid>("ID")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
 
-                    b.Property<string>("Details")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("IDClass")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Semester")
+                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -300,6 +301,9 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<string>("Details")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("IDElectiveGroup")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int?>("LearnFirst")
                         .HasColumnType("int");
 
@@ -318,8 +322,10 @@ namespace SubjectManagement.Data.Migrations
                     b.Property<int?>("Prerequisite")
                         .HasColumnType("int");
 
-                    b.Property<string>("Semester")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Semester")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<bool>("TypeCourse")
                         .HasColumnType("bit");
@@ -327,6 +333,8 @@ namespace SubjectManagement.Data.Migrations
                     b.HasKey("ID", "IDClass");
 
                     b.HasIndex("IDClass");
+
+                    b.HasIndex("IDElectiveGroup");
 
                     b.ToTable("Subject");
 
@@ -341,6 +349,7 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Giới thiệu ngành – ĐH KTPM",
                             NumberOfPractice = 0,
                             NumberOfTheory = 15,
+                            Semester = 0,
                             TypeCourse = false
                         },
                         new
@@ -353,6 +362,7 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Lập trình căn bản",
                             NumberOfPractice = 50,
                             NumberOfTheory = 35,
+                            Semester = 0,
                             TypeCourse = false
                         },
                         new
@@ -366,6 +376,7 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Lập trình .Net",
                             NumberOfPractice = 60,
                             NumberOfTheory = 30,
+                            Semester = 0,
                             TypeCourse = false
                         },
                         new
@@ -378,6 +389,7 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Nhập môn công nghệ phần mềm",
                             NumberOfPractice = 20,
                             NumberOfTheory = 20,
+                            Semester = 0,
                             TypeCourse = true
                         },
                         new
@@ -391,6 +403,7 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Quản lý dự án phần mềm",
                             NumberOfPractice = 20,
                             NumberOfTheory = 20,
+                            Semester = 0,
                             TypeCourse = true
                         },
                         new
@@ -404,36 +417,9 @@ namespace SubjectManagement.Data.Migrations
                             Name = "Phân tích và thiết kế phần mềm hướng đối tượng",
                             NumberOfPractice = 30,
                             NumberOfTheory = 30,
+                            Semester = 0,
                             TypeCourse = true
                         });
-                });
-
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInElectiveGroup", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
-                        .HasAnnotation("SqlServer:IdentitySeed", 1)
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("IDCLass")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("IDElectiveGroup")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("IDSubject")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("IDElectiveGroup");
-
-                    b.HasIndex("IDSubject", "IDCLass")
-                        .IsUnique();
-
-                    b.ToTable("SubjectInElectiveGroup");
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInKnowledgeGroup", b =>
@@ -550,26 +536,13 @@ namespace SubjectManagement.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Class");
-                });
-
-            modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInElectiveGroup", b =>
-                {
                     b.HasOne("SubjectManagement.Data.Entities.ElectiveGroup", "ElectiveGroup")
-                        .WithMany("SubjectInElectiveGroups")
-                        .HasForeignKey("IDElectiveGroup")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany("Subjects")
+                        .HasForeignKey("IDElectiveGroup");
 
-                    b.HasOne("SubjectManagement.Data.Entities.Subject", "Subject")
-                        .WithOne("SubjectInElectiveGroup")
-                        .HasForeignKey("SubjectManagement.Data.Entities.SubjectInElectiveGroup", "IDSubject", "IDCLass")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Class");
 
                     b.Navigation("ElectiveGroup");
-
-                    b.Navigation("Subject");
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.SubjectInKnowledgeGroup", b =>
@@ -602,7 +575,7 @@ namespace SubjectManagement.Data.Migrations
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.ElectiveGroup", b =>
                 {
-                    b.Navigation("SubjectInElectiveGroups");
+                    b.Navigation("Subjects");
                 });
 
             modelBuilder.Entity("SubjectManagement.Data.Entities.Faculty", b =>
@@ -618,8 +591,6 @@ namespace SubjectManagement.Data.Migrations
             modelBuilder.Entity("SubjectManagement.Data.Entities.Subject", b =>
                 {
                     b.Navigation("AlternativeSubjects");
-
-                    b.Navigation("SubjectInElectiveGroup");
 
                     b.Navigation("SubjectInKnowledgeGroup");
                 });
