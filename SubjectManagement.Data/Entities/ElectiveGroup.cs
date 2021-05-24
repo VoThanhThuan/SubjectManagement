@@ -12,6 +12,7 @@ namespace SubjectManagement.Data.Entities
         public int IDClass { get; set; }
         public int Semester { get; set; }
         public int TotalSubject { get; set; }
+        public int Credit { get; set; }
         public List<Subject> Subjects { get; set; }
     }
 }

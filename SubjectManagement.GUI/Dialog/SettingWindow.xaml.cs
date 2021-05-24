@@ -220,6 +220,10 @@ namespace SubjectManagement.GUI.Dialog
 
         private void Btn_Restore_OnClick(object sender, RoutedEventArgs e)
         {
+            var dialog = MyCommonDialog.MessageDialog("Khôi phục CSDL",
+                "Hành đồng này yêu cầu phải tắt chương trình đang chạy");
+            if(dialog != MyDialogResult.Result.Ok) return;
+
             var save = new OpenFileDialog();
             save.Filter = "DH19PM Backup | *.dh19pmbak";
             if (save.ShowDialog() != true) return;
@@ -235,6 +239,7 @@ namespace SubjectManagement.GUI.Dialog
             proc.StartInfo.FileName = path;
             proc.StartInfo.WorkingDirectory = Path.GetDirectoryName(path);
             proc.Start();
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void Cbb_ClassLock_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

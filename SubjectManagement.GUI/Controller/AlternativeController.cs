@@ -66,16 +66,7 @@ namespace SubjectManagement.GUI.Controller
         {
             var add = _alternativeService.AddAlternative(_Class.ID, idSubject, idSubjectAlter);
             if (add.IsSuccessed is false)
-            {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = "Lỗi thêm" },
-                    tbl_Message = { Text = $"{add.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
-            }
+                MyCommonDialog.MessageDialog("Lỗi thêm", $"{add.Message}");
 
         }
 
@@ -83,16 +74,7 @@ namespace SubjectManagement.GUI.Controller
         {
             var remove = _alternativeService.RemoveAlternative(_Class.ID, idSubject);
             if (remove.IsSuccessed is not false)
-            {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = "Lỗi thêm" },
-                    tbl_Message = { Text = $"{remove.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
-            }
+                MyCommonDialog.MessageDialog("Lỗi thêm", $"{remove.Message}");
         }
 
         public List<Subject> GetAlternative( Guid idSubject)

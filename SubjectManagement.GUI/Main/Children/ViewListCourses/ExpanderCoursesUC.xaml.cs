@@ -16,8 +16,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.EntityFrameworkCore.Internal;
+using Microsoft.Win32;
 using SubjectManagement.Data.Entities;
 using SubjectManagement.GUI.Controller;
+using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.Subject;
 
 namespace SubjectManagement.GUI.Main.Children.ViewListCourses 
@@ -94,9 +96,23 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             var data = dg_ListCourses.ItemsSource;
             var subjects = dg_ListCourses.SelectedItems;
             var group = new ElectiveGroupController(_Class);
+            
+            var creditGroup = (from object item in subjects select ((Subject) item).Credit).Prepend(0).Min();
+            if (creditGroup <= 1)
+            {
+                MyCommonDialog.MessageDialog("Lỗi thêm nhóm","Số học phần đang bé hơn 1");
+                return;
+            }
             foreach (var item in subjects)
             {
                 var subject = (Subject)item;
+                if (subject.Credit != creditGroup)
+                {
+                    MyCommonDialog.MessageDialog("Lỗi thêm nhóm", "Môn học này có số học phần khác môn còn lại");
+                    return;
+                }
+                //nếu đã group thì xóa group ngược lại thì add vào group
+                if (subject.TypeCourse == true) return;
                 if (subject.IDElectiveGroup != null)
                 {
                     if (!group.RemoveGroup(((Subject)item).ID)) continue;
@@ -105,7 +121,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
                 }
                 else
                 {
-                    if (!group.AddGroup((Subject)item)) continue;
+                    if (!group.AddGroup((Subject)item, creditGroup)) continue;
                     foreach (var s in _subjects.Where(x => x.ID == subject.ID))
                         s.IDElectiveGroup = Guid.NewGuid();
                 }

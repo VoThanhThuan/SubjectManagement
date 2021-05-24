@@ -10,7 +10,7 @@ namespace SubjectManagement.Application.ElectiveGroupApp
 {
     public interface IElectiveGroupService
     {
-        public Result<string> AddGroup(int idClass, Subject subject);
+        public Result<string> AddGroup(int idClass, Subject subject, int credit);
         public Result<string> RemoveGroup(int idClass, Guid idSubject);
 
     }

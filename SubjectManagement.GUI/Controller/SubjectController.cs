@@ -40,14 +40,8 @@ namespace SubjectManagement.GUI.Controller
         {
             var subject = _subjectService.FindSubject(codeSubject);
             if (subject.IsSuccessed != false) return subject.ResultObj;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Không tìm thấy môn học" },
-                tbl_Message = { Text = $"{subject.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Không tìm thấy môn học", $"{subject.Message}");
+
             return null;
         }
 
@@ -66,14 +60,8 @@ namespace SubjectManagement.GUI.Controller
         {
              var result = _subjectService.AddSubject(request);
              if (result.IsSuccessed) return;
-             var mess = new MessageDialog()
-             {
-                 tbl_Title = { Text = $"{result.Message}" },
-                 tbl_Message = { Text = $"{result.Message}" },
-                 title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                 Topmost = true
-             };
-             mess.ShowDialog();
+             MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}");
+
         }
 
         public void EditWindow(string coursesCode)
@@ -81,14 +69,7 @@ namespace SubjectManagement.GUI.Controller
             var result = _subjectService.FindSubject(coursesCode);
             if (!result.IsSuccessed)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"{result.Message}" },
-                    tbl_Message = { Text = $"{result.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}");
                 return;
             }
 
@@ -148,14 +129,8 @@ namespace SubjectManagement.GUI.Controller
         {
             var result = _subjectService.EditSubject(request);
             if (result.IsSuccessed) return;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"{result.Message}" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}");
+
         }
 
 
@@ -166,43 +141,25 @@ namespace SubjectManagement.GUI.Controller
             if (subject.ResultObj is null)
             {
 
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"{subject.Message}" },
-                    tbl_Message = { Text = $"{subject.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog($"{subject.Message}", $"{subject.Message}");
+
                 return;
             }
 
             //Hỏi xem muốn xóa thật không
-            var confirm = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Bạn muốn xóa môn học này ?" },
-                tbl_Message = { Text = $"{subject.ResultObj.Name}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            confirm.ShowDialog();
 
-            if (confirm.DialogResult != MyDialogResult.Result.Ok)
+            var confirm = MyCommonDialog.MessageDialog("Bạn muốn xóa môn học này ?", $"{subject.ResultObj.Name}");
+
+            if (confirm != MyDialogResult.Result.Ok)
                 return;
-
 
             //Tìm kiếm nhóm môn
             var group = _subjectService.FindKnowledgeGroup(subject.ResultObj.ID);
             if (!group.IsSuccessed)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi tìm kiếm nhóm môn học" },
-                    tbl_Message = { Text = $"Đã có lỗi gì đó nhưng bạn yên tâm, phần mềm vẫn sẽ xử lý và xóa cho bạn môn học {subject.ResultObj.Name}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+
+                MyCommonDialog.MessageDialog($"Lỗi tìm kiếm nhóm môn học", $"Đã có lỗi gì đó nhưng bạn yên tâm, phần mềm vẫn sẽ xử lý và xóa cho bạn môn học {subject.ResultObj.Name}");
+
                 return;
             }
 
@@ -216,38 +173,20 @@ namespace SubjectManagement.GUI.Controller
             var result = _subjectService.RemoveSubject(request);
             if (result.ResultObj is not null)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"{result.Message}" },
-                    tbl_Message = { Text = $"{result.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}");
+
                 return;
             }
 
-            var sus = new MessageDialog()
-            {
-                tbl_Title = { Text = $"{result.Message}" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            sus.ShowDialog();
+            MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}", Colors.DeepSkyBlue);
+
         }
 
         public void CopyListSubject(int idClassOld, int idClassNew)
         {
             var result = _subjectService.CopyListSubject(idClassOld, idClassNew);
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Thông puma" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}", Colors.DeepSkyBlue);
+
         }
 
     }

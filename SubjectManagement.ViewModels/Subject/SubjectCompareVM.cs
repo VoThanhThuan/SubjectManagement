@@ -13,7 +13,7 @@ namespace SubjectManagement.ViewModels.Subject
         public string CourseCode { get; set; }
         public string Name { get; set; }
         public string Credit { get; set; }
-        public bool TypeCourse { get; set; }
+        public string TypeCourse { get; set; }
         public string NumberOfTheory { get; set; }
         public string NumberOfPractice { get; set; }
         public string Prerequisite { get; set; } //Tiên Quyết

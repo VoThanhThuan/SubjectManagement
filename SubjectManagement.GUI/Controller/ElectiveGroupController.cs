@@ -24,18 +24,17 @@ namespace SubjectManagement.GUI.Controller
 
         public Class _Class { get; init; }
 
-        public bool AddGroup(Subject subject)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="subject"> </param>
+        /// <param name="credit"> So tin chi trong nhom hoc phan </param>
+        /// <returns></returns>
+        public bool AddGroup(Subject subject, int credit)
         {
-            var add = _electiveGroup.AddGroup(_Class.ID, subject);
+            var add = _electiveGroup.AddGroup(_Class.ID, subject, credit);
             if (add.IsSuccessed) return true;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi thêm" },
-                tbl_Message = { Text = $"{add.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lỗi thêm nhóm", $"{add.Message}");
             return false;
         }
 
@@ -43,14 +42,7 @@ namespace SubjectManagement.GUI.Controller
         {
             var remove = _electiveGroup.RemoveGroup(_Class.ID, idSubject);
             if (remove.IsSuccessed) return true;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi remove group" },
-                tbl_Message = { Text = $"{remove.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lỗi thêm nhóm", $"{remove.Message}");
             return false;
 
         }

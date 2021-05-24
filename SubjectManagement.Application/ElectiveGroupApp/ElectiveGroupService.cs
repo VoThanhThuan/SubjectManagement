@@ -19,7 +19,7 @@ namespace SubjectManagement.Application.ElectiveGroupApp
         }
 
         private readonly SubjectDbContext _db;
-        public Result<string> AddGroup(int idClass, Subject subject)
+        public Result<string> AddGroup(int idClass, Subject subject, int credit)
         {
             var group = _db.ElectiveGroups.FirstOrDefault(x => x.IDClass == idClass && x.Semester == subject.Semester);
             var idElc = Guid.NewGuid();
@@ -30,7 +30,8 @@ namespace SubjectManagement.Application.ElectiveGroupApp
                     ID = idElc,
                     IDClass = idClass,
                     Semester = subject.Semester,
-                    TotalSubject = 0
+                    TotalSubject = 0,
+                    Credit = credit
                 };
                 _db.ElectiveGroups.Add(group);
                 _db.SaveChanges();

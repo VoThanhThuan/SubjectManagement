@@ -62,7 +62,7 @@ namespace SubjectManagement.Application.CompareApp
                     CourseCode = subjectSmall[i].CourseCode,
                     Name = subjectSmall[i].Name,
                     Credit = $"{subjectSmall[i].Credit}",
-                    TypeCourse = subjectSmall[i].TypeCourse,
+                    TypeCourse = subjectSmall[i].TypeCourse ? "Bắt buộc" : "Tự chọn",
                     NumberOfTheory = $"{subjectSmall[i].NumberOfTheory}",
                     NumberOfPractice = $"{subjectSmall[i].NumberOfPractice}",
                     Prerequisite = $"{subjectSmall[i].Prerequisite}",
@@ -82,7 +82,7 @@ namespace SubjectManagement.Application.CompareApp
                     subjectCompare.CourseCode = subjectLarge[j].CourseCode;
                     subjectCompare.Name = subjectLarge[j].Name;
                     subjectCompare.Credit = $"{subjectLarge[j].Credit}";
-                    subjectCompare.TypeCourse = subjectLarge[j].TypeCourse;
+                    subjectCompare.TypeCourse = subjectLarge[j].TypeCourse ? "Bắt buộc" : "Tự chọn";
                     subjectCompare.NumberOfTheory = $"{subjectLarge[j].NumberOfTheory}";
                     subjectCompare.NumberOfPractice = $"{subjectLarge[j].NumberOfPractice}";
                     subjectCompare.Prerequisite = $"{subjectLarge[j].Prerequisite}";
@@ -117,7 +117,7 @@ namespace SubjectManagement.Application.CompareApp
                     CourseCode = t.CourseCode,
                     Name = t.Name,
                     Credit = $"{t.Credit}",
-                    TypeCourse = t.TypeCourse,
+                    TypeCourse = t.TypeCourse ? "Bắt buộc" : "Tự chọn",
                     NumberOfTheory = $"{t.NumberOfTheory}",
                     NumberOfPractice = $"{t.NumberOfPractice}",
                     Prerequisite = $"{t.Prerequisite}",

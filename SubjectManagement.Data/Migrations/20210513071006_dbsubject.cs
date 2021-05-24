@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SubjectManagement.Data.Migrations
 {
-    public partial class db1 : Migration
+    public partial class dbsubject : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,9 @@ namespace SubjectManagement.Data.Migrations
                 {
                     ID = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValue: new Guid("00000000-0000-0000-0000-000000000000")),
                     IDClass = table.Column<int>(type: "int", nullable: false),
-                    Semester = table.Column<int>(type: "int", nullable: false)
+                    Semester = table.Column<int>(type: "int", nullable: false),
+                    TotalSubject = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
+                    Credit = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

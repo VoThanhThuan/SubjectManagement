@@ -1,7 +1,10 @@
 ﻿using ClosedXML.Excel;
+using SubjectManagement.Application.Alternative;
+using SubjectManagement.Application.CompareApp;
 using SubjectManagement.Application.SubjectApp;
-using SubjectManagement.Data;
 using SubjectManagement.Data.Entities;
+using SubjectManagement.GUI.Dialog;
+using SubjectManagement.ViewModels.Subject;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,10 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Unicode;
 using System.Windows.Media;
-using SubjectManagement.Application.Alternative;
-using SubjectManagement.GUI.Dialog;
 
 namespace SubjectManagement.GUI.Controller
 {
@@ -23,12 +23,22 @@ namespace SubjectManagement.GUI.Controller
         {
             _subjectService = new SubjectService();
             _alternativeService = new AlternativeService();
+            _compareService = new CompareService();
+
             _Class = _class;
         }
-
+        public ExportController(Class _class, Class _classCompare)
+        {
+            _compareService = new CompareService();
+            _ClassCompare = _classCompare;
+            _Class = _class;
+        }
         private readonly ISubjectService _subjectService;
         private readonly IAlternativeService _alternativeService;
+        private readonly ICompareService _compareService;
+
         private Class _Class { get; init; }
+        private Class _ClassCompare { get; init; }
 
         public static DataTable ToDataTable<T>(IList<T> data)
         {
@@ -89,7 +99,7 @@ namespace SubjectManagement.GUI.Controller
                         worksheet.Cell($"A{cell}").Value = subject.CourseCode;
                         worksheet.Cell($"B{cell}").Value = subject.Name;
                         worksheet.Cell($"C{cell}").Value = subject.Credit;
-                        worksheet.Cell($"D{cell}").Value = subject.TypeCourse?"Bắt buộc":"Tự chọn";
+                        worksheet.Cell($"D{cell}").Value = subject.TypeCourse ? "Bắt buộc" : "Tự chọn";
                         worksheet.Cell($"E{cell}").Value = subject.NumberOfTheory;
                         worksheet.Cell($"F{cell}").Value = subject.NumberOfPractice;
                         worksheet.Cell($"G{cell}").Value = subject.Semester;
@@ -98,27 +108,16 @@ namespace SubjectManagement.GUI.Controller
                     }
 
                 }
+                worksheet.Columns().AdjustToContents();  // Adjust column width
+                worksheet.Rows().AdjustToContents();     // Adjust row heights
                 workbook.SaveAs(filename);
             }
             catch (Exception e)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi lưu file" },
-                    tbl_Message = { Text = $"{e.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi lưu file", $"{e.Message}");
+
             }
-            var mess1 = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lưu Thành Công" },
-                tbl_Message = { Text = $"Đã lưu file vào {filename}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(68, 140, 203)) },
-                Topmost = true
-            };
-            mess1.ShowDialog();
+            MyCommonDialog.MessageDialog("Lưu thành công", $"Đã lưu file vào {filename}");
         }
 
         public async void ExportSubjectForJSON(string filename)
@@ -142,20 +141,20 @@ namespace SubjectManagement.GUI.Controller
                     contentJson.KnowledgeGroup = title;//dang sách các nhóm học phần
 
                     var listSubject = subjectInGroup.Select(subject => new Subject()
-                        {
-                            ID = subject.ID,
-                            CourseCode = subject.CourseCode,
-                            Name = subject.Name,
-                            Credit = subject.Credit,
-                            TypeCourse = subject.TypeCourse,
-                            NumberOfTheory = subject.NumberOfTheory,
-                            NumberOfPractice = subject.NumberOfPractice,
-                            Prerequisite = subject.Prerequisite,
-                            LearnFirst = subject.LearnFirst,
-                            Parallel = subject.Parallel,
-                            Details = subject.Details,
-                            IDClass = subject.IDClass
-                        })
+                    {
+                        ID = subject.ID,
+                        CourseCode = subject.CourseCode,
+                        Name = subject.Name,
+                        Credit = subject.Credit,
+                        TypeCourse = subject.TypeCourse,
+                        NumberOfTheory = subject.NumberOfTheory,
+                        NumberOfPractice = subject.NumberOfPractice,
+                        Prerequisite = subject.Prerequisite,
+                        LearnFirst = subject.LearnFirst,
+                        Parallel = subject.Parallel,
+                        Details = subject.Details,
+                        IDClass = subject.IDClass
+                    })
                         .ToList(); // các học phần trong nhóm
 
                     contentJson.Subjects = listSubject; //add nội dung cho nhóm môn học
@@ -175,23 +174,9 @@ namespace SubjectManagement.GUI.Controller
             }
             catch (Exception e)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi lưu file" },
-                    tbl_Message = { Text = $"{e.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi lưu file", $"{e.Message}");
             }
-            var mess1 = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lưu Thành Công" },
-                tbl_Message = { Text = $"Đã lưu file vào {filename}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(68, 140, 203)) },
-                Topmost = true
-            };
-            mess1.ShowDialog();
+            MyCommonDialog.MessageDialog("Lưu thành công", $"Đã lưu file vào {filename}", Colors.DeepSkyBlue);
         }
 
         public void ExportAlternativeForExcel(string filename)
@@ -234,7 +219,11 @@ namespace SubjectManagement.GUI.Controller
                     cell++;
                 }
                 worksheet.Range($"A{startColor}:H{cell}").Style.Fill.BackgroundColor = XLColor.PowderBlue;
+                cell++;
             }
+
+            worksheet.Columns().AdjustToContents();  // Adjust column width
+            worksheet.Rows().AdjustToContents();     // Adjust row heights
 
             workbook.SaveAs(filename);
         }
@@ -269,6 +258,130 @@ namespace SubjectManagement.GUI.Controller
             await JsonSerializer.SerializeAsync(createStream, _data, options);
 
         }
+
+
+        List<SubjectCompareVM> _listDefault = new();
+        List<SubjectCompareVM> _listChange = new();
+        List<SubjectCompareVM> _listPlus = new();
+        List<SubjectCompareVM> _listRemove = new();
+        private List<List<SubjectCompareVM>> _listSubjects = new();
+
+        private List<List<SubjectCompareVM>> LoadValueCompare()
+        {
+
+            var list = _compareService.CompareSubject(_Class.ID, _ClassCompare.ID).ResultObj;
+
+            foreach (var item in list)
+            {
+                switch (item.Different)
+                {
+                    case SubjectDifferent.Different.SubjectDefault:
+                        _listDefault.Add(item);
+                        break;
+                    case SubjectDifferent.Different.SubjectChange:
+                        _listChange.Add(item);
+                        break;
+                    case SubjectDifferent.Different.SubjectNew:
+                        _listPlus.Add(item);
+                        break;
+                    case SubjectDifferent.Different.SubjectRemove:
+                        _listRemove.Add(item);
+                        break;
+                    default:
+                        MyCommonDialog.MessageDialog("Lỗi ngoài ý muốn khi so sánh");
+                        break;
+                }
+            }
+
+            _listSubjects.Add(_listDefault);
+            _listSubjects.Add(_listChange);
+            _listSubjects.Add(_listPlus);
+            _listSubjects.Add(_listRemove);
+
+            return _listSubjects;
+        }
+
+        public void ExportCompareForExcel(string filename)
+        {
+            var listSubjects = LoadValueCompare();
+
+            using var workbook = new XLWorkbook();
+            var worksheet = workbook.Worksheets.Add("CompareSubject");
+            var cell = 0;
+            string[] listName = { "Các môn không có thay đổi", "Các môn có thay đổi" , "Các môn thêm mới" , "Các môn xóa bỏ" };
+
+            for (var i = 0; i < 4 ; i++)
+            {
+                cell++;
+                worksheet.Cell($"A{cell}").Value = listName[i];
+                worksheet.Range($"A{cell}:H{cell}").Style.Fill.BackgroundColor = XLColor.Almond;
+                cell++;
+                worksheet.Cell($"A{cell}").Value = "Mã môn";
+                worksheet.Cell($"B{cell}").Value = "Tên môn";
+                worksheet.Cell($"C{cell}").Value = "Tín chỉ";
+                worksheet.Cell($"D{cell}").Value = "Loại học phần";
+                worksheet.Cell($"E{cell}").Value = "Tiết lý thuyết";
+                worksheet.Cell($"F{cell}").Value = "Tiết thực hành";
+                worksheet.Cell($"G{cell}").Value = "Học kỳ";
+                worksheet.Cell($"H{cell}").Value = "Mô tả";
+
+                foreach (var subject in listSubjects[i])
+                {
+                    cell++;
+                    worksheet.Cell($"A{cell}").Value = subject.CourseCode;
+                    worksheet.Cell($"B{cell}").Value = subject.Name;
+                    worksheet.Cell($"C{cell}").Value = subject.Credit;
+                    worksheet.Cell($"D{cell}").Value = subject.TypeCourse;
+                    worksheet.Cell($"E{cell}").Value = subject.NumberOfTheory;
+                    worksheet.Cell($"F{cell}").Value = subject.NumberOfPractice;
+                    worksheet.Cell($"G{cell}").Value = subject.Semester;
+                    worksheet.Cell($"H{cell}").Value = subject.Details;
+                }
+
+                cell++;
+            }
+
+            worksheet.Columns().AdjustToContents();  // Adjust column width
+            worksheet.Rows().AdjustToContents();     // Adjust row heights
+
+            workbook.SaveAs(filename);
+        }
+
+        public async void ExportCompareForJson(string filename)
+        {
+            var listSubjects = LoadValueCompare();
+
+            var _data = new List<PrintCompareJSON>();
+            var content = new PrintCompareJSON();
+
+            content.Name = "Môn không thay đổi";
+            content.Subjects = _listDefault;
+            _data.Add(content);
+
+            content.Name = "Môn thay đổi";
+            content.Subjects = _listChange;
+            _data.Add(content);
+
+            content.Name = "Môn thêm mới";
+            content.Subjects = _listPlus;
+            _data.Add(content);
+
+            content.Name = "Môn xóa bỏ";
+            content.Subjects = _listRemove;
+            _data.Add(content);
+
+            var options = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
+                WriteIndented = true
+            };
+
+            await using var createStream = File.Create(filename);
+            await JsonSerializer.SerializeAsync(createStream, _data, options);
+
+        }
+
+
     }
 
     class PrintSubjectJSON
@@ -281,6 +394,12 @@ namespace SubjectManagement.GUI.Controller
     {
         public Subject Subject { get; set; }
         public List<Subject> SubjectsAlternative { get; set; }
+
+    }
+    class PrintCompareJSON
+    {
+        public string Name { get; set; }
+        public List<SubjectCompareVM> Subjects { get; set; }
 
     }
 }

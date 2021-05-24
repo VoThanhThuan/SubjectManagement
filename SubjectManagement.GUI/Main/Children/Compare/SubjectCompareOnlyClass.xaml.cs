@@ -18,32 +18,33 @@ using SubjectManagement.GUI.Controller;
 namespace SubjectManagement.GUI.Main.Children.Compare
 {
     /// <summary>
-    /// Interaction logic for SubjectCompareUC.xaml
+    /// Interaction logic for SubjectCompareOnlyClass.xaml
     /// </summary>
-    public partial class SubjectCompare2TableUC : UserControl
+    public partial class SubjectCompareOnlyClass : UserControl
     {
-        public SubjectCompare2TableUC(Class _class1, Class _class2)
+        public SubjectCompareOnlyClass(Class _class1, Class _class2)
         {
             InitializeComponent();
             _ClassCurent = _class1;
             _ClassCompare = _class2;
-            tbl_nameClass.Text = $"{_class1.CodeClass}";
-            tbl_nameClassCompare.Text = $"{_class2.CodeClass}";
-            LoadCompare();
-        }
 
+            LoadSubjectComapre();
+        }
         private Class _ClassCurent { get; init; }
         private Class _ClassCompare { get; init; }
 
-        private void LoadCompare()
+        private void LoadSubjectComapre()
         {
             var compare = new CompareController();
-            compare.CompareClass(_ClassCurent, _ClassCompare, dg_ListCourses);
-            //var list = compare.GetListComapare(_ClassCurent, _ClassCompare);
-            compare.Compare2TableClass(_ClassCurent, _ClassCompare, false, dg_ListCourses);
-            compare.Compare2TableClass(_ClassCompare, _ClassCurent, true, dg_ListCoursesCompare);
-
+            compare.CompareOnlyClass(_ClassCurent,_ClassCompare, RenderBody);
         }
 
+        private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            if (sender is not ScrollViewer scv) return;
+            scv.ScrollToVerticalOffset(scv.VerticalOffset - e.Delta);
+            e.Handled = true;
+
+        }
     }
 }

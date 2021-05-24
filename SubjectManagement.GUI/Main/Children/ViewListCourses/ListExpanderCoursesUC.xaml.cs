@@ -141,6 +141,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
                     export.ExportSubjectForJSON(filename);
                     break;
             }
+            MyCommonDialog.MessageDialog($"Đã lưu vào {saveFileDialog.FileName}", Colors.DeepSkyBlue);
 
 
         }

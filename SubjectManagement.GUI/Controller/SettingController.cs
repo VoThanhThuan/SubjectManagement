@@ -77,25 +77,11 @@ namespace SubjectManagement.GUI.Controller
             var conn = _connect.CreateConnectString(infoDb);
             if (conn.IsSuccessed)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi tạo kết nối" },
-                    tbl_Message = { Text = $"{conn.Message}" },
-                    title_color = { Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(68, 140, 203)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi tạo kết nối", $"{conn.Message}");
             }
             else
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi tạo kết nối" },
-                    tbl_Message = { Text = $"{conn.Message}" },
-                    title_color = { Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi tạo kết nối", $"{conn.Message}");
             }
 
         }
@@ -104,14 +90,9 @@ namespace SubjectManagement.GUI.Controller
         {
             var conn = _connect.ReadConnectString();
             if (conn.IsSuccessed) return conn;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"{conn.Message}" },
-                tbl_Message = { Text = $"Vào cài đặt để thiết lập chuỗi kết nối" },
-                title_color = { Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+
+            MyCommonDialog.MessageDialog($"{conn.Message}", "Vào cài đặt để thiết lập chuỗi kết nối");
+
             return conn;
         }
 
@@ -120,25 +101,11 @@ namespace SubjectManagement.GUI.Controller
             var result = _connect.TestConnectString();
             if (result)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Thành công" },
-                    tbl_Message = { Text = $"Đã kết nối được cơ sở dữ liệu" },
-                    title_color = { Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(68, 140, 203)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Thành công", "Đã kết nối được cơ sở dữ liệu", Colors.DeepSkyBlue);
             }
             else
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi kết nối" },
-                    tbl_Message = { Text = $"Không thể kết nối đến cơ sở dữ liệu" },
-                    title_color = { Background = new SolidColorBrush(System.Windows.Media.Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi kết nối", "Không thể kết nối đến cơ sở dữ liệu");
             }
 
         }

@@ -10,8 +10,8 @@ using SubjectManagement.Data.EF;
 namespace SubjectManagement.Data.Migrations
 {
     [DbContext(typeof(SubjectDbContext))]
-    [Migration("20210507155900_db1")]
-    partial class db1
+    [Migration("20210513071006_dbsubject")]
+    partial class dbsubject
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -218,11 +218,19 @@ namespace SubjectManagement.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValue(new Guid("00000000-0000-0000-0000-000000000000"));
 
+                    b.Property<int>("Credit")
+                        .HasColumnType("int");
+
                     b.Property<int>("IDClass")
                         .HasColumnType("int");
 
                     b.Property<int>("Semester")
                         .HasColumnType("int");
+
+                    b.Property<int>("TotalSubject")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.HasKey("ID");
 

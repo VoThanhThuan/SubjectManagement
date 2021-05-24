@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SubjectManagement.Common.Result;
 using SubjectManagement.GUI.Dialog;
+using SubjectManagement.GUI.Main.Children.Compare;
 using SubjectManagement.ViewModels.System.Users;
 
 namespace SubjectManagement.GUI.Member
@@ -43,8 +44,14 @@ namespace SubjectManagement.GUI.Member
         private void Btn_Compare_OnClick(object sender, RoutedEventArgs e)
         {
             if (cbb_class.SelectedIndex < 0) return;
-            var compare = new CompareDialog(_Class) { Owner = System.Windows.Application.Current.MainWindow };
+            var compare = new CompareDialog(_Class);
             compare.ShowDialog();
+            if (compare.DialogResult != true) return;
+            var containerCompare = new ContainerSubjectCompare(_Class, compare._ClassCompare);
+            var view = new ViewCompare();
+            view.RenderBody.Children.Clear();
+            view.RenderBody.Children.Add(containerCompare);
+            view.ShowDialog();
         }
 
         private void Btn_AlternativeSubject_OnClick(object sender, RoutedEventArgs e)

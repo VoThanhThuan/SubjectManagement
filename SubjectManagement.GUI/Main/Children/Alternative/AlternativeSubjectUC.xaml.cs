@@ -151,6 +151,8 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
                     export.ExportAlternativeForJson(filename);
                     break;
             }
+
+            MyCommonDialog.MessageDialog($"Đã lưu vào {saveFileDialog.FileName}", Colors.DeepSkyBlue);
         }
     }
 }

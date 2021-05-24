@@ -38,41 +38,21 @@ namespace SubjectManagement.GUI.Controller
         {
             var result = _knowledgeGroupService.AddKnowledge(name);
             if (result.IsSuccessed) return;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi thêm" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lỗi thêm", $"{result.Message}");
         }
 
         public void EditKnowledge(Guid id, string name)
         {
             var result = _knowledgeGroupService.EditKnowledge(id, name);
             if (result.IsSuccessed) return;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi sửa" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lỗi sửa", $"{result.Message}");
+
         }
         public void RemoveKnowledge(Guid id)
         {
             var result = _knowledgeGroupService.RemoveKnowledge(id);
             if (result.IsSuccessed) return;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi xóa" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lỗi xóa", $"{result.Message}");
         }
 
     }

@@ -13,7 +13,9 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="{x:Null}"
+        ShowInTaskbar="False"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        Loaded="Window_Loaded"
         KeyDown="Window_KeyDown">
     <materialDesign:TransitioningContent>
         <materialDesign:TransitioningContent.OpeningEffects>

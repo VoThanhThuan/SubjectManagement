@@ -42,14 +42,8 @@ namespace SubjectManagement.GUI.Controller
                 viewList.btn_Add.IsEnabled = false;
                 viewList.btn_Edit.IsEnabled = false;
                 viewList.btn_Remove.IsEnabled = false;
-                var result = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Đã khóa" },
-                    tbl_Message = { Text = $"Lớp này đã bị khóa, không thể sửa đổi dữ liệu" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                result.ShowDialog();
+                MyCommonDialog.MessageDialog("Đã khóa", "Lớp này đã bị khóa, không thể sửa đổi dữ liệu");
+
             }
 
             foreach (var item in group)
@@ -92,14 +86,9 @@ namespace SubjectManagement.GUI.Controller
                 viewList.btn_Add.IsEnabled = false;
                 viewList.btn_Edit.IsEnabled = false;
                 viewList.btn_Remove.IsEnabled = false;
-                var result = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Đã khóa" },
-                    tbl_Message = { Text = $"Lớp này đã bị khóa, không thể sửa đổi dữ liệu" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                result.ShowDialog();
+                MyCommonDialog.MessageDialog("Đã khóa", "Lớp này đã bị khóa, không thể sửa đổi dữ liệu");
+
+
             }
 
             var listSubjects = _subjectService.GetSubject(_Class.ID);

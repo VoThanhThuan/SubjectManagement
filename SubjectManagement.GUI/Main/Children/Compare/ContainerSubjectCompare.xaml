@@ -15,7 +15,8 @@
         </materialDesign:TransitioningContent.OpeningEffects>
     <Grid>
         <Grid>
-            <Button x:Name="btn_ChangeView"
+            <StackPanel Orientation="Horizontal">
+            <Button x:Name="btn_ViewTwoInOne"
                     ToolTip="Thêm mới"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Top"
@@ -24,23 +25,75 @@
                     Padding="0"
                     BorderBrush="{x:Null}"
                     Foreground="{DynamicResource OptionTextColor}"
-                    Click="Btn_ChangeView_OnClick">
+                    Click="Btn_ViewTwoInOne_OnClick">
                 <Grid>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:PackIcon x:Name="icon_btnChangeView"
-                                                 Kind="ArrowSplitVertical"
+                        <materialDesign:PackIcon Kind="ViewSequential"
                                                  Height="24"
                                                  Width="24"
                                                  VerticalAlignment="Center"
                                                  HorizontalAlignment="Left" />
-                        <TextBlock HorizontalAlignment="Right"
-                                   VerticalAlignment="Center"
-                                   FontSize="20"
-                                   Height="27">Đổi chế độ xem</TextBlock>
+                                <TextBlock HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           Height="27">Một bảng</TextBlock>
                     </StackPanel>
 
                 </Grid>
             </Button>
+                <Button x:Name="btn_ChangeInTwo"
+                        ToolTip="Thêm mới"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Height="40"
+                        Margin="10,0,0,0"
+                        Padding="0"
+                        BorderBrush="{x:Null}"
+                        Foreground="{DynamicResource OptionTextColor}"
+                        Click="Btn_ChangeInTwo_OnClick">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon 
+                                                     Kind="ArrowSplitVertical"
+                                                     Height="24"
+                                                     Width="24"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Left" />
+                            <TextBlock HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Height="27">Hai bảng</TextBlock>
+                        </StackPanel>
+
+                    </Grid>
+                </Button>
+                <Button x:Name="btn_ViewOneClass"
+                        ToolTip="Thêm mới"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Height="40"
+                        Margin="10,0,0,0"
+                        Padding="0"
+                        BorderBrush="{x:Null}"
+                        Foreground="{DynamicResource OptionTextColor}"
+                        Click="Btn_ViewOneClass_OnClick">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ViewDay"
+                                                     Height="24"
+                                                     Width="24"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Left" />
+                            <TextBlock HorizontalAlignment="Right"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Height="27">Một lớp</TextBlock>
+                        </StackPanel>
+
+                    </Grid>
+                </Button>
+                </StackPanel>
+
 
             <Button x:Name="btn_Export"
                     DockPanel.Dock="Right"
@@ -76,7 +129,9 @@
 
         </Grid>
         <Grid x:Name="RenderBody"
-              Margin="0 40 0 0"></Grid>
+              Margin="0 40 0 0">
+
+        </Grid>
     </Grid>
 
     </materialDesign:TransitioningContent>

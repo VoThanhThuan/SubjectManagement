@@ -89,14 +89,14 @@
                                     Binding="{Binding Different}"
                                     Visibility="Collapsed" />
                 <DataGridTextColumn Header="Mã Môn"
-                                    Width="100"
+                                    Width="Auto"
                                     Binding="{Binding CourseCode}" />
                 <DataGridTextColumn Header="Tên Môn"
                                     Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Tín Chỉ"
                                     Binding="{Binding Credit}" />
                 <DataGridTextColumn Header="Loại Học Phần"
-                                    Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
+                                    Binding="{Binding TypeCourse}" />
                 <DataGridTextColumn Header="Tiết Lý Thuyết"
                                     Binding="{Binding NumberOfTheory}" />
                 <DataGridTextColumn Header="Tiết Thực Hành"

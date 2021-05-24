@@ -59,14 +59,7 @@ namespace SubjectManagement.GUI.Controller
             }
             else
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = "Lỗi đăng nhập" },
-                    tbl_Message = { Text = $"{result.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi đăng nhập", $"{result.Message}");
             }
             grid_Loading.Visibility = Visibility.Hidden;
             return isSuccess;

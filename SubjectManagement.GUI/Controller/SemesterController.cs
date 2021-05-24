@@ -26,27 +26,14 @@ namespace SubjectManagement.GUI.Controller
         public void AddSubject(Subject request, int semester)
         {
             var result = _semesterServicel.AddSubject(request, semester);
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi thêm" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lỗi thêm", $"{result.Message}");
         }
         public void RemoveSubject(Guid idSubject, int term)
         {
             var result = _semesterServicel.RemoveSubject(idSubject, term);
 
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi xóa" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lỗi xóa", $"{result.Message}");
+
         }
         public List<Subject> LoadSubject(int idSemester)
         {

@@ -51,14 +51,8 @@ namespace SubjectManagement.GUI.Controller
         {
             var clss = _facultyService.AddClass(c, idFaculty);
             if(!clss.IsSuccessed) return;
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Lỗi thêm mới" },
-                tbl_Message = { Text = $"{clss.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Lưu thành công", $"{clss.Message}");
+
         }
 
         public void RemoveFaculty(int id)
@@ -66,23 +60,10 @@ namespace SubjectManagement.GUI.Controller
             var faculty = _facultyService.RemoveFaculty(id);
             if (!faculty.IsSuccessed)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi xóa" },
-                    tbl_Message = { Text = $"{faculty.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi xóa", $"{faculty.Message}");
+
             }
-            var result = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Xóa thành công" },
-                tbl_Message = { Text = $"{faculty.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            result.ShowDialog();
+            MyCommonDialog.MessageDialog("Xóa thành công", $"{faculty.Message}");
         }
 
         public void RemoveClass(int id)
@@ -90,37 +71,16 @@ namespace SubjectManagement.GUI.Controller
             var clss = _facultyService.RemoveClass(id);
             if (!clss.IsSuccessed)
             {
-                var mess = new MessageDialog()
-                {
-                    tbl_Title = { Text = $"Lỗi xóa" },
-                    tbl_Message = { Text = $"{clss.Message}" },
-                    title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                    Topmost = true
-                };
-                mess.ShowDialog();
+                MyCommonDialog.MessageDialog("Lỗi xóa", $"{clss.Message}");
             }
+            MyCommonDialog.MessageDialog("Xóa thành công", $"{clss.Message}");
 
-            var result = new MessageDialog()
-            {
-                tbl_Title = { Text = $"Xóa thành công" },
-                tbl_Message = { Text = $"{clss.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            result.ShowDialog();
         }
 
         public void UnlockClass(int id, bool isLock)
         {
             var result = _facultyService.UnlockClass(id, isLock);
-            var mess = new MessageDialog()
-            {
-                tbl_Title = { Text = $"{result.Message}" },
-                tbl_Message = { Text = $"{result.Message}" },
-                title_color = { Background = new SolidColorBrush(Color.FromRgb(255, 0, 0)) },
-                Topmost = true
-            };
-            mess.ShowDialog();
+            MyCommonDialog.MessageDialog("Thông báo", $"{result.Message}");
         }
 
     }
