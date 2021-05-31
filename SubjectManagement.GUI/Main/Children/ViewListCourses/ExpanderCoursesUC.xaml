@@ -43,7 +43,10 @@
                                       ScrollViewer.VerticalScrollBarVisibility="Auto"
                                       ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                       AutoGenerateColumns="False"
-                                      SelectedItem="{Binding SelectedRow, Mode=TwoWay}">
+                                      RowHeaderWidth="20"
+                                      LoadingRow="DataGrid_LoadingRow"
+                                      SelectedItem="{Binding SelectedRow, Mode=TwoWay}"
+                                      HeadersVisibility="Row">
 
                                 <DataGrid.Resources >
 
@@ -96,7 +99,6 @@
                                 </DataGrid.RowStyle>
 
                                 <DataGrid.Columns>
-
                                     <DataGridTextColumn Header="Mã Môn"
                                                         Width="100"
                                                         Binding="{Binding CourseCode}" />

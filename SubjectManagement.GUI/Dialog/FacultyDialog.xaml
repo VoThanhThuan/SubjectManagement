@@ -9,38 +9,39 @@
         Title="Chọn lớp học"
         Height="163"
         Width="400"
-        WindowStyle="SingleBorderWindow"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
         WindowStartupLocation="CenterOwner"
         ResizeMode="NoResize">
-    <WindowChrome.WindowChrome>
-        <WindowChrome GlassFrameThickness="1"
-                      CornerRadius="0"
-                      CaptionHeight="0" />
-    </WindowChrome.WindowChrome>
-    <Grid>
-        <StackPanel Margin="5">
-            <ComboBox Style="{StaticResource MaterialDesignFilledComboBox}"
-                      x:Name="cbb_Faculty"
-                      Margin ="0 5 0 0"
-                      IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
-                      materialDesign:HintAssist.Hint="Khoa"
-                      SelectionChanged="cbb_Faculty_SelectionChanged">
-            </ComboBox>
-            <ComboBox Style="{StaticResource MaterialDesignFilledComboBox}"
-                      x:Name="cbb_Class"
-                      Margin="0 5 0 0"
-                      IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
-                      materialDesign:HintAssist.Hint="Lớp"
-                      SelectionChanged="Cbb_Class_OnSelectionChanged">
-            </ComboBox>
+    <materialDesign:Card UniformCornerRadius="5">
+        <Grid>
+            <StackPanel Margin="5">
+                <ComboBox Style="{StaticResource MaterialDesignFilledComboBox}"
+                          x:Name="cbb_Faculty"
+                          Margin="0 5 0 0"
+                          IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+                          materialDesign:HintAssist.Hint="Khoa"
+                          SelectionChanged="cbb_Faculty_SelectionChanged">
+                </ComboBox>
+                <ComboBox Style="{StaticResource MaterialDesignFilledComboBox}"
+                          x:Name="cbb_Class"
+                          Margin="0 5 0 0"
+                          IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+                          materialDesign:HintAssist.Hint="Lớp"
+                          SelectionChanged="Cbb_Class_OnSelectionChanged">
+                </ComboBox>
 
-            <Button x:Name="btn_accept"
-                    Margin="0 15 0 0"
-                    Content="Chấp Nhận"
-                    Click="Btn_accept_OnClick"
-                    IsEnabled="False"></Button>
+                <Button x:Name="btn_accept"
+                        Margin="0 15 0 0"
+                        Content="Chấp Nhận"
+                        Click="Btn_accept_OnClick"
+                        IsEnabled="False"></Button>
 
-        </StackPanel>
+            </StackPanel>
 
-    </Grid>
+        </Grid>
+
+    </materialDesign:Card>
+
 </Window>

@@ -5,246 +5,253 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:SubjectManagement.GUI.Main.Children.Common"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"
-             d:DesignHeight="450"
-             d:DesignWidth="800">
+             mc:Ignorable="d">
     <materialDesign:TransitioningContent>
         <materialDesign:TransitioningContent.OpeningEffects>
             <materialDesign:TransitionEffect Kind="ExpandIn"
                                              Duration="0:0:0.8" />
             <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
         </materialDesign:TransitioningContent.OpeningEffects>
-    <Grid x:Name="MainBody">
-        <Grid.Resources>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="Background"
-                        Value="#00000000" />
-                <Setter Property="Foreground"
-                        Value="{DynamicResource OptionColor}" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="{x:Type Button}">
-                            <Border x:Name="Border"
-                                    Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center"
-                                                  VerticalAlignment="Center" />
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsMouseOver"
-                                         Value="True">
-                                    <Setter Property="Background"
-                                            Value="{DynamicResource OptionColor}"
-                                            TargetName="Border" />
-                                    <Setter Property="Foreground"
-                                            Value="White" />
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+        <Grid HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
+            <Grid.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background"
+                            Value="#00000000" />
+                    <Setter Property="Foreground"
+                            Value="{DynamicResource OptionColor}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border x:Name="Border"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsMouseOver"
+                                             Value="True">
+                                        <Setter Property="Background"
+                                                Value="{DynamicResource OptionColor}"
+                                                TargetName="Border" />
+                                        <Setter Property="Foreground"
+                                                Value="White" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
 
-        </Grid.Resources>
+            </Grid.Resources>
 
-        <Grid x:Name="RenderBody">
-            <TextBlock x:Name="tbl_Class"
-                       Text="xxx"
-                       Foreground="{DynamicResource OptionTextColor}"
-                       FontSize="24"
-                       Margin="10 0 0 0"></TextBlock>
-            <Grid Margin="0 30 0 0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Grid Grid.Column="0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                             Margin="10">
-                            <Button x:Name="btn_ViewList"
-                                ToolTip="Danh sách các môn của lớp"
-                                Click="Btn_ViewList_OnClick">
-                                <Grid Height="200"
-                                      Width="250">
-                                    <materialDesign:PackIcon Kind="ViewSplitHorizontal"
-                                                             Width="120"
-                                                             Height="120"
-                                                             HorizontalAlignment="Stretch"
-                                                             VerticalAlignment="Stretch" />
-                                    <TextBlock Text="Danh sách môn"
-                                               FontSize="24"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+            <Grid x:Name="MainBody">
+                <Grid x:Name="RenderBody">
+                    <TextBlock x:Name="tbl_Class"
+                               Text="xxx"
+                               Foreground="{DynamicResource OptionTextColor}"
+                               FontSize="34"
+                               FontWeight="Bold"
+                               Margin="5 0 0 0"></TextBlock>
+                    <Grid Margin="0 40 0 10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid Grid.Column="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                     Margin="10">
+                                    <Button x:Name="btn_ViewList"
+                                            ToolTip="Danh sách các môn của lớp"
+                                            Click="Btn_ViewList_OnClick">
+                                        <Grid Height="200"
+                                              Width="250">
+                                            <materialDesign:PackIcon Kind="ViewSplitHorizontal"
+                                                                     Width="120"
+                                                                     Height="120"
+                                                                     HorizontalAlignment="Stretch"
+                                                                     VerticalAlignment="Stretch" />
+                                            <TextBlock Text="Danh sách môn"
+                                                       FontSize="24"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
-                                </Grid>
-                            </Button>
-                        </materialDesign:Card>
-                    </Grid>
-                    <Grid Grid.Row="1"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                             Margin="10">
-                            <Button x:Name="btn_AlternativeSubject"
-                                    ToolTip="Học phần thay thế"
-                                    Click="Btn_AlternativeSubject_OnClick">
-                                <Grid Height="200"
-                                      Width="250">
-                                    <materialDesign:PackIcon Kind="CurrentAc"
-                                                             Width="120"
-                                                             Height="120"
-                                                             HorizontalAlignment="Center"
-                                                             VerticalAlignment="Center" />
-                                    <TextBlock Text="Học phần thay thế"
-                                               FontSize="24"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+                                        </Grid>
+                                    </Button>
+                                </materialDesign:Card>
+                            </Grid>
+                            <Grid Grid.Row="1"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                     Margin="10">
+                                    <Button x:Name="btn_AlternativeSubject"
+                                            ToolTip="Học phần thay thế"
+                                            Click="Btn_AlternativeSubject_OnClick">
+                                        <Grid Height="200"
+                                              Width="250">
+                                            <materialDesign:PackIcon Kind="CurrentAc"
+                                                                     Width="120"
+                                                                     Height="120"
+                                                                     HorizontalAlignment="Center"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Học phần thay thế"
+                                                       FontSize="24"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
-                                </Grid>
-                            </Button>
-                        </materialDesign:Card>
-                    </Grid>
-                </Grid>
+                                        </Grid>
+                                    </Button>
+                                </materialDesign:Card>
+                            </Grid>
+                        </Grid>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                             Margin="10">
-                            <Button x:Name="btn_AddSemester"
-                                    ToolTip="Tùy chỉnh học kỳ cho từng môn"
-                                    Click="Btn_AddSemester_OnClick">
-                                <Grid Height="200"
-                                      Width="250">
-                                    <materialDesign:PackIcon Kind="ClipboardList"
-                                                             Width="120"
-                                                             Height="120"
-                                                             VerticalAlignment="Center"
-                                                             HorizontalAlignment="Center" />
-                                    <TextBlock Text="Tùy chỉnh học kỳ"
-                                               FontSize="24"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                     Margin="10">
+                                    <Button x:Name="btn_AddSemester"
+                                            ToolTip="Tùy chỉnh học kỳ cho từng môn"
+                                            Click="Btn_AddSemester_OnClick">
+                                        <Grid Height="200"
+                                              Width="250">
+                                            <materialDesign:PackIcon Kind="ClipboardList"
+                                                                     Width="120"
+                                                                     Height="120"
+                                                                     VerticalAlignment="Center"
+                                                                     HorizontalAlignment="Center" />
+                                            <TextBlock Text="Tùy chỉnh học kỳ"
+                                                       FontSize="24"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
 
-                                </Grid>
-                            </Button>
-                        </materialDesign:Card>
-                    </Grid>
-                    <Grid Grid.Row="1"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                             Margin="10">
-                            <Button x:Name="btn_UserManager"
-                                    ToolTip="Tài khoản"
-                                    Click="Btn_UserManager_OnClick">
-                                <Grid Height="200"
-                                                                               Width="250">
-                                    <materialDesign:PackIcon Kind="User"
-                                                             Width="120"
-                                                             Height="120"
-                                                             HorizontalAlignment="Center"
-                                                             VerticalAlignment="Center" />
-                                    <TextBlock Text="Tùy chỉnh tài khoản"
-                                               FontSize="24"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+                                        </Grid>
+                                    </Button>
+                                </materialDesign:Card>
+                            </Grid>
+                            <Grid Grid.Row="1"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                     Margin="10">
+                                    <Button x:Name="btn_UserManager"
+                                            ToolTip="Tài khoản"
+                                            Click="Btn_UserManager_OnClick">
+                                        <Grid Height="200"
+                                              Width="250">
+                                            <materialDesign:PackIcon Kind="User"
+                                                                     Width="120"
+                                                                     Height="120"
+                                                                     HorizontalAlignment="Center"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Tùy chỉnh tài khoản"
+                                                       FontSize="24"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
-                                </Grid>
-                            </Button>
-                        </materialDesign:Card>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                    </Grid.RowDefinitions>
-                    <Grid HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                             Margin="10">
-                            <Button x:Name="btn_Compare"
-                                    ToolTip="So sánh chương trình của 2 lớp"
-                                    Click="Btn_Compare_OnClick">
-                                <Grid Height="200"
-                                      Width="250">
-                                    <materialDesign:PackIcon Kind="Compare"
-                                                             Width="120"
-                                                             Height="120"
-                                                             HorizontalAlignment="Center"
-                                                             VerticalAlignment="Center" />
-                                    <TextBlock Text="So sánh chương trình"
-                                               FontSize="24"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+                                        </Grid>
+                                    </Button>
+                                </materialDesign:Card>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                     Margin="10">
+                                    <Button x:Name="btn_Compare"
+                                            ToolTip="So sánh chương trình của 2 lớp"
+                                            Click="Btn_Compare_OnClick">
+                                        <Grid Height="200"
+                                              Width="250">
+                                            <materialDesign:PackIcon Kind="Compare"
+                                                                     Width="120"
+                                                                     Height="120"
+                                                                     HorizontalAlignment="Center"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="So sánh chương trình"
+                                                       FontSize="24"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
-                                </Grid>
-                            </Button>
-                        </materialDesign:Card>
-                    </Grid>
-                    <Grid Grid.Row="1"
-                          HorizontalAlignment="Stretch"
-                          VerticalAlignment="Stretch">
-                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth3"
-                                             Margin="10">
-                            <Button x:Name="btn_Setting"
-                                    ToolTip="So sánh chương trình của 2 lớp"
-                                    Click="Btn_Setting_OnClick">
-                                <Grid Height="200"
-                                      Width="250">
-                                    <materialDesign:PackIcon Kind="Settings"
-                                                             Width="120"
-                                                             Height="120"
-                                                             HorizontalAlignment="Center"
-                                                             VerticalAlignment="Center" />
-                                    <TextBlock Text="Cài đặt"
-                                               FontSize="24"
-                                               VerticalAlignment="Bottom"
-                                               HorizontalAlignment="Center"
-                                               Foreground="{DynamicResource OptionTextColor}"></TextBlock>
+                                        </Grid>
+                                    </Button>
+                                </materialDesign:Card>
+                            </Grid>
+                            <Grid Grid.Row="1"
+                                  HorizontalAlignment="Stretch"
+                                  VerticalAlignment="Stretch">
+                                <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                                     Margin="10">
+                                    <Button x:Name="btn_Setting"
+                                            ToolTip="So sánh chương trình của 2 lớp"
+                                            Click="Btn_Setting_OnClick">
+                                        <Grid Height="200"
+                                              Width="250">
+                                            <materialDesign:PackIcon Kind="Settings"
+                                                                     Width="120"
+                                                                     Height="120"
+                                                                     HorizontalAlignment="Center"
+                                                                     VerticalAlignment="Center" />
+                                            <TextBlock Text="Cài đặt"
+                                                       FontSize="24"
+                                                       VerticalAlignment="Bottom"
+                                                       HorizontalAlignment="Center"
+                                                       Foreground="{DynamicResource OptionTextColor}"></TextBlock>
 
-                                </Grid>
-                            </Button>
-                        </materialDesign:Card>
+                                        </Grid>
+                                    </Button>
+                                </materialDesign:Card>
+
+                            </Grid>
+                        </Grid>
 
                     </Grid>
                 </Grid>
 
             </Grid>
-        </Grid>
 
-        <Grid x:Name="g_loading"
-              Background="#66000000"
-              Visibility="Hidden">
-            <ProgressBar IsIndeterminate="True"
-                         VerticalAlignment="Top"
-                         Foreground="#FFA200FF"
-                         Background="White" />
-            <TextBox HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     Foreground="White"
-                     FontSize="32">waiting for love...</TextBox>
+            <Grid x:Name="g_loading"
+                  Background="#66000000"
+                  Visibility="Hidden"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBox HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             Foreground="White"
+                             IsReadOnly="True"
+                             FontSize="32">waiting for love...</TextBox>
+                    <ProgressBar IsIndeterminate="True"
+                                 Foreground="#FFA200FF"
+                                 Background="White"
+                                 Width="269" />
+                </StackPanel>
+            </Grid>
         </Grid>
-
-    </Grid>
 
     </materialDesign:TransitioningContent>
 

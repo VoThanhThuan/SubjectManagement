@@ -126,16 +126,17 @@ namespace SubjectManagement.Application.SubjectApp
             return new ResultSuccess<string>($"Đã thêm môn học {request.Name} thành công");
         }
 
-        public Result<Subject> FindSubject(string coursesCode)
+        public Result<Subject> FindSubject(string coursesCode, Class _class)
         {
-            var subject = _db.Subjects.FirstOrDefault(x => x.CourseCode == coursesCode);
-            if (subject is null) return new ResultError<Subject>($"Không tìm thấy môn học có mã là {coursesCode}");
+            var subject = _db.Subjects.FirstOrDefault(x => x.CourseCode == coursesCode && x.IDClass == _class.ID);
+            if (subject is null) return new ResultError<Subject>($"Không tìm thấy môn học có mã là {coursesCode} trong lớp {_class.CodeClass}");
 
             return new ResultSuccess<Subject>(subject, "ok");
         }
 
         public Result<string> CopyListSubject(int idClassOld, int idClassNew)
         {
+
             var oldSubject = from sik in _db.SubjectInKnowledgeGroups
                              join s in _db.Subjects on sik.IDSubject equals s.ID
                              select new
@@ -206,13 +207,17 @@ namespace SubjectManagement.Application.SubjectApp
 
         public Result<string> EditSubject(SubjectRequest request)
         {
+            //edit group elective
+            if (request.TypeCourse == false)
+                new ElectiveGroupApp.ElectiveGroupService().RemoveGroup(request.IDClass, request.ID);
+
             //edit knowledge group
             if (request.IDKnowledgeGroup != request.IDKnowledgeGroupOld)
             {
                 var group = _db.SubjectInKnowledgeGroups.FirstOrDefault(
                     x => x.IDKnowledgeGroup == request.IDKnowledgeGroupOld && x.IDSubject == request.ID);
 
-                if (group is null) return new ResultError<string>("Lỗi tìm kiếm mã nhóm môn học - line 104 - SubjectService");
+                if (group is null) return new ResultError<string>("Lỗi tìm kiếm mã nhóm môn học");
 
                 group.IDKnowledgeGroup = request.IDKnowledgeGroup;
 
@@ -225,6 +230,9 @@ namespace SubjectManagement.Application.SubjectApp
 
             if (subject is null) return new ResultError<string>("Lỗi tìm kiếm mã môn - line 115 - SubjectService");
 
+            if (subject.TypeCourse == false && subject.TypeCourse != request.TypeCourse)
+                new ElectiveGroupApp.ElectiveGroupService().RemoveGroup(subject.IDClass, subject.ID);
+
             subject.CourseCode = request.CourseCode;
             subject.Name = request.Name;
             subject.Credit = request.Credit;
@@ -235,6 +243,7 @@ namespace SubjectManagement.Application.SubjectApp
             subject.LearnFirst = request.LearnFirst;
             subject.Parallel = request.Parallel;
             subject.Semester = request.Semester;
+            subject.TypeCourse = request.TypeCourse;
             subject.Details = request.Details;
 
             _db.Subjects.Update(subject);
@@ -245,6 +254,11 @@ namespace SubjectManagement.Application.SubjectApp
 
         public Result<string> RemoveSubject(SubjectRequest request)
         {
+            //edit group elective
+            if (request.TypeCourse == false)
+                new ElectiveGroupApp.ElectiveGroupService().RemoveGroup(request.IDClass, request.ID);
+
+
             var error = false;
             var errorMess = "";
 

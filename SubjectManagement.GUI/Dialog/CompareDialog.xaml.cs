@@ -12,23 +12,25 @@ namespace SubjectManagement.GUI.Dialog
     /// </summary>
     public partial class CompareDialog : Window
     {
-        public CompareDialog(Class _class)
+        public CompareDialog(Class _class, int idFaculty)
         {
             InitializeComponent();
+            _IdFaculty = idFaculty;
             _Class = _class;
             tbl_ClassCurrent.Text = _Class.CodeClass;
             LoadClass();
         }
 
-        private Class _Class { get; init; }
+        private int _IdFaculty { get; init; }
 
+        private Class _Class { get; init; }
         public Class _ClassCompare { get; set; }
 
 
         private void LoadClass()
         {
             var c = new FacultyController();
-            c.GetClass(cbb_Class_2, _Class.ID);
+            c.GetClassDifferentClass(cbb_Class_2, _IdFaculty, _Class);
         }
 
         private void Cbb_Class_2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

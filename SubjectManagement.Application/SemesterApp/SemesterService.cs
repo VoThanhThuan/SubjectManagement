@@ -24,8 +24,10 @@ namespace SubjectManagement.Application.SemesterApp
 
         public Result<string> AddSubject(Subject request, int semester)
         {
-            //request.Semester = semester;
+            if (request.TypeCourse == false)
+                new ElectiveGroupApp.ElectiveGroupService().RemoveGroup(request.IDClass, request.ID);
 
+            //request.Semester = semester;
             var subject = _db.Subjects.Find(request.ID, request.IDClass);
             if (subject == null) return new ResultError<string>("Lỗi tìm kiếm môn học");
             subject.Semester = semester;
@@ -51,6 +53,9 @@ namespace SubjectManagement.Application.SemesterApp
             var s = _db.Subjects.Find(idSubject);
             if (s is null)
                 return new ResultError<string>($"Môn học không tồn tại");
+
+            if (s.TypeCourse == false)
+                new ElectiveGroupApp.ElectiveGroupService().RemoveGroup(s.IDClass, s.ID);
 
             s.Semester = 0;
 

@@ -20,8 +20,8 @@ namespace SubjectManagement.Data.Entities
 
         public int Semester { get; set; }
         public int IDClass { get; set; }
-
         public Guid? IDElectiveGroup { get; set; }
+
 
         public Class Class { get; set; }
         public List<AlternativeSubject> AlternativeSubjects{ get; set; }

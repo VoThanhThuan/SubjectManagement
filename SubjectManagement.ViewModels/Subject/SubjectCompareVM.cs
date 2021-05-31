@@ -23,6 +23,7 @@ namespace SubjectManagement.ViewModels.Subject
 
         public string Details { get; set; }
 
+        public string CodeClass { get; set; }
         public SubjectDifferent.Different Different { get; set; } //để phục phụ cho việc so sánh 2 subject //true là khác //flase là môn mới //null là không khác
 
         public override int GetHashCode()

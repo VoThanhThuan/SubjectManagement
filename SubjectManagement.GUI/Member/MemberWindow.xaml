@@ -10,55 +10,87 @@
         Height="450"
         Width="800">
     <Grid>
-        <ComboBox x:Name="cbb_class"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
-                  IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
-                  materialDesign:HintAssist.Hint="Lớp"
-                  Height="50"
-                  VerticalAlignment="top"
-                  SelectionChanged="Cbb_class_OnSelectionChanged">
-        </ComboBox>
-        <Grid Margin=" 0 40 0 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
-                <Button x:Name="btn_ViewList"
-                        ToolTip="Icon"
-                        Width="160"
-                        Height="160"
-                        Click="Btn_ViewList_OnClick">
-                    <materialDesign:PackIcon Kind="ViewSplitHorizontal"
-                                             Width="120"
-                                             Height="120" />
-                </Button>
-            </Grid>
-            <Grid Grid.Column="1">
-                <Button x:Name="btn_Compare"
-                        ToolTip="Icon"
-                        Width="160"
-                        Height="160"
-                        Grid.Column="2"
-                        Click="Btn_Compare_OnClick">
-                    <materialDesign:PackIcon Kind="Compare"
-                                             Width="120"
-                                             Height="120" />
-                </Button>
-            </Grid>
+        <Grid>
+            <StackPanel>
+            <ComboBox x:Name="cbb_Faculty"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+                      materialDesign:HintAssist.Hint="Khoa"
+                      Height="50"
+                      VerticalAlignment="top"
+                      SelectionChanged="Cbb_Faculty_OnSelectionChanged">
+            </ComboBox>
+            <ComboBox x:Name="cbb_class"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignFilledComboBoxEnabledComboBox}"
+                      materialDesign:HintAssist.Hint="Lớp"
+                      Height="50"
+                      VerticalAlignment="top"
+                      SelectionChanged="Cbb_class_OnSelectionChanged">
+            </ComboBox>
 
-            <Grid Grid.Column="2">
-                <Button x:Name="btn_AlternativeSubject"
-                        ToolTip="Icon"
-                        Width="160"
-                        Height="160"
-                        Click="Btn_AlternativeSubject_OnClick">
-                    <materialDesign:PackIcon Kind="CurrentAc"
-                                             Width="120"
-                                             Height="120" />
-                </Button>
+            </StackPanel>
+            <Grid Margin=" 0 40 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <Button x:Name="btn_ViewList"
+                            ToolTip="Icon"
+                            Width="160"
+                            Height="160"
+                            Click="Btn_ViewList_OnClick">
+                        <materialDesign:PackIcon Kind="ViewSplitHorizontal"
+                                                 Width="120"
+                                                 Height="120" />
+                    </Button>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Button x:Name="btn_Compare"
+                            ToolTip="Icon"
+                            Width="160"
+                            Height="160"
+                            Grid.Column="2"
+                            Click="Btn_Compare_OnClick">
+                        <materialDesign:PackIcon Kind="Compare"
+                                                 Width="120"
+                                                 Height="120" />
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Button x:Name="btn_AlternativeSubject"
+                            ToolTip="Icon"
+                            Width="160"
+                            Height="160"
+                            Click="Btn_AlternativeSubject_OnClick">
+                        <materialDesign:PackIcon Kind="CurrentAc"
+                                                 Width="120"
+                                                 Height="120" />
+                    </Button>
+                </Grid>
             </Grid>
         </Grid>
+
+        <Grid x:Name="g_loading"
+              Background="#66000000"
+              Visibility="Hidden"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
+            <StackPanel VerticalAlignment="Center">
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Foreground="White"
+                         IsReadOnly="True"
+                         FontSize="32">waiting for love...</TextBox>
+                <ProgressBar IsIndeterminate="True"
+                             Foreground="#FFA200FF"
+                             Background="White"
+                             Width="269" />
+            </StackPanel>
+        </Grid>
     </Grid>
+
 </Window>

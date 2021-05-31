@@ -30,6 +30,9 @@ namespace SubjectManagement.GUI.Dialog
 
         public new MyDialogResult.Result DialogResult = MyDialogResult.Result.Close;
 
+        public bool isRemoveFaculty { get; set; } = false;
+        public bool isRemoveClass { get; set; } = false;
+
         private void RunOrtherApp(string app)
         {
             var proc = new Process();
@@ -125,6 +128,7 @@ namespace SubjectManagement.GUI.Dialog
         private void Btn_RemoveFaculty_OnClick(object sender, RoutedEventArgs e)
         {
             if (cbb_Faculty.SelectedIndex < 0) return;
+            isRemoveFaculty = true;
             var remove = new FacultyController();
             remove.RemoveFaculty(((Faculty)cbb_Faculty.SelectedValue).ID);
             LoadFaculty();
@@ -147,6 +151,7 @@ namespace SubjectManagement.GUI.Dialog
         private void Btn_RemoveClass_OnClick(object sender, RoutedEventArgs e)
         {
             if (cbb_Class.SelectedIndex < 0) return;
+            isRemoveClass = true;
             var remove = new FacultyController();
             remove.RemoveClass(((Class)cbb_Class.SelectedValue).ID);
             LoadFaculty();
@@ -171,7 +176,7 @@ namespace SubjectManagement.GUI.Dialog
         {
             var setting = new SettingController();
             setting.ReadConnectString();
-            //setting.TestConnect();
+            setting.TestConnect();
         }
 
         private void Btn_ChooseYear_OnClick(object sender, RoutedEventArgs e)

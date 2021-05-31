@@ -38,7 +38,7 @@ namespace SubjectManagement.GUI.Controller
 
         public Subject FindSubject(string codeSubject)
         {
-            var subject = _subjectService.FindSubject(codeSubject);
+            var subject = _subjectService.FindSubject(codeSubject, _Class);
             if (subject.IsSuccessed != false) return subject.ResultObj;
             MyCommonDialog.MessageDialog("Không tìm thấy môn học", $"{subject.Message}");
 
@@ -66,7 +66,7 @@ namespace SubjectManagement.GUI.Controller
 
         public void EditWindow(string coursesCode)
         {
-            var result = _subjectService.FindSubject(coursesCode);
+            var result = _subjectService.FindSubject(coursesCode, _Class);
             if (!result.IsSuccessed)
             {
                 MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}");
@@ -137,7 +137,7 @@ namespace SubjectManagement.GUI.Controller
         public void RemoveSubject(string coursesCode)
         {
             //Tìm kiếm môn học
-            var subject = _subjectService.FindSubject(coursesCode);
+            var subject = _subjectService.FindSubject(coursesCode, _Class);
             if (subject.ResultObj is null)
             {
 

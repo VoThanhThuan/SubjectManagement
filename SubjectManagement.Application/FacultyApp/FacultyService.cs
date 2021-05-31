@@ -26,14 +26,36 @@ namespace SubjectManagement.Application.FacultyApp
             return faculty;
         }
 
-        public async Task<List<Class>> GetClass(int? idClass = null)
+        public async Task<List<Class>> GetClass()
         {
-            var faculty =  (from c in _db.Classes
-                           join cif in _db.ClassInFaculties on c.ID equals cif.IDClass
-                           join f in _db.Faculties on cif.IDFaculty equals f.ID
-                           where c.ID != idClass
-                           select c).ToList();
-            return faculty;
+            return _db.Classes.Select(x => x).ToList();
+        }
+        public async Task<List<Class>> GetClassInFaculty(int idFaculty)
+        {
+            var _class = new List<Class>();
+            _class = _db.Classes.Where(x => x.ClassInFaculty.Faculty.ID == idFaculty).ToList();
+            return _class;
+        }
+        //lớp học khác lớp hiện tại
+        public async Task<List<Class>> GetClassDifferentClass(int idFaculty, Class currentClass)
+        {
+            var _class = new List<Class>();
+            _class = _db.Classes.Where(x => x.ClassInFaculty.Faculty.ID == idFaculty && x.ID != currentClass.ID).ToList();
+            return _class;
+        }
+        //Lớp học khác có năm học mới hơn
+        public async Task<List<Class>> GetDifferentClassNewer(int idFaculty, Class currentClass)
+        {
+            var _class = new List<Class>();
+            _class = _db.Classes.Where(x => x.ClassInFaculty.Faculty.ID == idFaculty && x.ID != currentClass.ID && x.Year > currentClass.Year).ToList();
+            return _class;
+        }
+        //Lớp học khác có năm học cũ hơn
+        public async Task<List<Class>> GetDifferentClassOlder(int idFaculty, Class currentClass)
+        {
+            var _class = new List<Class>();
+            _class = _db.Classes.Where(x => x.ClassInFaculty.Faculty.ID == idFaculty && x.ID != currentClass.ID && x.Year < currentClass.Year).ToList();
+            return _class;
         }
 
         public Result<string> AddFaculty(string name)
@@ -69,6 +91,16 @@ namespace SubjectManagement.Application.FacultyApp
         {
             var faculty = _db.Faculties.Find(id);
             if (faculty == null) return new ResultError<string>("Không tìm thấy mã khoa");
+            //Xóa lớp
+            var clss = _db.Classes.Where(x => x.ClassInFaculty.IDFaculty == faculty.ID).ToList();
+            if (clss.Count > 0)
+            {
+                foreach (var c in clss)
+                {
+                    RemoveClass(c.ID);
+                }
+            }
+                //Xóa khoa
             _db.Faculties.Remove(faculty);
             _db.SaveChanges();
             return new ResultSuccess<string>("Xóa thành công");
@@ -82,6 +114,13 @@ namespace SubjectManagement.Application.FacultyApp
 
             var clss = _db.Classes.Find(id);
             if (clss == null) return new ResultError<string>("Không tìm thấy mã lớp");
+
+            //Xóa môn học
+            var subjects = new SubjectApp.SubjectService().GetSubject(clss.ID);
+            if (subjects.Count > 0)
+                _db.Subjects.RemoveRange(subjects);
+
+            //Xóa lớp
             _db.Classes.Remove(clss);
 
             _db.SaveChanges();
@@ -99,5 +138,5 @@ namespace SubjectManagement.Application.FacultyApp
 
         }
     }
-    
+
 }

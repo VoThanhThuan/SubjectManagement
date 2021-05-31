@@ -13,9 +13,8 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         Background="{x:Null}"
-        ShowInTaskbar="False"
+        ShowInTaskbar="true"
         MouseLeftButtonDown="Window_MouseLeftButtonDown"
-        Loaded="Window_Loaded"
         KeyDown="Window_KeyDown">
     <materialDesign:TransitioningContent>
         <materialDesign:TransitioningContent.OpeningEffects>
@@ -114,7 +113,9 @@
                                        Margin="25,0,0,0"
                                        CaretBrush="#FF2B5BEB"
                                        BorderBrush="#FF696FD0"
-                                       PasswordChanged="tbx_Password_PasswordChanged" />
+                                       PasswordChanged="tbx_Password_PasswordChanged">
+                        </PasswordBox>
+
                         <Button x:Name="btn_ShowPass"
                                 Width="20"
                                 Height="20"
@@ -225,19 +226,7 @@
                           Foreground="#FFBCBCBC"
                           FontWeight="Bold"
                           FontSize="9"
-                          RenderTransformOrigin="0.428,0.618"
-                          d:IsHidden="True" />
-
-                <Button Style="{StaticResource MaterialDesignFlatButton}"
-                        ToolTip="Bạn đã quên mật khẩu ?"
-                        Margin="186,265.75,0,130.25"
-                        Height="24"
-                        Content="Quên mật khẩu"
-                        FontSize="7"
-                        FontWeight="Bold"
-                        HorizontalAlignment="Left"
-                        Width="109"
-                        d:IsHidden="True" />
+                          RenderTransformOrigin="0.428,0.618" />
 
                 <RepeatButton x:Name="btn_Login"
                               ToolTip="Đăng nhập"

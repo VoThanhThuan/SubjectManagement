@@ -53,9 +53,9 @@
                       CornerRadius="0"
                       CaptionHeight="0" />
     </WindowChrome.WindowChrome>
-
+    <Grid>
     <DockPanel>
-
+    
         <Grid DockPanel.Dock="Top"
               Background="{DynamicResource OptionColor}"
               MouseDown="UIElement_OnMouseDown">
@@ -174,11 +174,13 @@
             <dragablz:TabablzControl.HeaderPrefixContent>
                 <Button x:Name="btnNewTab"
                         Click="BtnNewTab_OnClick"
-                        Background="{x:Null}"
                         BorderThickness="0"
-                        Width="26"
+                        Width="36"
+                        VerticalAlignment="Stretch"
                         ToolTip="New tab"
-                        Foreground="{DynamicResource OptionTextColor}">
+                        Foreground="{DynamicResource OptionTextColor}"
+                        Cursor="Hand"
+                            Background="#19000000">
                     <materialDesign:PackIcon Kind="File" />
                 </Button>
             </dragablz:TabablzControl.HeaderPrefixContent>
@@ -197,6 +199,26 @@
                 </Style>
             </dragablz:TabablzControl.Resources>
         </dragablz:TabablzControl>
+
+
     </DockPanel>
+        <Grid x:Name="g_loading"
+              Background="#66000000"
+              Visibility="Hidden"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch">
+            <StackPanel VerticalAlignment="Center">
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Foreground="White"
+                         IsReadOnly="True"
+                         FontSize="32">waiting for love...</TextBox>
+                <ProgressBar IsIndeterminate="True"
+                             Foreground="#FFA200FF"
+                             Background="White"
+                             Width="269" />
+            </StackPanel>
+        </Grid>
+    </Grid>
 
 </Window>

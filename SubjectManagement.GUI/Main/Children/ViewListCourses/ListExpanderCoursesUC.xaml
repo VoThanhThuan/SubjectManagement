@@ -181,7 +181,7 @@
                     <StackPanel x:Name="renderExpander"></StackPanel>
         </ScrollViewer>
         <Button x:Name="btn_ChangeView" Style="{StaticResource MaterialDesignIconButton}"
-                ToolTip="MaterialDesignIconButton"
+                ToolTip="Đổi chế độ xem"
                 Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"

@@ -56,7 +56,7 @@ namespace SubjectManagement.GUI.Main.Children.Semester
 
         private void LoadSubjectInSemester(int semester)
         {
-            if (semester < 1) return;
+            if (semester < 1 || semester > 8) return;
             var load = new SemesterController(_Class);
             dg_SubjectOfSemester.ItemsSource = load.LoadSubject(semester);
         }

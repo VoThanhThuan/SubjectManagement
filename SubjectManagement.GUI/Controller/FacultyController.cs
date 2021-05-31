@@ -36,9 +36,32 @@ namespace SubjectManagement.GUI.Controller
             cbb.DisplayMemberPath = "Name";
         }
 
-        public async void GetClass(ComboBox cbb, int? idClass = null)
+        public async void GetClassInFaculty(ComboBox cbb, int idFaculty)
         {
-            cbb.ItemsSource = await _facultyService.GetClass(idClass);
+            cbb.ItemsSource = await _facultyService.GetClassInFaculty(idFaculty);
+            cbb.DisplayMemberPath = "CodeClass";
+        }
+
+        public async void GetClassDifferentClass(ComboBox cbb, int idFaculty, Class currentClass)
+        {
+            cbb.ItemsSource = await _facultyService.GetClassDifferentClass(idFaculty, currentClass);
+            cbb.DisplayMemberPath = "CodeClass";
+        }
+
+        public async void GetDifferentClassNewer(ComboBox cbb, int idFaculty, Class currentClass)
+        {
+            cbb.ItemsSource = await _facultyService.GetDifferentClassNewer(idFaculty, currentClass);
+            cbb.DisplayMemberPath = "CodeClass";
+        }
+        public async void GetDifferentClassOlder(ComboBox cbb, int idFaculty, Class currentClass)
+        {
+            cbb.ItemsSource = await _facultyService.GetDifferentClassOlder(idFaculty, currentClass);
+            cbb.DisplayMemberPath = "CodeClass";
+        }
+
+        public async void GetClass(ComboBox cbb)
+        {
+            cbb.ItemsSource = await _facultyService.GetClass();
             cbb.DisplayMemberPath = "CodeClass";
         }
 

@@ -21,14 +21,16 @@ namespace SubjectManagement.GUI.Dialog
     /// </summary>
     public partial class AddNewOrOldDialog : Window
     {
-        public AddNewOrOldDialog(Class _class)
+        public AddNewOrOldDialog(Class _class, int idFaculty)
         {
             InitializeComponent();
+            _IdFaculty = idFaculty;
             _Class = _class;
             LoadClass();
         }
 
         private Class _Class { get; init; }
+        private int _IdFaculty { get; init; }
         public bool? IsCopy { get; set; } = null;
         public int IdClassNew { get; set; }
 
@@ -37,7 +39,7 @@ namespace SubjectManagement.GUI.Dialog
         private void LoadClass()
         {
             var load = new FacultyController();
-            load.GetClass(cbb_Class, _Class.ID);
+            load.GetDifferentClassOlder(cbb_Class, _IdFaculty, _Class);
         }
 
         private void Btn_Import_OnClick(object sender, RoutedEventArgs e)

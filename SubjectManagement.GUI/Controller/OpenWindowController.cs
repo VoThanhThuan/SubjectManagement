@@ -26,9 +26,8 @@ namespace SubjectManagement.GUI.Controller
         }
 
         private readonly IUserService _userService;
-        public async Task<bool> OpenWindow(LoginRequest request, Grid grid_Loading)
+        public async Task<bool> OpenWindow(LoginRequest request)
         {
-            grid_Loading.Visibility = Visibility.Visible;
 
             //var _userService = new UserService();
 
@@ -61,7 +60,6 @@ namespace SubjectManagement.GUI.Controller
             {
                 MyCommonDialog.MessageDialog("Lỗi đăng nhập", $"{result.Message}");
             }
-            grid_Loading.Visibility = Visibility.Hidden;
             return isSuccess;
         }
     }

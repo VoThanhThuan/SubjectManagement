@@ -13,6 +13,7 @@ namespace SubjectManagement.ViewModels.Subject
             SubjectDefault,
             SubjectNew,
             SubjectChange,
+            SubjectOriginal,
             SubjectRemove
         }
     }

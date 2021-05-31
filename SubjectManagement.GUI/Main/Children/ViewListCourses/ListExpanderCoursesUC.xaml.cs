@@ -26,34 +26,45 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
     /// </summary>
     public partial class ListExpanderCoursesUC : UserControl
     {
-        public ListExpanderCoursesUC(Grid renderBody)
+        public ListExpanderCoursesUC(Grid renderBody, int idFaculty)
         {
             InitializeComponent();
+            _IdFaculty = idFaculty;
             _renderBody = renderBody;
         }
 
         public Grid _g_loading;
 
         private Window _mainWindow { get; set; }
-
+        private int _IdFaculty { get; init; }
         public Class _Class { get; init; }
         private Grid _renderBody;
         private void LoadListSubject()
         {
-            var load = new LoadListController(_Class);
+            _g_loading.Visibility = Visibility.Visible;
+            _g_loading.UpdateLayout();
 
+            var load = new LoadListController(_Class, _IdFaculty);
             load.LoadList(_renderBody, _g_loading);
+
+            _g_loading.Visibility = Visibility.Hidden;
+
         }
 
         private void LoadListSubjectInSemester()
         {
-            var load = new LoadListController(_Class);
+            _g_loading.Visibility = Visibility.Visible;
+            _g_loading.UpdateLayout();
+
+            var load = new LoadListController(_Class, _IdFaculty);
             load.LoadListInSemester(_renderBody, _g_loading);
+
+            _g_loading.Visibility = Visibility.Hidden;
         }
 
         private void btn_AddOpen_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new AddNewOrOldDialog(_Class) { Owner = Window.GetWindow(this) };
+            var dialog = new AddNewOrOldDialog(_Class, _IdFaculty) { Owner = Window.GetWindow(this) };
             dialog.ShowDialog();
             switch (dialog.IsCopy)
             {
@@ -92,7 +103,14 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 
         private void Btn_Reload_OnClick(object sender, RoutedEventArgs e)
         {
-            LoadListSubject();
+            if (_isViewSemester == true)
+            {
+                LoadListSubjectInSemester();
+            }
+            else
+            {
+                LoadListSubject();
+            }
         }
 
         private void Btn_Edit_OnClick(object sender, RoutedEventArgs e)
@@ -142,8 +160,6 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
                     break;
             }
             MyCommonDialog.MessageDialog($"Đã lưu vào {saveFileDialog.FileName}", Colors.DeepSkyBlue);
-
-
         }
 
         private void UIElement_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)

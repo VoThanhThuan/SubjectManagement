@@ -67,11 +67,13 @@ namespace SubjectManagement.Application.CompareApp
                     NumberOfPractice = $"{subjectSmall[i].NumberOfPractice}",
                     Prerequisite = $"{subjectSmall[i].Prerequisite}",
                     LearnFirst = $"{subjectSmall[i].LearnFirst}",
-                    Parallel = $"{subjectSmall[i].Parallel}"
+                    Parallel = $"{subjectSmall[i].Parallel}",
+                    CodeClass = $"{subjectSmall[i].Class.CodeClass}"
                 };
 
                 var subjectCompare = new SubjectCompareVM();
                 var iOfLagre = -1;
+
                 //tìm kiếm dữ liệu ở bảng cần so sánh
                 for (var j = 0; j < subjectLarge.Count; j++)
                 {
@@ -88,6 +90,7 @@ namespace SubjectManagement.Application.CompareApp
                     subjectCompare.Prerequisite = $"{subjectLarge[j].Prerequisite}";
                     subjectCompare.LearnFirst = $"{subjectLarge[j].LearnFirst}";
                     subjectCompare.Parallel = $"{subjectLarge[j].Parallel}";
+                    subjectCompare.CodeClass = $"{subjectLarge[j].Class.CodeClass}";
 
                     iOfLagre = j;
                 }
@@ -99,6 +102,7 @@ namespace SubjectManagement.Application.CompareApp
                 else
                 {
                     subjectCompare.Different = SubjectDifferent.Different.SubjectChange;
+                    subjectCurrent.Different = SubjectDifferent.Different.SubjectOriginal;
                     listSubject.Add(subjectCompare);
                     listSubject.Add(subjectCurrent);
                 }

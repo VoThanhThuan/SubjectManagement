@@ -87,6 +87,7 @@
                       x:Name="cbb_ModeAdd"
                       materialDesign:HintAssist.Hint="Hình tạo mới"
                       Margin="5"
+                      SelectedIndex="0"
                       SelectionChanged="Cbb_ModeAdd_OnSelectionChanged">
                 <ComboBoxItem>Thêm 1 môn</ComboBoxItem>
                 <ComboBoxItem>Thêm 1 danh sách</ComboBoxItem>

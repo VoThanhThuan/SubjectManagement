@@ -24,10 +24,11 @@ namespace SubjectManagement.GUI.Member
         private void loadCombobox()
         {
             var clss = new FacultyController();
-            clss.GetClass(cbb_class);
+            clss.GetFaculty(cbb_Faculty);
         }
-
+        private int _IdFaculty { get; set; }
         private Class _Class { get; set; }
+
         private void Cbb_class_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (cbb_class.SelectedIndex < 0) return;
@@ -44,10 +45,10 @@ namespace SubjectManagement.GUI.Member
         private void Btn_Compare_OnClick(object sender, RoutedEventArgs e)
         {
             if (cbb_class.SelectedIndex < 0) return;
-            var compare = new CompareDialog(_Class);
+            var compare = new CompareDialog(_Class, _IdFaculty);
             compare.ShowDialog();
             if (compare.DialogResult != true) return;
-            var containerCompare = new ContainerSubjectCompare(_Class, compare._ClassCompare);
+            var containerCompare = new ContainerSubjectCompare(_Class, compare._ClassCompare, g_loading);
             var view = new ViewCompare();
             view.RenderBody.Children.Clear();
             view.RenderBody.Children.Add(containerCompare);
@@ -69,5 +70,11 @@ namespace SubjectManagement.GUI.Member
             alter.ShowDialog();
         }
 
+        private void Cbb_Faculty_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var clss = new FacultyController();
+            _IdFaculty = ((Faculty) cbb_Faculty.SelectedValue).ID;
+            clss.GetClassInFaculty(cbb_class, _IdFaculty);
+        }
     }
 }

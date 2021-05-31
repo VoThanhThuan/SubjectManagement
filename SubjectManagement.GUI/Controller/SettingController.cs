@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -27,6 +29,18 @@ namespace SubjectManagement.GUI.Controller
         }
 
         private IMyConnectString _connect;
+
+        public SettingWindow OpenSetting()
+        {
+            var setting = new SettingWindow(true);
+            setting.ShowDialog();
+            if (!setting.isRemoveFaculty && !setting.isRemoveClass) return setting;
+            var path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            Process.Start("cmd", $"/c start {path}/{System.AppDomain.CurrentDomain.FriendlyName}.exe");
+            System.Windows.Application.Current.Shutdown();
+            return setting;
+        }
+
         public void WriteSetting(SettingApp setting)
         {
             var options = new JsonSerializerOptions
@@ -91,7 +105,7 @@ namespace SubjectManagement.GUI.Controller
             var conn = _connect.ReadConnectString();
             if (conn.IsSuccessed) return conn;
 
-            MyCommonDialog.MessageDialog($"{conn.Message}", "Vào cài đặt để thiết lập chuỗi kết nối");
+            MyCommonDialog.MessageDialog("Vào cài đặt để thiết lập chuỗi kết nối",$"{conn.Message}");
 
             return conn;
         }

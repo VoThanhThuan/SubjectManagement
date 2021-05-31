@@ -106,6 +106,8 @@ namespace SubjectManagement.GUI.Controller
                     case Different.SubjectRemove:
                         listRemove.Add(item);
                         break;
+                    case Different.SubjectOriginal:
+                        break;
                     default:
                         MyCommonDialog.MessageDialog("Lỗi ngoài ý muốn khi so sánh");
                         break;

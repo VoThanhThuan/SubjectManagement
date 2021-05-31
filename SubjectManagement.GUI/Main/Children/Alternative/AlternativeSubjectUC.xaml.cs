@@ -24,19 +24,22 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
     /// </summary>
     public partial class AlternativeSubjectUC : UserControl
     {
-        public AlternativeSubjectUC(Class _class)
+        public AlternativeSubjectUC(Class _class, int idFaculty)
         {
             InitializeComponent();
+            _IdFaculty = idFaculty;
             _Class = _class;
             LoadSubjectClass();
         }
+
+        private int _IdFaculty { get; init; }
 
         private Class _Class { get; init; }
 
         private void LoadSubjectClass()
         {
             var clss = new FacultyController();
-            clss.GetClass(cbb_Class, _Class.ID);
+            clss.GetDifferentClassNewer(cbb_Class, _IdFaculty, _Class);
 
             var subAlter = new SubjectController(_Class);
             dg_ListAllSubject.ItemsSource = subAlter.GetSubjectClass();

@@ -56,11 +56,9 @@ namespace SubjectManagement.Application.ElectiveGroupApp
             --group.TotalSubject;
             _db.SaveChanges();
 
-            if(group.TotalSubject < 1)
-            {
-                _db.ElectiveGroups.Remove(group);
-                _db.SaveChanges();
-            }
+            if (@group.TotalSubject >= 1) return new ResultSuccess<string>("Đã xóa môn khỏi nhóm môn tự chọn");
+            _db.ElectiveGroups.Remove(@group);
+            _db.SaveChanges();
 
             return new ResultSuccess<string>("Đã xóa môn khỏi nhóm môn tự chọn");
         }

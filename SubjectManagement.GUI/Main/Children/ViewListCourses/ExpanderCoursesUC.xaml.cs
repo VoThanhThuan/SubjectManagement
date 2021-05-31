@@ -97,21 +97,21 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             var subjects = dg_ListCourses.SelectedItems;
             var group = new ElectiveGroupController(_Class);
             
-            var creditGroup = (from object item in subjects select ((Subject) item).Credit).Prepend(0).Min();
-            if (creditGroup <= 1)
-            {
-                MyCommonDialog.MessageDialog("Lỗi thêm nhóm","Số học phần đang bé hơn 1");
-                return;
-            }
+            var creditGroup = (from object item in subjects select ((Subject) item).Credit).Min();
+            //if (creditGroup <= 1)
+            //{
+            //    MyCommonDialog.MessageDialog("Lỗi thêm nhóm","Số học phần đang bé hơn 2");
+            //    return;
+            //}
             foreach (var item in subjects)
             {
                 var subject = (Subject)item;
-                if (subject.Credit != creditGroup)
-                {
-                    MyCommonDialog.MessageDialog("Lỗi thêm nhóm", "Môn học này có số học phần khác môn còn lại");
-                    return;
-                }
-                //nếu đã group thì xóa group ngược lại thì add vào group
+                //if (subject.Credit != creditGroup)
+                //{
+                //    MyCommonDialog.MessageDialog("Lỗi thêm nhóm", "Môn học này có số học phần khác môn còn lại");
+                //    return;
+                //}
+                //nếu có đã group thì xóa group ngược lại thì add vào group
                 if (subject.TypeCourse == true) return;
                 if (subject.IDElectiveGroup != null)
                 {
@@ -134,6 +134,10 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             
         }
 
+        private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
+        {
+            e.Row.Header = (e.Row.GetIndex()+1).ToString();
+        }
     }
 
 

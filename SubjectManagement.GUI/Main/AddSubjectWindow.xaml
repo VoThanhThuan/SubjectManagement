@@ -7,58 +7,67 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Thêm môn học"
-        Height="532"
+        Height="574"
         Width="400"
         WindowStartupLocation="CenterScreen">
     <StackPanel Margin="5">
         <TextBox x:Name="tbx_CourseCode"
                  materialDesign:HintAssist.Hint="Mã Học Phần"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 VerticalAlignment="Center" />
+                 VerticalAlignment="Center"
+                 FontSize="14"/>
         <TextBox x:Name="tbx_Name"
                  materialDesign:HintAssist.Hint="Tên Học Phần"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 VerticalAlignment="Center" />
+                 VerticalAlignment="Center"
+                 FontSize="14" />
         <TextBox x:Name="tbx_Credit"
                  materialDesign:HintAssist.Hint="Số Tín Chỉ"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center"
                  PreviewTextInput="tbx_PreviewTextInput"
-                 TextChanged="tbx_TextChanged" />
+                 TextChanged="tbx_TextChanged"
+                 FontSize="14" />
         <TextBox x:Name="tbx_NumberOfTheory"
                  materialDesign:HintAssist.Hint="Số Tiết Lý Thuyết"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center"
                  PreviewTextInput="tbx_PreviewTextInput"
-                 TextChanged="tbx_TextChanged" />
+                 TextChanged="tbx_TextChanged"
+                 FontSize="14" />
         <TextBox x:Name="tbx_NumberOfPractice"
                  materialDesign:HintAssist.Hint="Số Tiết Thực Hành"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center"
                  PreviewTextInput="tbx_PreviewTextInput"
-                 TextChanged="tbx_TextChanged" />
+                 TextChanged="tbx_TextChanged"
+                 FontSize="14" />
         <TextBox x:Name="tbx_Prerequisite"
                  materialDesign:HintAssist.Hint="Tiên Quyết"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center"
                  PreviewTextInput="tbx_PreviewTextInput"
-                 TextChanged="tbx_TextChanged" />
+                 TextChanged="tbx_TextChanged"
+                 FontSize="14" />
         <TextBox x:Name="tbx_LearnFirst"
                  materialDesign:HintAssist.Hint="Học Trước"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center"
                  PreviewTextInput="tbx_PreviewTextInput"
-                 TextChanged="tbx_TextChanged" />
+                 TextChanged="tbx_TextChanged"
+                 FontSize="14" />
         <TextBox x:Name="tbx_Parallel"
                  materialDesign:HintAssist.Hint="Song Hành"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                  VerticalAlignment="Center"
                  PreviewTextInput="tbx_PreviewTextInput"
-                 TextChanged="tbx_TextChanged" />
+                 TextChanged="tbx_TextChanged"
+                 FontSize="14" />
         <TextBox x:Name="tbx_Details"
                  materialDesign:HintAssist.Hint="Mô Tả Môn Học"
                  Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 VerticalAlignment="Center" />
+                 VerticalAlignment="Center"
+                 FontSize="14" />
 
 
         <StackPanel Orientation="Horizontal"
@@ -68,11 +77,13 @@
                           ToolTip="Đây là học phần bắt buộc hay tự chọn ?"
                           Click="chk_TypeCourse_Click" />
             <TextBlock x:Name="tbl_TypeCourse"
-                       Foreground="#7F000000">Môn Tự Chọn</TextBlock>
+                       Foreground="#7F000000"
+                       FontSize="14">Môn Tự Chọn</TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <ComboBox x:Name="cbb_CoursesGroup"
-                      materialDesign:HintAssist.Hint="Nhóm Học Phần">
+                      materialDesign:HintAssist.Hint="Nhóm Học Phần"
+                      FontSize="14">
             </ComboBox>
             <materialDesign:PopupBox Style="{StaticResource MaterialDesignMultiFloatingActionPopupBox}"
                                      PlacementMode="BottomAndAlignCentres"
@@ -122,7 +133,8 @@
             <ComboBox x:Name="cbb_Semester"
                       MinWidth="90"
                       ToolTip="Chọn học kỳ cho học phần"
-                      materialDesign:HintAssist.Hint="Học kỳ">
+                      materialDesign:HintAssist.Hint="Học kỳ"
+                      FontSize="14">
                 <ComboBoxItem>1</ComboBoxItem>
                 <ComboBoxItem>2</ComboBoxItem>
                 <ComboBoxItem>3</ComboBoxItem>
@@ -134,10 +146,12 @@
             </ComboBox>
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Học kỳ:"
-                           VerticalAlignment="Center"></TextBlock>
+                           VerticalAlignment="Center"
+                           FontSize="14"></TextBlock>
                 <TextBlock x:Name="tbl_Semeter"
                            Text=""
-                           VerticalAlignment="Center"></TextBlock>
+                           VerticalAlignment="Center"
+                           FontSize="14"></TextBlock>
             </StackPanel>
 
         </StackPanel>

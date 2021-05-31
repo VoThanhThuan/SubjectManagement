@@ -22,6 +22,10 @@ namespace SubjectManagement.ViewModels.Subject
         public int Semester { get; set; } //Học kỳ
         public string Details { get; set; }
 
+        public int IDClass { get; set; }
+
+        public Guid? IDElectiveGroup { get; set; }
+
         public Guid IDKnowledgeGroup { get; set; }
         public Guid IDKnowledgeGroupOld { get; set; }
 

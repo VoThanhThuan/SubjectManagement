@@ -46,11 +46,13 @@
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  VerticalAlignment="Stretch"
                                  Margin="10"
+                                 IsEnabled="False"
                                  materialDesign:HintAssist.Hint="Username" />
                         <PasswordBox x:Name="tbx_Password"
                                      Style="{StaticResource MaterialDesignOutlinedPasswordBox}"
                                      VerticalAlignment="Stretch"
                                      Margin="10"
+                                     IsEnabled="False"
                                      materialDesign:HintAssist.Hint="Password" />
 
                     </StackPanel>
@@ -275,7 +277,8 @@
                                         <ComboBox x:Name="cbb_Class"
                                                   Width="300"
                                                   Margin="5"
-                                                  materialDesign:HintAssist.Hint="Nhập mã của lớp bạn muốn thêm"></ComboBox>
+                                                  IsEditable="True"
+                                                  materialDesign:HintAssist.Hint="Nhập mã của lớp bạn muốn xóa"></ComboBox>
                                         <Button x:Name="btn_RemoveClass"
                                                 Margin="20 0 0 0"
                                                 Content="Xóa lớp"
@@ -289,7 +292,7 @@
                                     <ComboBox x:Name="cbb_ClassLock"
                                               Width="300"
                                               Margin="5"
-                                              materialDesign:HintAssist.Hint="Nhập mã của lớp bạn muốn thêm"
+                                              materialDesign:HintAssist.Hint="Nhập mã của lớp bạn muốn khoa"
                                               SelectionChanged="Cbb_ClassLock_OnSelectionChanged"></ComboBox>
                                     <Button x:Name="btn_ClassLock"
                                             Margin="20 0 0 0"

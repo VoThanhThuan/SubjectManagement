@@ -30,6 +30,8 @@ namespace SubjectManagement.GUI.Dialog
         public new MyDialogResult.Result DialogResult = MyDialogResult.Result.Close;
 
         public Class _Class { get; set; }
+        public int _IdFaculty { get; set; }
+
         private void LoadCbbFaculty()
         {
             var faculty = new FacultyController();
@@ -38,8 +40,9 @@ namespace SubjectManagement.GUI.Dialog
 
         private void cbb_Faculty_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var f = (Faculty)cbb_Faculty.SelectedValue;
             var faculty = new FacultyController();
-            faculty.GetClass(cbb_Class);
+            faculty.GetClassInFaculty(cbb_Class, f.ID);
 
         }
         private void Cbb_Class_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -50,6 +53,8 @@ namespace SubjectManagement.GUI.Dialog
         private void Btn_accept_OnClick(object sender, RoutedEventArgs e)
         {
             _Class = ((Class) cbb_Class.SelectedValue);
+            _IdFaculty = ((Faculty)cbb_Faculty.SelectedValue).ID;
+
             DialogResult = MyDialogResult.Result.Ok;
             this.Close();
         }

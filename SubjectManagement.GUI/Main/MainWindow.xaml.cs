@@ -13,6 +13,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using SubjectManagement.GUI.Login;
 
 namespace SubjectManagement.GUI.Main
@@ -25,11 +26,10 @@ namespace SubjectManagement.GUI.Main
         public MainWindow()
         {
             InitializeComponent();
-
             SetColor();
             OnStart();
-            if(ConstantInfor.InforUser != null)
-                tbl_HelloName.Text =$"Xin Chào {ConstantInfor.InforUser.Name}";
+            if (ConstantInfor.InforUser != null)
+                tbl_HelloName.Text = $"Xin Chào {ConstantInfor.InforUser.Name}";
         }
 
         private bool _IsReset = false;
@@ -59,7 +59,7 @@ namespace SubjectManagement.GUI.Main
             }
             catch (Exception e)
             {
-
+                MessageBox.Show($"{e}");
             }
 
         }
@@ -69,7 +69,7 @@ namespace SubjectManagement.GUI.Main
             InitialTabablzControl.NewItemFactory = () =>
             {
                 var tabItem = new TabItem() { Header = "NewTab" };
-                tabItem.Content = new NewTabUC(tabItem, this);
+                tabItem.Content = new NewTabUC(tabItem, this, g_loading);
                 return tabItem;
             };
             var welcome = new TabItem() { Header = "Welcome", Content = new WelcomeTabUC() };
@@ -81,10 +81,12 @@ namespace SubjectManagement.GUI.Main
         //Hàm new tab nhưng giờ không còn dùng nữa.
         private void NewTab()
         {
+            g_loading.Visibility = Visibility.Visible;
             var newItem = new TabItem() { Header = "NewTab" };
-            newItem.Content = new NewTabUC(newItem, this);
+            newItem.Content = new NewTabUC(newItem, this, g_loading);
             InitialTabablzControl.Items.Add(newItem);
             InitialTabablzControl.SelectedItem = newItem;
+            g_loading.Visibility = Visibility.Hidden;
         }
 
         private void Btn_Hide_OnClickHide(object sender, RoutedEventArgs e)
@@ -130,17 +132,20 @@ namespace SubjectManagement.GUI.Main
 
         private void Li_Settings(object sender, MouseButtonEventArgs e)
         {
-            var setting = new SettingWindow(true);
-            setting.ShowDialog();
-            if(setting.DialogResult != MyDialogResult.Result.Ok) return;
-            _IsReset = true;
+            g_loading.Visibility = Visibility.Visible;
+
+            var setting = new SettingController().OpenSetting();
+
+            g_loading.Visibility = Visibility.Hidden;
+            if (setting.DialogResult != MyDialogResult.Result.Ok) return;
+                _IsReset = true;
             System.Windows.Application.Current.Shutdown();
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
             if (!_IsReset) return;
-            var path =System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
+            var path = System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location);
             Process.Start("cmd", $"/c start {path}/SubjectManagement.GUI.exe");
         }
 

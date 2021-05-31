@@ -27,7 +27,7 @@ namespace SubjectManagement.Application.SubjectApp
 
         Result<string> RemoveSubject(SubjectRequest request);
 
-        Result<Subject> FindSubject(string coursesCode);
+        Result<Subject> FindSubject(string coursesCode, Class _class);
 
         Result<string> CopyListSubject(int idClassOld, int idClassNew);
 
