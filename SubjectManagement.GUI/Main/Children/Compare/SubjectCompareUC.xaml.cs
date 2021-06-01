@@ -27,7 +27,7 @@ namespace SubjectManagement.GUI.Main.Children.Compare
             InitializeComponent();
             _ClassCurent = _class1;
             _ClassCompare = _class2;
-            tbl_nameClass.Text = $"{_class1.CodeClass} vs {_class2.CodeClass}";
+            tbl_nameClass.Text = $"{_class1.CodeClass} So Với {_class2.CodeClass}";
             LoadCompare();
         }
 

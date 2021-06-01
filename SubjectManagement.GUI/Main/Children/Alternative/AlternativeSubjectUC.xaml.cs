@@ -42,7 +42,7 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
             clss.GetDifferentClassNewer(cbb_Class, _IdFaculty, _Class);
 
             var subAlter = new SubjectController(_Class);
-            dg_ListAllSubject.ItemsSource = subAlter.GetSubjectClass();
+            dg_ListAllSubject.ItemsSource = subAlter.GetSubjectOfClass();
             //var alter = new AlternativeController(_Class);
             //alter.LoadSubjectClass(dg_ListAllSubject);
         }
@@ -70,7 +70,7 @@ namespace SubjectManagement.GUI.Main.Children.Alternative
         {
             var clss = (Class) cbb_Class.SelectedValue;
             var subAlter = new SubjectController(clss);
-            dg_SubjectOfClassOther.ItemsSource = subAlter.GetSubjectClass();
+            dg_SubjectOfClassOther.ItemsSource = subAlter.GetSubjectOfClass();
         }
 
         private void Btn_Remove_OnClick(object sender, RoutedEventArgs e)

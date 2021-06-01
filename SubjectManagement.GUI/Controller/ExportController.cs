@@ -62,13 +62,13 @@ namespace SubjectManagement.GUI.Controller
             try
             {
                 using var workbook = new XLWorkbook();
-                var group = _subjectService.LoadKnowledgeGroup();
+                var group = _subjectService.GetKnowledgeGroup();
                 var worksheet = workbook.Worksheets.Add("Sample Sheet");
 
                 var cell = 1;
                 foreach (var item in group)
                 {
-                    var subjectInGroup = _subjectService.LoadSubjectWithGroup(item.ID, _Class.ID);
+                    var subjectInGroup = _subjectService.GetSubjectWithGroup(item.ID, _Class.ID);
                     var title = $"{item.Name}" +
                                 $" - {subjectInGroup.Sum(x => x.Credit)} TC " +
                                 $" - {subjectInGroup.Count(x => x.TypeCourse == true)} Bắt buộc";
@@ -123,13 +123,13 @@ namespace SubjectManagement.GUI.Controller
         {
             try
             {
-                var groups = _subjectService.LoadKnowledgeGroup();
+                var groups = _subjectService.GetKnowledgeGroup();
 
                 var _data = new List<PrintSubjectJSON>();
 
                 foreach (var item in groups)
                 {
-                    var subjectInGroup = _subjectService.LoadSubjectWithGroup(item.ID, _Class.ID);
+                    var subjectInGroup = _subjectService.GetSubjectWithGroup(item.ID, _Class.ID);
 
                     var title = $"{item.Name}" +
                                 $" - {subjectInGroup.Sum(x => x.Credit)} TC " +

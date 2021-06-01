@@ -51,7 +51,7 @@ namespace SubjectManagement.GUI.Main.Children.Semester
         private void LoadListSubject(int semester = 0)
         {
             var load = new SubjectController(_Class);
-            dg_ListAllSubject.ItemsSource = load.GetSubjectSemester(semester);
+            dg_ListAllSubject.ItemsSource = load.GetSubjectDifferentSemester(semester);
         }
 
         private void LoadSubjectInSemester(int semester)

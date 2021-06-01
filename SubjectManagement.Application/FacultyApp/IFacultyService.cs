@@ -11,7 +11,9 @@ namespace SubjectManagement.Application.FacultyApp
     public interface IFacultyService
     {
         Task<List<Faculty>> GetFaculty();
-        Task<List<Class>> GetClass();
+        Class GetClass(int idClass);
+        List<Class> GetAllClass();
+
         Task<List<Class>> GetClassInFaculty(int idFaculty);
         Task<List<Class>> GetClassDifferentClass(int idFaculty, Class currentClass);
         Task<List<Class>> GetDifferentClassNewer(int idFaculty, Class currentClass);

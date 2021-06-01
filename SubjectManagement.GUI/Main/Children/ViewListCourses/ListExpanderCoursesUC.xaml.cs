@@ -26,10 +26,11 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
     /// </summary>
     public partial class ListExpanderCoursesUC : UserControl
     {
-        public ListExpanderCoursesUC(Grid renderBody, int idFaculty)
+        public ListExpanderCoursesUC(Grid renderBody, int idFaculty, Class clss)
         {
             InitializeComponent();
             _IdFaculty = idFaculty;
+            _Class = clss;
             _renderBody = renderBody;
         }
 
@@ -37,8 +38,10 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 
         private Window _mainWindow { get; set; }
         private int _IdFaculty { get; init; }
-        public Class _Class { get; init; }
+        private Class _Class { get; init; }
+
         private Grid _renderBody;
+
         private void LoadListSubject()
         {
             _g_loading.Visibility = Visibility.Visible;

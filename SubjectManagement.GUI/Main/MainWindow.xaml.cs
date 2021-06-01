@@ -13,7 +13,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 using SubjectManagement.GUI.Login;
 
 namespace SubjectManagement.GUI.Main
@@ -29,7 +28,7 @@ namespace SubjectManagement.GUI.Main
             SetColor();
             OnStart();
             if (ConstantInfor.InforUser != null)
-                tbl_HelloName.Text = $"Xin Chào {ConstantInfor.InforUser.Name}";
+                tbl_HelloName.Text = $"Xin Chào {ConstantInfor.InforUser.Name}!";
         }
 
         private bool _IsReset = false;
@@ -68,25 +67,36 @@ namespace SubjectManagement.GUI.Main
         {
             InitialTabablzControl.NewItemFactory = () =>
             {
-                var tabItem = new TabItem() { Header = "NewTab" };
-                tabItem.Content = new NewTabUC(tabItem, this, g_loading);
+                var tabItem = new TabItem() { Header = "NewTab", Tag = "New Tab" };
+                tabItem.Content = new NewTabUC(tabItem, this, g_loading, tbl_HelloName);
                 return tabItem;
             };
-            var welcome = new TabItem() { Header = "Welcome", Content = new WelcomeTabUC() };
+            var welcome = new TabItem() { Header = "Welcome", Content = new WelcomeTabUC(), Tag = $"Xin chào {ConstantInfor.InforUser.Name}!" };
             InitialTabablzControl.Items.Add(welcome);
             var load = new FacultyController();
-            load.LoadFacultyAndClass();
         }
 
         //Hàm new tab nhưng giờ không còn dùng nữa.
         private void NewTab()
         {
             g_loading.Visibility = Visibility.Visible;
-            var newItem = new TabItem() { Header = "NewTab" };
-            newItem.Content = new NewTabUC(newItem, this, g_loading);
+            var newItem = new TabItem() { Header = "NewTab", Tag = "New Tab" };
+            newItem.Content = new NewTabUC(newItem, this, g_loading, tbl_HelloName);
             InitialTabablzControl.Items.Add(newItem);
             InitialTabablzControl.SelectedItem = newItem;
             g_loading.Visibility = Visibility.Hidden;
+        }
+
+        private void OpenSetting()
+        {
+            g_loading.Visibility = Visibility.Visible;
+
+            var setting = new SettingController().OpenSetting();
+
+            g_loading.Visibility = Visibility.Hidden;
+            if (setting.DialogResult != MyDialogResult.Result.Ok) return;
+            _IsReset = true;
+            System.Windows.Application.Current.Shutdown();
         }
 
         private void Btn_Hide_OnClickHide(object sender, RoutedEventArgs e)
@@ -119,7 +129,7 @@ namespace SubjectManagement.GUI.Main
 
         private void li_Account(object sender, MouseButtonEventArgs e)
         {
-            var newItem = new TabItem() { Header = "NewTab" };
+            var newItem = new TabItem() { Header = "NewTab"};
             newItem.Content = new UserManagerUC();
 
             InitialTabablzControl.Items.Add(newItem);
@@ -132,14 +142,7 @@ namespace SubjectManagement.GUI.Main
 
         private void Li_Settings(object sender, MouseButtonEventArgs e)
         {
-            g_loading.Visibility = Visibility.Visible;
-
-            var setting = new SettingController().OpenSetting();
-
-            g_loading.Visibility = Visibility.Hidden;
-            if (setting.DialogResult != MyDialogResult.Result.Ok) return;
-                _IsReset = true;
-            System.Windows.Application.Current.Shutdown();
+            OpenSetting();
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
@@ -162,6 +165,30 @@ namespace SubjectManagement.GUI.Main
         private void BtnNewTab_OnClick(object sender, RoutedEventArgs e)
         {
             NewTab();
+        }
+
+        private void Li_AboutMe(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("cmd", "/c start https://vothanhthuan.github.io/vtt");
+        }
+
+        private void li_Logout(object sender, MouseButtonEventArgs e)
+        {
+            new LoginWindow().Show();
+            this.Close();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenSetting();
+        }
+
+        private void InitialTabablzControl_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.Source is not TabControl) return;
+            var tab = ((e.Source as Dragablz.TabablzControl)?.SelectedValue as TabItem);
+            if(tab != null)
+                tbl_HelloName.Text = $"{tab.Tag}";
         }
     }
 }

@@ -14,43 +14,10 @@
                                              Duration="0:0:0.8" />
             <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
         </materialDesign:TransitioningContent.OpeningEffects>
-    <Grid
-          Margin="0,5,0,0">
-        <DockPanel>
-            <Button x:Name="btn_Export"
-                    DockPanel.Dock="Right"
-                    ToolTip="Thêm mới"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Width="140"
-                    Margin="10,0,0,0"
-                    Padding="0"
-                    Height="48"
-                    BorderBrush="{x:Null}"
-                    Foreground="Black"
-                    Click="Btn_Export_OnClick">
-                <Grid Width="132"
-                      Height="44">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="41*"></ColumnDefinition>
-                        <ColumnDefinition Width="91*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Kind="Export"
-                                             Height="32"
-                                             Width="32"
-                                             VerticalAlignment="Center"
-                                             HorizontalAlignment="Right"
-                                             Margin="4,0,0,0" />
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               Grid.Column="1"
-                               Height="27">Export</TextBlock>
-                </Grid>
-            </Button>
-
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="btn_Add"
+        <Grid Margin="0,5,0,0">
+            <DockPanel>
+                <Button x:Name="btn_Export"
+                        DockPanel.Dock="Right"
                         ToolTip="Thêm mới"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
@@ -59,15 +26,15 @@
                         Padding="0"
                         Height="48"
                         BorderBrush="{x:Null}"
-                        Foreground="#FF62D4FF"
-                        Click="btn_AddOpen_Click">
+                        Foreground="Black"
+                        Click="Btn_Export_OnClick">
                     <Grid Width="132"
                           Height="44">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="41*"></ColumnDefinition>
                             <ColumnDefinition Width="91*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Kind="PuzzlePlus"
+                        <materialDesign:PackIcon Kind="Export"
                                                  Height="32"
                                                  Width="32"
                                                  VerticalAlignment="Center"
@@ -77,119 +44,153 @@
                                    VerticalAlignment="Center"
                                    FontSize="20"
                                    Grid.Column="1"
-                                   Height="27">Thêm</TextBlock>
+                                   Height="27">Export</TextBlock>
                     </Grid>
                 </Button>
 
-                <Button x:Name="btn_Edit"
-                        ToolTip="Sửa"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Width="140"
-                        Padding="0"
-                        Foreground="#DD00FF46"
-                        BorderBrush="{x:Null}"
-                        Height="48"
-                        Click="Btn_Edit_OnClick">
-                    <Grid Width="132"
-                          Height="44">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="41*"></ColumnDefinition>
-                            <ColumnDefinition Width="91*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Kind="PuzzleEdit"
-                                                 Height="32"
-                                                 Width="32"
-                                                 VerticalAlignment="Center"
-                                                 HorizontalAlignment="Right"
-                                                 Margin="4,0,0,0" />
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontSize="20"
-                                   Grid.Column="1"
-                                   Height="27">Sửa</TextBlock>
-                    </Grid>
-                </Button>
+                <StackPanel Orientation="Horizontal">
 
-                <Button x:Name="btn_Remove"
-                        ToolTip="Xóa"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Width="140"
-                        Padding="0"
-                        BorderBrush="{x:Null}"
-                        Height="48"
-                        Foreground="#FFFF4F4F"
-                        Click="Btn_Remove_OnClick">
-                    <Grid Width="132"
-                          Height="44">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="41*"></ColumnDefinition>
-                            <ColumnDefinition Width="91*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Kind="PuzzleRemove"
-                                                 Height="32"
-                                                 Width="32"
-                                                 VerticalAlignment="Center"
-                                                 HorizontalAlignment="Right"
-                                                 Margin="4,0,0,0" />
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontSize="20"
-                                   Grid.Column="1"
-                                   Height="27">Xóa</TextBlock>
-                    </Grid>
-                </Button>
-                <Button x:Name="btn_Reload"
-                        ToolTip="Xóa"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Width="140"
-                        Padding="0"
-                        BorderBrush="{x:Null}"
-                        Height="48"
-                        Foreground="#FFD495FF"
-                        Click="Btn_Reload_OnClick">
-                    <Grid Width="132"
-                          Height="44">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="41*"></ColumnDefinition>
-                            <ColumnDefinition Width="91*"></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <materialDesign:PackIcon Kind="Reload"
-                                                 Height="32"
-                                                 Width="32"
-                                                 VerticalAlignment="Center"
-                                                 HorizontalAlignment="Right"
-                                                 Margin="4,0,0,0" />
-                        <TextBlock HorizontalAlignment="Center"
-                                   VerticalAlignment="Center"
-                                   FontSize="20"
-                                   Grid.Column="1"
-                                   Height="27">Tải Lại</TextBlock>
-                    </Grid>
-                </Button>
+                    <Button x:Name="btn_Add"
+                            ToolTip="Thêm mới"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="140"
+                            Margin="10,0,0,0"
+                            Padding="0"
+                            Height="48"
+                            BorderBrush="{x:Null}"
+                            Foreground="#FF62D4FF"
+                            Click="btn_AddOpen_Click">
+                        <Grid Width="132"
+                              Height="44">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="41*"></ColumnDefinition>
+                                <ColumnDefinition Width="91*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="PuzzlePlus"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Right"
+                                                     Margin="4,0,0,0" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Grid.Column="1"
+                                       Height="27">Thêm</TextBlock>
+                        </Grid>
+                    </Button>
 
+                    <Button x:Name="btn_Edit"
+                            ToolTip="Sửa"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="140"
+                            Padding="0"
+                            Foreground="#DD00FF46"
+                            BorderBrush="{x:Null}"
+                            Height="48"
+                            Click="Btn_Edit_OnClick">
+                        <Grid Width="132"
+                              Height="44">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="41*"></ColumnDefinition>
+                                <ColumnDefinition Width="91*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="PuzzleEdit"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Right"
+                                                     Margin="4,0,0,0" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Grid.Column="1"
+                                       Height="27">Sửa</TextBlock>
+                        </Grid>
+                    </Button>
 
-            </StackPanel>
+                    <Button x:Name="btn_Remove"
+                            ToolTip="Xóa"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="140"
+                            Padding="0"
+                            BorderBrush="{x:Null}"
+                            Height="48"
+                            Foreground="#FFFF4F4F"
+                            Click="Btn_Remove_OnClick">
+                        <Grid Width="132"
+                              Height="44">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="41*"></ColumnDefinition>
+                                <ColumnDefinition Width="91*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="PuzzleRemove"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Right"
+                                                     Margin="4,0,0,0" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Grid.Column="1"
+                                       Height="27">Xóa</TextBlock>
+                        </Grid>
+                    </Button>
 
-        </DockPanel>
+                    <Button x:Name="btn_Reload"
+                            ToolTip="Xóa"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="140"
+                            Padding="0"
+                            BorderBrush="{x:Null}"
+                            Height="48"
+                            Foreground="#FFD495FF"
+                            Click="Btn_Reload_OnClick">
+                        <Grid Width="132"
+                              Height="44">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="41*"></ColumnDefinition>
+                                <ColumnDefinition Width="91*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <materialDesign:PackIcon Kind="Reload"
+                                                     Height="32"
+                                                     Width="32"
+                                                     VerticalAlignment="Center"
+                                                     HorizontalAlignment="Right"
+                                                     Margin="4,0,0,0" />
+                            <TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       FontSize="20"
+                                       Grid.Column="1"
+                                       Height="27">Tải Lại</TextBlock>
+                        </Grid>
+                    </Button>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto"
-                      PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
-                      Margin="0 69 0 0">
-                    <StackPanel x:Name="renderExpander"></StackPanel>
-        </ScrollViewer>
-        <Button x:Name="btn_ChangeView" Style="{StaticResource MaterialDesignIconButton}"
-                ToolTip="Đổi chế độ xem"
-                Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Bottom"
-                Click="Btn_ChangeView_OnClick">
+                </StackPanel>
+
+            </DockPanel>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          PreviewMouseWheel="UIElement_OnPreviewMouseWheel"
+                          Margin="0 59 0 0">
+                <StackPanel x:Name="renderExpander"></StackPanel>
+            </ScrollViewer>
+            <Button x:Name="btn_ChangeView"
+                    Style="{StaticResource MaterialDesignIconButton}"
+                    ToolTip="Đổi chế độ xem"
+                    Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Click="Btn_ChangeView_OnClick">
                 <materialDesign:PackIcon Kind="ArchiveEyeOutline" />
-        </Button>
+            </Button>
 
-    </Grid>
+        </Grid>
 
     </materialDesign:TransitioningContent>
 </UserControl>

@@ -34,7 +34,7 @@ namespace SubjectManagement.GUI.Member
         private void LoadSubject()
         {
             var subject = new SubjectController(_Class);
-            dg_ListCourses.ItemsSource = subject.GetSubjectClass();
+            dg_ListCourses.ItemsSource = subject.GetSubjectOfClass();
         }
 
     }

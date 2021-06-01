@@ -28,17 +28,31 @@ namespace SubjectManagement.Application.SubjectApp
 
         private readonly SubjectDbContext _db;
 
-        public List<Subject> LoadSubject()
-        {
-            var subject = _db.Subjects.Select(x => x).ToList();
-            return subject;
-        }
-        public List<Subject> LoadSubjectOfClass(int idClass)
+        public List<Subject> GetSubject(int idClass)
         {
             var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x).ToList();
             return subject;
         }
-        public List<Subject> LoadSubjectDifferentSemester(int term, int idClass)
+
+        public List<Subject> GetAllSubject()
+        {
+            var subject = _db.Subjects.Select(x => x).ToList();
+            return subject;
+        }
+
+        public List<Subject> GetSubjectOfClass(int idClass)
+        {
+            var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x).ToList();
+            return subject;
+        }
+
+        public List<Subject> GetSubjectOfSemester(int idClass, int semester)
+        {
+            var subject = _db.Subjects.Where(x => x.IDClass == idClass && x.Semester == semester).Select(x => x).ToList();
+            return subject;
+        }
+
+        public List<Subject> GetSubjectDifferentSemester(int term, int idClass)
         {
             var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x);
 
@@ -49,14 +63,14 @@ namespace SubjectManagement.Application.SubjectApp
 
             return result;
         }
-        public List<KnowledgeGroup> LoadKnowledgeGroup()
+        public List<KnowledgeGroup> GetKnowledgeGroup()
         {
             _db.KnowledgeGroups.Load();
             var group = _db.KnowledgeGroups.Select(x => x).ToList();
             return group;
         }
 
-        public List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass)
+        public List<Subject> GetSubjectWithGroup(Guid IDGroup, int idClass)
         {
             var subjectInGroup = from sig in _db.SubjectInKnowledgeGroups
                                  where sig.IDClass == idClass && sig.IDKnowledgeGroup == IDGroup
@@ -186,6 +200,7 @@ namespace SubjectManagement.Application.SubjectApp
                     Prerequisite = item.Prerequisite,
                     LearnFirst = item.LearnFirst,
                     Parallel = item.Parallel,
+                    Semester = item.Semester,
                     Details = item.Details
                 };
 
@@ -276,7 +291,8 @@ namespace SubjectManagement.Application.SubjectApp
                 errorMess = "Lỗi xóa nhóm học phần - SubjectService";
             }
 
-            var subject = _db.Subjects.FirstOrDefault(x => x.ID == request.ID);
+            //Tìm môn học
+            var subject = _db.Subjects.FirstOrDefault(x => x.ID == request.ID && x.IDClass == request.IDClass);
 
             if (subject is not null)
             {
@@ -296,10 +312,5 @@ namespace SubjectManagement.Application.SubjectApp
             return new ResultSuccess<string>($"Đã xóa thành công môn học {subject.Name}");
         }
 
-        public List<Subject> GetSubject(int idClass)
-        {
-            var subject = _db.Subjects.Where(x => x.IDClass == idClass).Select(x => x).ToList();
-            return subject;
-        }
     }
 }

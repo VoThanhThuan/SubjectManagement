@@ -38,10 +38,10 @@ namespace SubjectManagement.GUI.Main.Children.Compare
         private void LoadCompare()
         {
             var compare = new CompareController();
-            compare.CompareClass(_ClassCurent, _ClassCompare, dg_ListCourses);
+            //compare.CompareClass(_ClassCurent, _ClassCompare, dg_ListCourses);
             //var list = compare.GetListComapare(_ClassCurent, _ClassCompare);
-            compare.Compare2TableClass(_ClassCurent, _ClassCompare, false, dg_ListCourses);
-            compare.Compare2TableClass(_ClassCompare, _ClassCurent, true, dg_ListCoursesCompare);
+            compare.Compare2TableClass(_ClassCurent, _ClassCompare, dg_ListCourses);
+            compare.Compare2TableClass(_ClassCompare, _ClassCurent, dg_ListCoursesCompare);
 
         }
 

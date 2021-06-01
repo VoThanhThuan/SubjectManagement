@@ -22,7 +22,7 @@ using SubjectManagement.GUI.Controller;
 using SubjectManagement.GUI.Dialog;
 using SubjectManagement.ViewModels.Subject;
 
-namespace SubjectManagement.GUI.Main.Children.ViewListCourses 
+namespace SubjectManagement.GUI.Main.Children.ViewListCourses
 {
     /// <summary>
     /// Interaction logic for ListCoursesUC.xaml
@@ -38,8 +38,27 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
         }
 
         private Class _Class { get; set; }
-        
+
         private List<Subject> _subjects { get; set; }
+
+        public int _Semester = -1;
+        public Guid _IdGroup = Guid.Empty;
+
+        private void LoadSubject()
+        {
+            if (_IdGroup == Guid.Empty && _Semester < 1)
+            {
+                dg_ListCourses.ItemsSource = null;
+                dg_ListCourses.ItemsSource = new SubjectController(_Class).GetSubjectWithGroup(_IdGroup);
+
+            }
+
+            if (_Semester < 1) return;
+            dg_ListCourses.ItemsSource = null;
+            dg_ListCourses.ItemsSource = new SubjectController(_Class).GetSubjectOfSemester(_Semester);
+
+        }
+
         public void SetVisible(Visibility vis)
         {
             tbl_Vis_itemCM.Visibility = vis;
@@ -82,6 +101,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             var currentSubject = (Subject)dg_ListCourses.SelectedValue;
             var edit = new SubjectController(_Class);
             edit.EditWindow(currentSubject.CourseCode);
+            LoadSubject();
         }
 
         private void mi_Delete_Click(object sender, RoutedEventArgs e)
@@ -89,6 +109,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             var currentSubject = (Subject)dg_ListCourses.SelectedValue;
             var edit = new SubjectController(_Class);
             edit.RemoveSubject(currentSubject.CourseCode);
+            LoadSubject();
         }
 
         private void mi_Group_Click(object sender, RoutedEventArgs e)
@@ -96,8 +117,8 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             var data = dg_ListCourses.ItemsSource;
             var subjects = dg_ListCourses.SelectedItems;
             var group = new ElectiveGroupController(_Class);
-            
-            var creditGroup = (from object item in subjects select ((Subject) item).Credit).Min();
+
+            var creditGroup = (from object item in subjects select ((Subject)item).Credit).Min();
             //if (creditGroup <= 1)
             //{
             //    MyCommonDialog.MessageDialog("Lỗi thêm nhóm","Số học phần đang bé hơn 2");
@@ -131,12 +152,12 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
             dg_ListCourses.ItemsSource = null;
             dg_ListCourses.ItemsSource = _subjects;
             dg_ListCourses.UpdateLayout();
-            
+
         }
 
         private void DataGrid_LoadingRow(object? sender, DataGridRowEventArgs e)
         {
-            e.Row.Header = (e.Row.GetIndex()+1).ToString();
+            e.Row.Header = (e.Row.GetIndex() + 1).ToString();
         }
     }
 

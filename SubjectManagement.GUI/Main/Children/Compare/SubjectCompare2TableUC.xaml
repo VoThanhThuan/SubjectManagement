@@ -60,7 +60,17 @@
                                 Width="12"
                                 Background="Red">
                         </Button>
-                        <TextBlock Text="Môn đã bị loại bỏ"
+                        <TextBlock Text="Môn không tồn tại"
+                                   Margin="5 0 0 0"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="5 0 0 0">
+                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                Height="12"
+                                Width="12"
+                                Background="LimeGreen">
+                        </Button>
+                        <TextBlock Text="Môn Gốc"
                                    Margin="5 0 0 0"></TextBlock>
                     </StackPanel>
                 </StackPanel>
@@ -75,6 +85,11 @@
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>
+                                <DataTrigger Binding="{Binding Different}"
+                                             Value="SubjectOriginal">
+                                    <Setter Property="Foreground"
+                                            Value="LimeGreen"></Setter>
+                                </DataTrigger>
                                 <DataTrigger Binding="{Binding Different}"
                                              Value="SubjectChange">
                                     <Setter Property="Foreground"
@@ -97,7 +112,7 @@
                         <DataGridTextColumn Header="Different"
                                             Width="100"
                                             Binding="{Binding Different}"
-                                            Visibility="Collapsed" />
+                                            Visibility="Visible" />
                         <DataGridTextColumn Header="Mã Môn"
                                             Width="100"
                                             Binding="{Binding CourseCode}" />
@@ -156,7 +171,17 @@
                                 Width="12"
                                 Background="Red">
                         </Button>
-                        <TextBlock Text="Môn đã bị loại bỏ"
+                        <TextBlock Text="Môn không tồn tại"
+                                   Margin="5 0 0 0"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                                Margin="5 0 0 0">
+                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                Height="12"
+                                Width="12"
+                                Background="LimeGreen">
+                        </Button>
+                        <TextBlock Text="Môn Gốc"
                                    Margin="5 0 0 0"></TextBlock>
                     </StackPanel>
                 </StackPanel>
@@ -171,6 +196,11 @@
                     <DataGrid.RowStyle>
                         <Style TargetType="DataGridRow">
                             <Style.Triggers>
+                                <DataTrigger Binding="{Binding Different}"
+                                             Value="SubjectOriginal">
+                                    <Setter Property="Foreground"
+                                            Value="LimeGreen"></Setter>
+                                </DataTrigger>
                                 <DataTrigger Binding="{Binding Different}"
                                              Value="SubjectChange">
                                     <Setter Property="Foreground"
@@ -193,7 +223,7 @@
                         <DataGridTextColumn Header="Different"
                                             Width="100"
                                             Binding="{Binding Different}"
-                                            Visibility="Collapsed" />
+                                            Visibility="Visible" />
                         <DataGridTextColumn Header="Mã Môn"
                                             Width="100"
                                             Binding="{Binding CourseCode}" />

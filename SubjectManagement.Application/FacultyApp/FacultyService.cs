@@ -26,10 +26,16 @@ namespace SubjectManagement.Application.FacultyApp
             return faculty;
         }
 
-        public async Task<List<Class>> GetClass()
+        public Class GetClass(int idClass)
+        {
+            return _db.Classes.FirstOrDefault(x => x.ID == idClass);
+        }
+
+        public List<Class> GetAllClass()
         {
             return _db.Classes.Select(x => x).ToList();
         }
+
         public async Task<List<Class>> GetClassInFaculty(int idFaculty)
         {
             var _class = new List<Class>();
@@ -137,6 +143,7 @@ namespace SubjectManagement.Application.FacultyApp
             return new ResultSuccess<string>(mess);
 
         }
+
     }
 
 }

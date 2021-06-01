@@ -22,18 +22,16 @@ namespace SubjectManagement.GUI.Controller
         }
 
         private readonly IFacultyService _facultyService;
-
-        public async void LoadFacultyAndClass()
-        {
-            //await Db.Context.Faculties.LoadAsync();
-            //await Db.Context.Classes.LoadAsync();
-            //await Db.Context.ClassInFaculties.LoadAsync();
-        }
-
+        
         public async void GetFaculty(ComboBox cbb)
         {
             cbb.ItemsSource = await _facultyService.GetFaculty();
             cbb.DisplayMemberPath = "Name";
+        }
+
+        public Class GetClass(int idClass)
+        {
+            return _facultyService.GetClass(idClass);
         }
 
         public async void GetClassInFaculty(ComboBox cbb, int idFaculty)
@@ -59,9 +57,9 @@ namespace SubjectManagement.GUI.Controller
             cbb.DisplayMemberPath = "CodeClass";
         }
 
-        public async void GetClass(ComboBox cbb)
+        public void GetClass(ComboBox cbb)
         {
-            cbb.ItemsSource = await _facultyService.GetClass();
+            cbb.ItemsSource = _facultyService.GetAllClass();
             cbb.DisplayMemberPath = "CodeClass";
         }
 

@@ -57,6 +57,7 @@ namespace SubjectManagement.GUI.Controller
                 })
                 .ToList();
         }
+
         public async void LoadList(Grid renderBody, Grid g_loading)
         {
             g_loading.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(
@@ -65,8 +66,8 @@ namespace SubjectManagement.GUI.Controller
                     g_loading.Visibility = Visibility.Visible;
                 })).Wait();
 
-            var group = _subjectService.LoadKnowledgeGroup();
-            var viewList = new ListExpanderCoursesUC(renderBody, _IdFaculty) {_g_loading = g_loading, _Class = _Class, _isViewSemester = false};
+            var group = _subjectService.GetKnowledgeGroup();
+            var viewList = new ListExpanderCoursesUC(renderBody, _IdFaculty, _Class) {_g_loading = g_loading, _isViewSemester = false};
             if (_Class.CanEdit == false)
             {
                 viewList.btn_Add.IsEnabled = false;
@@ -78,7 +79,7 @@ namespace SubjectManagement.GUI.Controller
 
             foreach (var item in group)
             {
-                var subjectInGroup = _subjectService.LoadSubjectWithGroup(item.ID, _Class.ID);
+                var subjectInGroup = _subjectService.GetSubjectWithGroup(item.ID, _Class.ID);
                 var obligatory = subjectInGroup.Where(x => x.TypeCourse == true).Sum(x => x.Credit);
                 var listElective = subjectInGroup.Where(x => x.TypeCourse == false).Select(x => x.Credit).ToList();
                 var tc = new List<int>(){0};
@@ -94,7 +95,8 @@ namespace SubjectManagement.GUI.Controller
                         Header = $"{item.Name}" +
                                  $" - {obligatory+tc.Sum()} TC " +
                                  $" - {subjectInGroup.Count(x => x.TypeCourse == true)} Bắt buộc"
-                    }
+                    },
+                    _IdGroup = item.ID
                 };
                 expander.SetVisible(Visibility.Collapsed);
                 viewList.renderExpander.Children.Add(expander);
@@ -113,7 +115,7 @@ namespace SubjectManagement.GUI.Controller
             g_loading.Dispatcher.BeginInvoke(DispatcherPriority.ApplicationIdle, new Action(
                 () => { g_loading.Visibility = Visibility.Visible; })).Wait();
 
-            var viewList = new ListExpanderCoursesUC(renderBody, _IdFaculty) { _g_loading = g_loading, _Class = _Class, _isViewSemester = true };
+            var viewList = new ListExpanderCoursesUC(renderBody, _IdFaculty, _Class) { _g_loading = g_loading, _isViewSemester = true };
             if (_Class.CanEdit == false)
             {
                 viewList.btn_Add.IsEnabled = false;
@@ -130,7 +132,8 @@ namespace SubjectManagement.GUI.Controller
                 
                 var expander = new ExpanderCoursesUC(_Class, subjects)
                 {
-                    exp_courses = {Header = $"Học kỳ {i}"}
+                    exp_courses = {Header = $"Học kỳ {i}"},
+                    _Semester = i
                 };
                 expander.SetVisible(Visibility.Visible);
                 viewList.renderExpander.Children.Add(expander);

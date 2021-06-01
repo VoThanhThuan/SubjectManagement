@@ -103,13 +103,24 @@ namespace SubjectManagement.Application.CompareApp
                 {
                     subjectCompare.Different = SubjectDifferent.Different.SubjectChange;
                     subjectCurrent.Different = SubjectDifferent.Different.SubjectOriginal;
-                    listSubject.Add(subjectCompare);
+                    if (subjectCompare.ID != Guid.Empty)
+                        listSubject.Add(subjectCompare);
                     listSubject.Add(subjectCurrent);
                 }
 
-                //Remove
+                switch (iOfLagre)
+                {
+                    //Remove
+                    case > -1:
+                        subjectLarge.RemoveAt(iOfLagre);
+                        break;
+                    case < 0 when year1.Year > year2.Year:
+                        subjectCurrent.Different = SubjectDifferent.Different.SubjectRemove;
+                        break;
+                }
+
                 subjectSmall.RemoveAt(i);
-                subjectLarge.RemoveAt(iOfLagre);
+
             }
 
             if (subjectLarge.Count <= 0) return new ResultSuccess<List<SubjectCompareVM>>(listSubject, "ok");
@@ -128,7 +139,7 @@ namespace SubjectManagement.Application.CompareApp
                     LearnFirst = $"{t.LearnFirst}",
                     Parallel = $"{t.Parallel}",
 
-                    Different = newYear ? SubjectDifferent.Different.SubjectNew : SubjectDifferent.Different.SubjectRemove
+                    Different = SubjectDifferent.Different.SubjectNew
                 }));
             }
 

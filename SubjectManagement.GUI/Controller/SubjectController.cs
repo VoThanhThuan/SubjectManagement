@@ -32,7 +32,7 @@ namespace SubjectManagement.GUI.Controller
 
         public List<KnowledgeGroup> LoadCombobox()
         {
-            var value = _subjectService.LoadKnowledgeGroup();
+            var value = _subjectService.GetKnowledgeGroup();
             return value;
         }
 
@@ -45,15 +45,23 @@ namespace SubjectManagement.GUI.Controller
             return null;
         }
 
-        public List<Subject> GetSubjectSemester(int semester = 0)
+        public List<Subject> GetSubjectDifferentSemester(int semester = 0)
         {
  
-            return _subjectService.LoadSubjectDifferentSemester(semester, _Class.ID);
+            return _subjectService.GetSubjectDifferentSemester(semester, _Class.ID);
         }
 
-        public List<Subject> GetSubjectClass()
+        public List<Subject> GetSubjectOfClass()
         {
-            return _subjectService.LoadSubjectOfClass(_Class.ID);
+            return _subjectService.GetSubjectOfClass(_Class.ID);
+        }
+        public List<Subject> GetSubjectOfSemester(int semester)
+        {
+            return _subjectService.GetSubjectOfSemester(_Class.ID, semester);
+        }
+        public List<Subject> GetSubjectWithGroup(Guid idGroup)
+        {
+            return _subjectService.GetSubjectWithGroup(idGroup, _Class.ID);
         }
 
         public void AddSubject(SubjectRequest request)

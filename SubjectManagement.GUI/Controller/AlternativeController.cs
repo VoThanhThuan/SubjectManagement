@@ -29,7 +29,7 @@ namespace SubjectManagement.GUI.Controller
         private ISubjectService _subjectService;
         public void LoadSubjectClass(DataGrid dg)
         {
-            var subjects = _subjectService.LoadSubjectOfClass(_Class.ID);
+            var subjects = _subjectService.GetSubjectOfClass(_Class.ID);
             var listItem = new List<SubjectAlternativeMV>();
             foreach (var item in subjects)
             {

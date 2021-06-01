@@ -12,15 +12,17 @@ namespace SubjectManagement.Application.SubjectApp
 {
     public interface ISubjectService
     {
-        List<Subject> LoadSubject();
-        List<Subject> LoadSubjectOfClass(int idClass);
-        List<Subject> LoadSubjectDifferentSemester(int term, int idClass);
-        List<KnowledgeGroup> LoadKnowledgeGroup();
-        List<Subject> LoadSubjectWithGroup(Guid IDGroup, int idClass);
+        List<Subject> GetSubject(int idClass);
+        List<Subject> GetAllSubject();
+        List<Subject> GetSubjectOfClass(int idClass);
+        List<Subject> GetSubjectOfSemester(int idClass, int semester);
+
+        List<Subject> GetSubjectDifferentSemester(int term, int idClass);
+        List<KnowledgeGroup> GetKnowledgeGroup();
+        List<Subject> GetSubjectWithGroup(Guid IDGroup, int idClass);
 
         Result<KnowledgeGroup> FindKnowledgeGroup(Guid idSubject);
 
-        List<Subject> GetSubject(int idClass);
         Result<string> AddSubject(SubjectRequest request);
 
         Result<string> EditSubject(SubjectRequest request);

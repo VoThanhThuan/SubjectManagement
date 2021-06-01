@@ -54,154 +54,163 @@
                       CaptionHeight="0" />
     </WindowChrome.WindowChrome>
     <Grid>
-    <DockPanel>
-    
-        <Grid DockPanel.Dock="Top"
-              Background="{DynamicResource OptionColor}"
-              MouseDown="UIElement_OnMouseDown">
-            <TextBlock x:Name="tbl_HelloName"
-                       Text="Xin Chào"
-                       VerticalAlignment="Center"
-                       Foreground="White"
-                       Margin="10 0 0 0"></TextBlock>
-            <StackPanel Orientation="Horizontal"
-                        HorizontalAlignment="Right">
-                <StackPanel.Resources>
-                    <Style TargetType="{x:Type Button}">
-                        <Setter Property="Background"
-                                Value="#00ADD8E6" />
-                        <Setter Property="Template">
+        <DockPanel>
+
+            <Grid DockPanel.Dock="Top"
+                  Background="{DynamicResource OptionColor}"
+                  MouseDown="UIElement_OnMouseDown">
+                <TextBlock x:Name="tbl_HelloName"
+                           Text="Xin Chào"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           Margin="10 0 0 0"></TextBlock>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right">
+                    <StackPanel.Resources>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Background"
+                                    Value="#00ADD8E6" />
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="Border"
+                                                Background="{TemplateBinding Background}">
+                                            <ContentPresenter HorizontalAlignment="Center"
+                                                              VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                     Value="True">
+                                                <Setter Property="Background"
+                                                        Value="#4C000000" />
+                                                <Setter Property="Cursor"
+                                                        Value="Hand"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+
+                    </StackPanel.Resources>
+
+                    <Button Width="30"
+                            Height="30"
+                            BorderBrush="{x:Null}"
+                            Padding="0"
+                            Foreground="White"
+                            Click="ButtonBase_OnClick">
+                        <materialDesign:PackIcon Kind="Settings" />
+                    </Button>
+                    <materialDesign:PopupBox Width="30"
+                                             HorizontalAlignment="Stretch"
+                                             HorizontalContentAlignment="Center"
+                                             VerticalContentAlignment="Center">
+                        <materialDesign:PopupBox.ToggleContent>
+                            <materialDesign:PackIcon Kind="DotsHorizontal"
+                                                     Foreground="White" />
+                        </materialDesign:PopupBox.ToggleContent>
+                        <ListBox MinWidth="120">
+                            <ListBoxItem MouseUp="Li_NewTab">
+                                Tab mới
+                            </ListBoxItem>
+                            <ListBoxItem MouseUp="li_Account">
+                                Tài khoản
+                            </ListBoxItem>
+                            <ListBoxItem MouseUp="Li_Class">
+                                Lớp học
+                            </ListBoxItem>
+                            <Separator></Separator>
+                            <ListBoxItem MouseUp="Li_Settings">
+                                Cài đặt (Beta)
+                            </ListBoxItem>
+                            <ListBoxItem MouseUp="Li_AboutMe">
+                                About Me
+                            </ListBoxItem>
+                            <Separator></Separator>
+                            <ListBoxItem MouseUp="li_Logout">
+                                Đăng xuất
+                            </ListBoxItem>
+                            <ListBoxItem MouseUp="li_Shutdown">
+                                Thoát
+                            </ListBoxItem>
+                        </ListBox>
+                    </materialDesign:PopupBox>
+
+                    <!--BtnHide-->
+                    <Button x:Name="Btn_Hide"
+                            Width="30"
+                            Height="30"
+                            BorderBrush="{x:Null}"
+                            Padding="0"
+                            Foreground="White"
+                            Click="Btn_Hide_OnClickHide">
+                        <materialDesign:PackIcon Kind="Minus" />
+                    </Button>
+
+                    <!--Btn Zoom-->
+                    <Button Width="40"
+                            Height="30"
+                            BorderBrush="{x:Null}"
+                            Padding="0"
+                            Foreground="White"
+                            Click="Btn_Zoom_OnClickZoom">
+                        <materialDesign:PackIcon x:Name="Icon_Zoom"
+                                                 Kind="CropSquare" />
+                    </Button>
+
+                    <!--Button Exit-->
+                    <Button x:Name="Btn_Exit"
+                            Width="40"
+                            Height="30"
+                            BorderBrush="{x:Null}"
+                            Padding="0"
+                            Foreground="White"
+                            Click="Btn_Exit_OnClickExit">
+                        <materialDesign:PackIcon Kind="Close" />
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <dragablz:TabablzControl ShowDefaultAddButton="True"
+                                     ShowDefaultCloseButton="True"
+                                     BorderBrush="{DynamicResource OptionColor}"
+                                     x:Name="InitialTabablzControl"
+                                     SelectionChanged="InitialTabablzControl_OnSelectionChanged">
+                <dragablz:TabablzControl.InterTabController>
+                    <dragablz:InterTabController />
+                </dragablz:TabablzControl.InterTabController>
+                <dragablz:TabablzControl.HeaderPrefixContent>
+                    <Button x:Name="btnNewTab"
+                            Click="BtnNewTab_OnClick"
+                            BorderThickness="0"
+                            Width="36"
+                            VerticalAlignment="Stretch"
+                            ToolTip="New tab"
+                            Foreground="{DynamicResource OptionTextColor}"
+                            Cursor="Hand"
+                            Background="#19000000">
+                        <materialDesign:PackIcon Kind="File" />
+                    </Button>
+                </dragablz:TabablzControl.HeaderPrefixContent>
+                <dragablz:TabablzControl.Resources>
+                    <Style TargetType="{x:Type dragablz:TabablzControl}"
+                           BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
+                        <Setter Property="HeaderSuffixContent">
                             <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="Border"
-                                            Background="{TemplateBinding Background}">
-                                        <ContentPresenter HorizontalAlignment="Center"
-                                                          VerticalAlignment="Center" />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver"
-                                                 Value="True">
-                                            <Setter Property="Background"
-                                                    Value="#4C000000" />
-                                            <Setter Property="Cursor"
-                                                    Value="Hand"></Setter>
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                            ToolTip="Đồ án của Võ Thành Thuận">
+                                    <!--<TextBlock Text="Võ Thành Thuận"></TextBlock>-->
+                                </StackPanel>
+
                             </Setter.Value>
                         </Setter>
                     </Style>
-
-                </StackPanel.Resources>
-
-                <Button Width="30"
-                        Height="30"
-                        BorderBrush="{x:Null}"
-                        Padding="0"
-                        Foreground="White">
-                    <materialDesign:PackIcon Kind="BellOutline" />
-                </Button>
-                <materialDesign:PopupBox Width="30"
-                                         HorizontalAlignment="Stretch"
-                                         HorizontalContentAlignment="Center"
-                                         VerticalContentAlignment="Center">
-                    <materialDesign:PopupBox.ToggleContent>
-                        <materialDesign:PackIcon Kind="DotsHorizontal"
-                                                 Foreground="White" />
-                    </materialDesign:PopupBox.ToggleContent>
-                    <ListBox MinWidth="120">
-                        <ListBoxItem MouseUp="Li_NewTab">
-                            Tab mới
-                        </ListBoxItem>
-                        <ListBoxItem MouseUp="li_Account">
-                            Tài khoản
-                        </ListBoxItem>
-                        <ListBoxItem MouseUp="Li_Class">
-                            Lớp học
-                        </ListBoxItem>
-                        <Separator></Separator>
-                        <ListBoxItem MouseUp="Li_Settings">
-                            Cài đặt (Beta)
-                        </ListBoxItem>
-                        <ListBoxItem MouseUp="li_Shutdown">
-                            Thoát
-                        </ListBoxItem>
-                    </ListBox>
-                </materialDesign:PopupBox>
-
-                <!--BtnHide-->
-                <Button x:Name="Btn_Hide"
-                        Width="30"
-                        Height="30"
-                        BorderBrush="{x:Null}"
-                        Padding="0"
-                        Foreground="White"
-                        Click="Btn_Hide_OnClickHide">
-                    <materialDesign:PackIcon Kind="Minus" />
-                </Button>
-
-                <!--Btn Zoom-->
-                <Button Width="40"
-                        Height="30"
-                        BorderBrush="{x:Null}"
-                        Padding="0"
-                        Foreground="White"
-                        Click="Btn_Zoom_OnClickZoom">
-                    <materialDesign:PackIcon x:Name="Icon_Zoom"
-                                             Kind="CropSquare" />
-                </Button>
-
-                <!--Button Exit-->
-                <Button x:Name="Btn_Exit"
-                        Width="40"
-                        Height="30"
-                        BorderBrush="{x:Null}"
-                        Padding="0"
-                        Foreground="White"
-                        Click="Btn_Exit_OnClickExit">
-                    <materialDesign:PackIcon Kind="Close" />
-                </Button>
-            </StackPanel>
-        </Grid>
-
-        <dragablz:TabablzControl ShowDefaultAddButton="True"
-                                 ShowDefaultCloseButton="True"
-                                 BorderBrush="{DynamicResource OptionColor}"
-                                 x:Name="InitialTabablzControl">
-            <dragablz:TabablzControl.InterTabController>
-                <dragablz:InterTabController />
-            </dragablz:TabablzControl.InterTabController>
-            <dragablz:TabablzControl.HeaderPrefixContent>
-                <Button x:Name="btnNewTab"
-                        Click="BtnNewTab_OnClick"
-                        BorderThickness="0"
-                        Width="36"
-                        VerticalAlignment="Stretch"
-                        ToolTip="New tab"
-                        Foreground="{DynamicResource OptionTextColor}"
-                        Cursor="Hand"
-                            Background="#19000000">
-                    <materialDesign:PackIcon Kind="File" />
-                </Button>
-            </dragablz:TabablzControl.HeaderPrefixContent>
-            <dragablz:TabablzControl.Resources>
-                <Style TargetType="{x:Type dragablz:TabablzControl}"
-                       BasedOn="{StaticResource MaterialDesignTabablzControlStyle}">
-                    <Setter Property="HeaderSuffixContent">
-                        <Setter.Value>
-                            <StackPanel Orientation="Horizontal"
-                                        ToolTip="Đồ án của Võ Thành Thuận">
-                                <!--<TextBlock Text="Võ Thành Thuận"></TextBlock>-->
-                            </StackPanel>
-
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </dragablz:TabablzControl.Resources>
-        </dragablz:TabablzControl>
+                </dragablz:TabablzControl.Resources>
+            </dragablz:TabablzControl>
 
 
-    </DockPanel>
+        </DockPanel>
         <Grid x:Name="g_loading"
               Background="#66000000"
               Visibility="Hidden"

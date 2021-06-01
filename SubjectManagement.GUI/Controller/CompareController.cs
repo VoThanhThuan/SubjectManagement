@@ -38,42 +38,44 @@ namespace SubjectManagement.GUI.Controller
         public void CompareClass(Class classCurrent, Class classComapre, DataGrid dg)
         {
             var list = _compareService.CompareSubject(classCurrent.ID, classComapre.ID).ResultObj;
-            for (var i = 0; i < list.Count; i++)
-            {
-                if (list[i].Different != Different.SubjectChange) continue;
-                list[i].ID = list[i + 1].ID;
-                list[i].IdClass = list[i].IdClass;
-                list[i].CourseCode = $"({classCurrent.CodeClass}){list[i].CourseCode}{Environment.NewLine}({classComapre.CodeClass}){list[i + 1].CourseCode}";
-                list[i].Name = $"{list[i].Name}{Environment.NewLine}{list[i + 1].Name} ";
-                list[i].Credit = $"{list[i].Credit}{Environment.NewLine}{list[i + 1].Credit}";
-                list[i].TypeCourse = $"{list[i].TypeCourse}{Environment.NewLine}{list[i+1].TypeCourse}";
-                list[i].NumberOfTheory = $"{list[i].NumberOfTheory}{Environment.NewLine}{list[i + 1].NumberOfTheory}";
-                list[i].NumberOfPractice = $"{list[i].NumberOfPractice}{Environment.NewLine}{list[i + 1].NumberOfPractice}";
-                list[i].Prerequisite = $"{list[i].Prerequisite}{Environment.NewLine}{list[i + 1].Prerequisite}";
-                list[i].LearnFirst = $"{list[i].LearnFirst}{Environment.NewLine}{list[i + 1].LearnFirst}";
-                list[i].Parallel = $"{list[i].Parallel}{Environment.NewLine}{list[i + 1].Parallel}";
-                i++;
-
-            }
+            //for (var i = 0; i < list.Count; i++)
+            //{
+            //    if (list[i].Different != Different.SubjectChange) continue;
+            //    //list[i].ID = list[i + 1].ID;
+            //    //list[i].IdClass = list[i].IdClass;
+            //    //list[i].CourseCode = $"({classCurrent.CodeClass}){list[i].CourseCode}{Environment.NewLine}({classComapre.CodeClass}){list[i + 1].CourseCode}";
+            //    //list[i].Name = $"{list[i].Name}{Environment.NewLine}{list[i + 1].Name} ";
+            //    //list[i].Credit = $"{list[i].Credit}{Environment.NewLine}{list[i + 1].Credit}";
+            //    //list[i].TypeCourse = $"{list[i].TypeCourse}{Environment.NewLine}{list[i+1].TypeCourse}";
+            //    //list[i].NumberOfTheory = $"{list[i].NumberOfTheory}{Environment.NewLine}{list[i + 1].NumberOfTheory}";
+            //    //list[i].NumberOfPractice = $"{list[i].NumberOfPractice}{Environment.NewLine}{list[i + 1].NumberOfPractice}";
+            //    //list[i].Prerequisite = $"{list[i].Prerequisite}{Environment.NewLine}{list[i + 1].Prerequisite}";
+            //    //list[i].LearnFirst = $"{list[i].LearnFirst}{Environment.NewLine}{list[i + 1].LearnFirst}";
+            //    //list[i].Parallel = $"{list[i].Parallel}{Environment.NewLine}{list[i + 1].Parallel}";
+            //    i ++;
+            //}
 
             dg.ItemsSource = list;
         }
 
-        public void Compare2TableClass(Class classCurrent, Class classComapre, bool isCompareTable, DataGrid dg)
+        public void Compare2TableClass(Class classCurrent, Class classCompare, DataGrid dg)
         {
-            var list = _compareService.CompareSubject(classCurrent.ID, classComapre.ID).ResultObj;
+            var list = _compareService.CompareSubject(classCurrent.ID, classCompare.ID).ResultObj;
+            var yearCurent = new FacultyController().GetClass(classCurrent.ID).Year;
+            var yearCompare = new FacultyController().GetClass(classCompare.ID).Year;
             var countList = list.Count;
             for (var i = 0; i < countList; i++)
             {
                 switch (list[i].Different)
                 {
-                    case Different.SubjectChange when isCompareTable:
-                        list.RemoveAt(i+1);
+                    case Different.SubjectChange when yearCurent < yearCompare:
+                        list.Remove(list[i]);
+                        i--;
                         countList--;
                         break;
-                    case Different.SubjectChange when !isCompareTable:
-                        list[i].Different = Different.SubjectChange;
-                        list.RemoveAt(i+1);
+                    case Different.SubjectOriginal when yearCurent > yearCompare:
+                        list.Remove(list[i]);
+                        i--;
                         countList--;
                         break;
                 }
@@ -82,14 +84,15 @@ namespace SubjectManagement.GUI.Controller
             dg.ItemsSource = list;
         }
 
-        public void CompareOnlyClass(Class classCurrent, Class classComapre, StackPanel spl)
+        public void CompareOnlyClass(Class classCurrent, Class classCompare, StackPanel spl)
         {
-            var list = _compareService.CompareSubject(classCurrent.ID, classComapre.ID).ResultObj;
+            var list = _compareService.CompareSubject(classCurrent.ID, classCompare.ID).ResultObj;
+            var yearCurent = new FacultyController().GetClass(classCurrent.ID).Year;
+            var yearCompare = new FacultyController().GetClass(classCompare.ID).Year;
             var listDefault = new List<SubjectCompareVM>();
             var listChange = new List<SubjectCompareVM>();
             var listPlus   = new List<SubjectCompareVM>();
             var listRemove = new List<SubjectCompareVM>();
-
             foreach (var item in list)
             {
                 switch (item.Different)
@@ -98,15 +101,27 @@ namespace SubjectManagement.GUI.Controller
                         listDefault.Add(item);
                         break;
                     case Different.SubjectChange :
+                        if (yearCurent < yearCompare)
+                        {
+                            item.Different = Different.SubjectOriginal;
+                            break;
+                        }
                         listChange.Add(item);
                         break;
-                    case Different.SubjectNew :
-                        listPlus.Add(item);
+                    case Different.SubjectNew:
+                        if (yearCurent < yearCompare)
+                        {
+                            item.Different = Different.SubjectRemove;
+                            listRemove.Add(item);
+                        }
+                        else
+                            listPlus.Add(item);
                         break;
+
                     case Different.SubjectRemove:
                         listRemove.Add(item);
                         break;
-                    case Different.SubjectOriginal:
+                    case Different.SubjectOriginal :
                         break;
                     default:
                         MyCommonDialog.MessageDialog("Lỗi ngoài ý muốn khi so sánh");

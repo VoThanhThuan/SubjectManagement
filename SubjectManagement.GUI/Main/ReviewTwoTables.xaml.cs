@@ -41,13 +41,13 @@ namespace SubjectManagement.GUI.Main
         private void LoadClassCurrent()
         {
             var load = new SubjectController(_Class_1);
-            dg_ListCurrentSubject.ItemsSource =  load.GetSubjectClass();
+            dg_ListCurrentSubject.ItemsSource =  load.GetSubjectOfClass();
         }
 
         private void LoadClassCompare()
         {
             var load = new SubjectController(_Class_2);
-            dg_ListCompareSubjects.ItemsSource = load.GetSubjectClass();
+            dg_ListCompareSubjects.ItemsSource = load.GetSubjectOfClass();
         }
 
     }
