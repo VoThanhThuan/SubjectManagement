@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9F39EDA7-BD61-4C3E-BF1C-51F0D87D1F1D}"
 	ProjectSection(SolutionItems) = preProject
 		readme.md = readme.md
+		..\..\..\SQLcode\SQLSubjectManagement.sql = ..\..\..\SQLcode\SQLSubjectManagement.sql
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SubjectManagement.Application", "SubjectManagement.Application\SubjectManagement.Application.csproj", "{EB76F4C5-C0A4-4A2C-AFBD-32F6CB4D7126}"
