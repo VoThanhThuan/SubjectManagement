@@ -77,10 +77,17 @@ namespace SubjectManagement.GUI.Controller
                 MyCommonDialog.MessageDialog("Lỗi thêm", $"{remove.Message}");
         }
 
-        public List<Subject> GetAlternative( Guid idSubject)
+        public List<Subject> GetAlternative( Guid idSubject, int classOld)
         {
-            var alter = _alternativeService.GetAlternative(_Class.ID, idSubject);
+            var alter = _alternativeService.GetAlternative(_Class.ID, idSubject, classOld);
             return alter;
+        }
+
+        public List<Subject> FindAlternative(int idClassOld, Guid idSubject)
+        {
+            var alter = _alternativeService.FindAlternative(_Class.ID, idClassOld, idSubject);
+            return alter;
+
         }
     }
 }

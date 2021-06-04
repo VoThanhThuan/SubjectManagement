@@ -82,7 +82,7 @@ namespace SubjectManagement.GUI.Main.Children.ViewListCourses
                     Parallel = currentSubject.Parallel,
                     Semester = currentSubject.Semester,
                     Details = currentSubject.Details,
-
+                    IsPlan = currentSubject.IsPlan,
                     IDKnowledgeGroup = idKnowledgeGroup,
                     IdClass = _Class.ID
                 };

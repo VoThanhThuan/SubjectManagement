@@ -25,16 +25,21 @@ namespace SubjectManagement.GUI.Member
         {
             InitializeComponent();
             _Class = _class;
+            _Subject = subject;
             loadListAlter(subject.ID);
             tbl_Class.Text = $"{tbl_Class.Text} {subject.Name}";
         }
 
         private Class _Class { get; init; }
-
+        private Subject _Subject { get; init; }
         public void loadListAlter(Guid idSubject)
         {
+            var classOld = new SubjectController(_Class).FindClassWithIdSubject(idSubject);
+            var subject = new SubjectController(_Class).FindSubject(_Subject.CourseCode);
+
+            if (!classOld.IsSuccessed) return;
             var loadAlter = new AlternativeController(_Class);
-            dg_ListSubject.ItemsSource = loadAlter.GetAlternative(idSubject);
+            dg_ListSubject.ItemsSource = loadAlter.FindAlternative(classOld.ResultObj.ID, subject.ID);
         }
     }
 }

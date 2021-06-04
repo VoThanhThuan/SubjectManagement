@@ -98,7 +98,7 @@ namespace SubjectManagement.GUI.Main
                     Parallel = string.IsNullOrEmpty(tbx_Parallel.Text) ? 0 : Convert.ToInt32(tbx_Parallel.Text),
                     Semester = cbb_Semester.SelectedIndex + 1,
                     Details = tbx_Details.Text,
-
+                    IsPlan = chk_Plan.IsChecked??false,
                     IDKnowledgeGroup = ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
                     IDKnowledgeGroupOld = (Guid?)OldValue?["IDKnowledgeGroupOld"] ?? ((KnowledgeGroup)cbb_CoursesGroup.SelectedValue).ID,
                     IdClass = _Class.ID
@@ -174,14 +174,15 @@ namespace SubjectManagement.GUI.Main
                 mess.ShowDialog();
                 return;
             }
-
+            
             var add = new SubjectController(_Class);
+            var ss = false;
             if (IsEdit is not true)
-                add.AddSubject(subject);
+                ss = add.AddSubject(subject).IsSuccessed;
             else
                 add.EditSubject(subject);
-
-            this.Close();
+            if(ss)
+                this.Close();
         }
 
         private void Btn_CLose_OnClick(object sender, RoutedEventArgs e)
@@ -215,5 +216,14 @@ namespace SubjectManagement.GUI.Main
             txt.Text = "";
         }
 
+        private void Chk_Plan_OnClick(object sender, RoutedEventArgs e)
+        {
+            tbl_Plan.Text = chk_Plan.IsChecked == true ? "Đây là môn dự đinh" : "Đây là môn chính thức";
+        }
+
+        private void Cbb_Semester_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            tbl_Semeter.Text = $"{((ComboBoxItem)cbb_Semester.SelectedItem).Content}";
+        }
     }
 }

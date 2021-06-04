@@ -53,17 +53,12 @@
                                FontSize="34"
                                FontWeight="Bold"
                                Margin="5 0 0 0"></TextBlock>
-                    <Grid Margin="0 40 0 10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                        </Grid.ColumnDefinitions>
-                        <Grid Grid.Column="0">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
+                    <UniformGrid Columns="1"
+                                 Rows="2"
+                                 Margin="0 40 0 10">
+
+                        <UniformGrid Columns="2">
+                            
                             <Grid Grid.Row="0"
                                   HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
@@ -114,14 +109,12 @@
                                     </Button>
                                 </materialDesign:Card>
                             </Grid>
-                        </Grid>
 
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Grid HorizontalAlignment="Stretch"
+                        </UniformGrid>
+
+                        <UniformGrid Columns="3">
+                            <Grid Visibility="Collapsed"
+                                  HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
                                 <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                                      Margin="10">
@@ -171,12 +164,7 @@
                                     </Button>
                                 </materialDesign:Card>
                             </Grid>
-                        </Grid>
-                        <Grid Grid.Column="2">
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
+
                             <Grid HorizontalAlignment="Stretch"
                                   VerticalAlignment="Stretch">
                                 <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2"
@@ -227,9 +215,10 @@
                                 </materialDesign:Card>
 
                             </Grid>
-                        </Grid>
 
-                    </Grid>
+                        </UniformGrid>
+
+                    </UniformGrid>
                 </Grid>
 
             </Grid>

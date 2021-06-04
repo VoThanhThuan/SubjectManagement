@@ -31,6 +31,8 @@ namespace SubjectManagement.Application.SubjectApp
 
         Result<Subject> FindSubject(string coursesCode, Class _class);
 
+        Result<Class> FindClassWithIdSubject(Guid idSubject);
+
         Result<string> CopyListSubject(int idClassOld, int idClassNew);
 
     }

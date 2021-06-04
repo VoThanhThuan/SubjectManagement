@@ -12,7 +12,9 @@ namespace SubjectManagement.Application.Alternative
     {
         public Result<string> AddAlternative(int idClass, Guid idSubject, Guid idSubjectAlter);
         public Result<string> RemoveAlternative(int idClass, Guid idSubject);
-        public List<Subject> GetAlternative(int idClass, Guid idSubject);
+        public List<Subject> GetAlternative(int idClass, Guid idSubject, int idClassOld);
+
+        public List<Subject> FindAlternative(int idClass, int idClassOld, Guid idSubject);
 
     }
 }

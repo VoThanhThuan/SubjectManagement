@@ -18,160 +18,48 @@
                                              Duration="0:0:0.8" />
             <materialDesign:TransitionEffect Kind="SlideInFromBottom" />
         </materialDesign:TransitioningContent.OpeningEffects>
-    <Grid>
-
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="btn_Export"
-                    DockPanel.Dock="Right"
-                    ToolTip="Thêm mới"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    Width="140"
-                    Margin="10,0,0,0"
-                    Padding="0"
-                    Height="40"
-                    BorderBrush="{x:Null}"
-                    Foreground="Black"
-                    Click="Btn_Export_OnClick">
-                <Grid Width="132"
-                      Height="44">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="41*"></ColumnDefinition>
-                        <ColumnDefinition Width="91*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <materialDesign:PackIcon Kind="Export"
-                                             Height="32"
-                                             Width="32"
-                                             VerticalAlignment="Center"
-                                             HorizontalAlignment="Right"
-                                             Margin="4,0,0,0" />
-                    <TextBlock HorizontalAlignment="Center"
-                               VerticalAlignment="Center"
-                               FontSize="20"
-                               Grid.Column="1"
-                               Height="27">Export</TextBlock>
-                </Grid>
-            </Button>
-
-<TextBlock x:Name="tbl_NameClass"
-                       Grid.Column="1"
-                       FontSize="20"
-                       Margin="0 5 0 0"
-                       VerticalAlignment="Top"
-                       HorizontalAlignment="Center"
-                       Foreground="#FF3F51B5"
-                       TextTrimming="CharacterEllipsis">
-                Danh sách môn học
-            </TextBlock>
-
-
-            <ComboBox x:Name="cbb_Class"
+            <Expander ExpandDirection="Right"
+                      Height="50"
                       VerticalAlignment="Top"
-                      materialDesign:HintAssist.Hint="Lớp"
-                      Grid.Column="2"
-                      FontSize="18"
-                      SelectionChanged="Cbb_Class_OnSelectionChanged">
-            </ComboBox>
+                      HorizontalAlignment="Left"
+                      Panel.ZIndex="1"
+                      materialDesign:ExpanderAssist.VerticalHeaderPadding="0,20,0,5">
+                <DockPanel VerticalAlignment="Stretch"
+                           HorizontalAlignment="Stretch">
+                    <TextBox x:Name="tbx_SearchCurrent"
+                             Margin="5"
+                             Focusable="True"
+                             Width="250"
+                             materialDesign:HintAssist.Hint="Môn Học Lớp ..."
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                             TextChanged="Tbx_SearchCurrent_OnTextChanged"/>
+                    <TextBox x:Name="tbx_SearchAlternative"
+                             Margin="5"
+                             Focusable="True"
+                             Width="250"
+                             materialDesign:HintAssist.Hint="Môn Học Lớp ..."
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}" TextChanged="Tbx_SearchAlternative_OnTextChanged"/>
 
-        </Grid>
-
-        <Grid Margin="0 40 0 0 ">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"></RowDefinition>
-                <RowDefinition Height="5"></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid Grid.Column="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition Width="5"></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-
-                <Grid Grid.Column="0">
-
-                    <DataGrid x:Name="dg_ListAllSubject"
-                              IsReadOnly="True"
-                              AutoGenerateColumns="False"
-                              SelectionChanged="Dg_ListAllSubject_OnSelectionChanged">
-                        <DataGrid.Columns>
-
-                            <DataGridTextColumn Header="Mã Môn"
-                                                Width="100"
-                                                Binding="{Binding CourseCode}" />
-                            <DataGridTextColumn Header="Tên Môn"
-                                                Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Tín Chỉ"
-                                                Binding="{Binding Credit}" />
-                            <DataGridTextColumn Header="Loại Học Phần"
-                                                Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
-                            <DataGridTextColumn Header="Tiết Lý Thuyết"
-                                                Binding="{Binding NumberOfTheory}" />
-                            <DataGridTextColumn Header="Tiết Thực Hành"
-                                                Binding="{Binding NumberOfPractice}" />
-                            <DataGridTextColumn Header="Mô tả"
-                                                Binding="{Binding Details}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-                <GridSplitter Grid.Column="1"
-                              HorizontalAlignment="Stretch"></GridSplitter>
-                <Grid Grid.Column="2">
-                    <DataGrid x:Name="dg_SubjectOfClassOther"
-                              IsReadOnly="True"
-                              AutoGenerateColumns="False"
-                              Margin="0 0 0 0"
-                              Grid.ColumnSpan="2">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="#">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button x:Name="btn_AddInCell"
-                                                Click="Btn_AddInCell_OnClick"
-                                                Tag="{Binding ID}">Thêm</Button>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Mã Môn"
-                                                Width="100"
-                                                Binding="{Binding CourseCode}" />
-                            <DataGridTextColumn Header="Tên Môn"
-                                                Binding="{Binding Name}" />
-                            <DataGridTextColumn Header="Tín Chỉ"
-                                                Binding="{Binding Credit}" />
-                            <DataGridTextColumn Header="Loại Học Phần"
-                                                Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
-                            <DataGridTextColumn Header="Tiết Lý Thuyết"
-                                                Binding="{Binding NumberOfTheory}" />
-                            <DataGridTextColumn Header="Tiết Thực Hành"
-                                                Binding="{Binding NumberOfPractice}" />
-                            <DataGridTextColumn Header="Mô tả"
-                                                Binding="{Binding Details}" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Button x:Name="btn_Add"
+                    <Button x:Name="btn_Export"
+                            DockPanel.Dock="Right"
                             ToolTip="Thêm mới"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Bottom"
-                            Margin="0,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            Width="140"
+                            Margin="10,0,0,0"
                             Padding="0"
-                            Height="48"
+                            Height="40"
                             BorderBrush="{x:Null}"
-                            Foreground="#FF00B9FF"
-                            Click="Btn_Add_OnClick"
-                            Visibility="Collapsed">
+                            Foreground="Black"
+                            Click="Btn_Export_OnClick">
                         <Grid Width="132"
                               Height="44">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="41*"></ColumnDefinition>
                                 <ColumnDefinition Width="91*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <materialDesign:PackIcon Kind="ArrowCollapseDown"
+                            <materialDesign:PackIcon Kind="Export"
                                                      Height="32"
                                                      Width="32"
                                                      VerticalAlignment="Center"
@@ -181,64 +69,203 @@
                                        VerticalAlignment="Center"
                                        FontSize="20"
                                        Grid.Column="1"
-                                       Height="27">Thêm</TextBlock>
+                                       Height="27">Export</TextBlock>
                         </Grid>
                     </Button>
 
+                </DockPanel>
+
+            </Expander>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="tbl_NameClass"
+                           Grid.Column="0"
+                           FontSize="20"
+                           Margin="0 5 0 0"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Center"
+                           Foreground="#FF3F51B5"
+                           TextTrimming="CharacterEllipsis">
+                Danh sách môn học
+                </TextBlock>
+
+
+                <ComboBox x:Name="cbb_Class"
+                          VerticalAlignment="Top"
+                          materialDesign:HintAssist.Hint="Lớp"
+                          Grid.Column="2"
+                          FontSize="18"
+                          SelectionChanged="Cbb_Class_OnSelectionChanged">
+                </ComboBox>
+
+            </Grid>
+
+            <Grid Margin="0 40 0 0 ">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"></RowDefinition>
+                    <RowDefinition Height="5"></RowDefinition>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid Grid.Column="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="5"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+
+                        <DataGrid x:Name="dg_ListAllSubject"
+                                  IsReadOnly="True"
+                                  AutoGenerateColumns="False"
+                                  SelectionChanged="Dg_ListAllSubject_OnSelectionChanged">
+                            <DataGrid.Columns>
+
+                                <DataGridTextColumn Header="Mã Môn"
+                                                    Width="100"
+                                                    Binding="{Binding CourseCode}" />
+                                <DataGridTextColumn Header="Tên Môn"
+                                                    Binding="{Binding Name}" />
+                                <DataGridTextColumn Header="Tín Chỉ"
+                                                    Binding="{Binding Credit}" />
+                                <DataGridTextColumn Header="Loại Học Phần"
+                                                    Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
+                                <DataGridTextColumn Header="Tiết Lý Thuyết"
+                                                    Binding="{Binding NumberOfTheory}" />
+                                <DataGridTextColumn Header="Tiết Thực Hành"
+                                                    Binding="{Binding NumberOfPractice}" />
+                                <DataGridTextColumn Header="Mô tả"
+                                                    Binding="{Binding Details}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                    <GridSplitter Grid.Column="1"
+                                  HorizontalAlignment="Stretch"></GridSplitter>
+                    <Grid Grid.Column="2">
+                        <DataGrid x:Name="dg_SubjectOfClassOther"
+                                  IsReadOnly="True"
+                                  AutoGenerateColumns="False"
+                                  Margin="0 0 0 0"
+                                  Grid.ColumnSpan="2">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="#">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Button x:Name="btn_AddInCell"
+                                                    Click="Btn_AddInCell_OnClick"
+                                                    Tag="{Binding ID}">Thêm</Button>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Mã Môn"
+                                                    Width="100"
+                                                    Binding="{Binding CourseCode}" />
+                                <DataGridTextColumn Header="Tên Môn"
+                                                    Binding="{Binding Name}" />
+                                <DataGridTextColumn Header="Tín Chỉ"
+                                                    Binding="{Binding Credit}" />
+                                <DataGridTextColumn Header="Loại Học Phần"
+                                                    Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
+                                <DataGridTextColumn Header="Tiết Lý Thuyết"
+                                                    Binding="{Binding NumberOfTheory}" />
+                                <DataGridTextColumn Header="Tiết Thực Hành"
+                                                    Binding="{Binding NumberOfPractice}" />
+                                <DataGridTextColumn Header="Mô tả"
+                                                    Binding="{Binding Details}" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Button x:Name="btn_Add"
+                                ToolTip="Thêm mới"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Bottom"
+                                Margin="0,0,0,0"
+                                Padding="0"
+                                Height="48"
+                                BorderBrush="{x:Null}"
+                                Foreground="#FF00B9FF"
+                                Click="Btn_Add_OnClick"
+                                Visibility="Collapsed">
+                            <Grid Width="132"
+                                  Height="44">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="41*"></ColumnDefinition>
+                                    <ColumnDefinition Width="91*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <materialDesign:PackIcon Kind="ArrowCollapseDown"
+                                                         Height="32"
+                                                         Width="32"
+                                                         VerticalAlignment="Center"
+                                                         HorizontalAlignment="Right"
+                                                         Margin="4,0,0,0" />
+                                <TextBlock HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           Grid.Column="1"
+                                           Height="27">Thêm</TextBlock>
+                            </Grid>
+                        </Button>
+
+                    </Grid>
+
                 </Grid>
 
+                <GridSplitter Grid.Row="1"
+                              HorizontalAlignment="Stretch"></GridSplitter>
+                <Grid Grid.Row="2">
+                    <DataGrid x:Name="dg_ListSubjectAlternative"
+                              IsReadOnly="True"
+                              AutoGenerateColumns="False"
+                              ColumnWidth="*">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="#"
+                                                    Width="40">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Button x:Name="btn_RemoveInCell"
+                                                Click="Btn_RemoveInCell_OnClick"
+                                                Tag="{Binding ID}"
+                                                Foreground="Red">Xóa</Button>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="Mã Môn"
+                                                Width="100"
+                                                Binding="{Binding CourseCode}" />
+                            <DataGridTextColumn Header="Tên Môn"
+                                                Binding="{Binding Name}" />
+                            <DataGridTextColumn Header="Tín Chỉ"
+                                                Binding="{Binding Credit}" />
+                            <DataGridTextColumn Header="Loại Học Phần"
+                                                Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
+                            <DataGridTextColumn Header="Tiết Lý Thuyết"
+                                                Binding="{Binding NumberOfTheory}" />
+                            <DataGridTextColumn Header="Tiết Thực Hành"
+                                                Binding="{Binding NumberOfPractice}" />
+                            <DataGridTextColumn Header="Mô tả"
+                                                Binding="{Binding Details}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
             </Grid>
-
-            <GridSplitter Grid.Row="1"
-                          HorizontalAlignment="Stretch"></GridSplitter>
-            <Grid Grid.Row="2">
-                <DataGrid x:Name="dg_ListSubjectAlternative"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="#">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Button x:Name="btn_RemoveInCell"
-                                            Click="Btn_RemoveInCell_OnClick"
-                                            Tag="{Binding ID}"
-                                            Foreground="Red">Xóa</Button>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-
-                        <DataGridTextColumn Header="Mã Môn"
-                                            Width="100"
-                                            Binding="{Binding CourseCode}" />
-                        <DataGridTextColumn Header="Tên Môn"
-                                            Binding="{Binding Name}" />
-                        <DataGridTextColumn Header="Tín Chỉ"
-                                            Binding="{Binding Credit}" />
-                        <DataGridTextColumn Header="Loại Học Phần"
-                                            Binding="{Binding TypeCourse, Converter={StaticResource ConvertTypeCourses}}" />
-                        <DataGridTextColumn Header="Tiết Lý Thuyết"
-                                            Binding="{Binding NumberOfTheory}" />
-                        <DataGridTextColumn Header="Tiết Thực Hành"
-                                            Binding="{Binding NumberOfPractice}" />
-                        <DataGridTextColumn Header="Mô tả"
-                                            Binding="{Binding Details}" />
-                    </DataGrid.Columns>
-                </DataGrid>
+            <Grid x:Name="g_loading"
+                  Background="#66000000"
+                  Visibility="Hidden">
+                <ProgressBar IsIndeterminate="True"
+                             VerticalAlignment="Top"
+                             Foreground="#FFA200FF"
+                             Background="White" />
+                <TextBox HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Foreground="White"
+                         FontSize="32">waiting for love..</TextBox>
             </Grid>
         </Grid>
-        <Grid x:Name="g_loading"
-              Background="#66000000"
-              Visibility="Hidden">
-            <ProgressBar IsIndeterminate="True"
-                         VerticalAlignment="Top"
-                         Foreground="#FFA200FF"
-                         Background="White" />
-            <TextBox HorizontalAlignment="Center"
-                     VerticalAlignment="Center"
-                     Foreground="White"
-                     FontSize="32">waiting for love..</TextBox>
-        </Grid>
-    </Grid>
 
     </materialDesign:TransitioningContent>
 </UserControl>

@@ -104,8 +104,11 @@ namespace SubjectManagement.Application.SubjectApp
         public Result<string> AddSubject(SubjectRequest request)
         {
             //Thêm môn học
-            var codeCourses = _db.Subjects.FirstOrDefault(x => x.CourseCode == request.CourseCode);
-            if (codeCourses is not null) return new ResultError<string>("Đã tồn tại mã môn học");
+            if (!request.IsPlan)
+            {
+                var codeCourses = _db.Subjects.FirstOrDefault(x => x.CourseCode == request.CourseCode);
+                if (codeCourses is not null) return new ResultError<string>("Đã tồn tại mã môn học");
+            }
             var subject = new Subject()
             {
                 ID = request.ID,
@@ -120,7 +123,8 @@ namespace SubjectManagement.Application.SubjectApp
                 Parallel = request.Parallel,
                 Semester = request.Semester,
                 Details = request.Details,
-                IDClass = request.IdClass
+                IDClass = request.IdClass,
+                IsPlan = request.IsPlan
             };
             _db.Add(subject);
             _db.SaveChanges();
@@ -153,6 +157,7 @@ namespace SubjectManagement.Application.SubjectApp
 
             var oldSubject = from sik in _db.SubjectInKnowledgeGroups
                              join s in _db.Subjects on sik.IDSubject equals s.ID
+                             where sik.IDClass == idClassOld && s.IDClass == idClassOld
                              select new
                              {
                                  s.ID,
@@ -168,6 +173,7 @@ namespace SubjectManagement.Application.SubjectApp
                                  s.Details,
                                  s.Semester,
                                  s.IDClass,
+                                 s.IsPlan,
                                  sik.IDKnowledgeGroup
                              };
             //var oldSubject = _db.Subjects.Where(x => x.IDClass == idClassOld).Select(x => x);
@@ -187,9 +193,10 @@ namespace SubjectManagement.Application.SubjectApp
             //Copy
             foreach (var item in oldSubject)
             {
+                var id = Guid.NewGuid();
                 var subject = new Subject()
                 {
-                    ID = item.ID,
+                    ID = id,
                     IDClass = idClassNew,
                     CourseCode = item.CourseCode,
                     Name = item.Name,
@@ -201,14 +208,15 @@ namespace SubjectManagement.Application.SubjectApp
                     LearnFirst = item.LearnFirst,
                     Parallel = item.Parallel,
                     Semester = item.Semester,
-                    Details = item.Details
+                    Details = item.Details,
+                    IsPlan = item.IsPlan
                 };
 
                 _db.Subjects.Add(subject);
                 //thêm môn học vào khối kiến thức
                 var sig = new SubjectInKnowledgeGroup()
                 {
-                    IDSubject = item.ID,
+                    IDSubject = id,
                     IDClass = idClassNew,
                     IDKnowledgeGroup = item.IDKnowledgeGroup
                 };
@@ -277,8 +285,10 @@ namespace SubjectManagement.Application.SubjectApp
             var error = false;
             var errorMess = "";
 
-            var sig = _db.SubjectInKnowledgeGroups.FirstOrDefault(
-                x => x.IDSubject == request.ID && x.IDKnowledgeGroup == request.IDKnowledgeGroup);
+            SubjectInKnowledgeGroup sig = null;
+            if (request.IDKnowledgeGroup != Guid.Empty)
+                sig = _db.SubjectInKnowledgeGroups.FirstOrDefault(
+                    x => x.IDSubject == request.ID && x.IDKnowledgeGroup == request.IDKnowledgeGroup);
 
             if (sig is not null)
             {
@@ -310,6 +320,15 @@ namespace SubjectManagement.Application.SubjectApp
                 return new ResultError<string>(errorMess);
 
             return new ResultSuccess<string>($"Đã xóa thành công môn học {subject.Name}");
+        }
+
+        public Result<Class> FindClassWithIdSubject(Guid idSubject)
+        {
+            var sub = _db.Subjects.FirstOrDefault(x => x.ID == idSubject);
+            if (sub == null) return new ResultError<Class>("Không tìm thấy mã môn");
+            var clss = _db.Classes.FirstOrDefault(x => x.ID == sub.IDClass);
+            if (clss == null) return new ResultError<Class>("Không tìm thấy lớp");
+            return new ResultSuccess<Class>(clss);
         }
 
     }

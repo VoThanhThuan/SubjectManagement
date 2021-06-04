@@ -30,7 +30,8 @@ namespace SubjectManagement.GUI.Dialog
         private void LoadClass()
         {
             var c = new FacultyController();
-            c.GetClassDifferentClass(cbb_Class_2, _IdFaculty, _Class);
+            //c.GetClassDifferentClass(cbb_Class_2, _IdFaculty, _Class);
+            c.GetDifferentClassOlder(cbb_Class_2, _IdFaculty, _Class);
         }
 
         private void Cbb_Class_2_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

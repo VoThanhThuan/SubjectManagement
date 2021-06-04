@@ -19,6 +19,7 @@ namespace SubjectManagement.Data.Configurations
                 .HasForeignKey(x => x.IDClass);
             builder.HasOne(x => x.ElectiveGroup).WithMany(x => x.Subjects)
                 .HasForeignKey(x => x.IDElectiveGroup);
+            builder.Property(x => x.IsPlan).HasDefaultValue(false);
         }
     }
 }

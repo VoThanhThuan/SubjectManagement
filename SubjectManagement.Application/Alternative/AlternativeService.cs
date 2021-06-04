@@ -20,17 +20,17 @@ namespace SubjectManagement.Application.Alternative
 
         private readonly SubjectDbContext _db;
 
-        public Result<string> AddAlternative(int idClass, Guid idSubject, Guid idSubjectAlter)
+        public Result<string> AddAlternative(int idClassOld, Guid idSubject, Guid idSubjectAlter)
         {
             var result = _db.AlternativeSubjects.FirstOrDefault(x =>
-                x.IDClass == idClass && x.IDNew == idSubject && x.IDOld == idSubjectAlter);
+                x.IDClass == idClassOld && x.IDNew == idSubjectAlter && x.IDOld == idSubject);
             if (result is not null)
                 return new ResultError<string>("Môn này thay thế này đã tồn tại, không thể thêm mới");
             var alter = new AlternativeSubject()
             {
                 IDNew = idSubjectAlter,
                 IDOld = idSubject,
-                IDClass = idClass
+                IDClass = idClassOld
             };
             _db.AlternativeSubjects.Add(alter);
             _db.SaveChanges();
@@ -47,12 +47,26 @@ namespace SubjectManagement.Application.Alternative
             return new ResultSuccess<string>("Xóa thành công");
         }
 
-        public List<Subject> GetAlternative(int idClass, Guid idSubject)
+        public List<Subject> GetAlternative(int idClass, Guid idSubject, int idClassOld)
         {
             var alter = _db.AlternativeSubjects
-                .Where(x => x.IDClass == idClass && x.IDOld == idSubject)
+                .Where(x => x.IDClass == idClassOld && x.IDOld == idSubject)
                 .Select(x => x).ToList();
-            return alter.Count < 1 ? null : alter.Select(item => _db.Subjects.SingleOrDefault(x => x.ID == item.IDNew && x.IDClass == item.IDClass)).ToList();
+
+            var subjects = alter.Select(item => _db.Subjects.FirstOrDefault(x => x.ID == item.IDNew && x.IDClass == idClassOld)).Where(sub => sub != null).ToList();
+
+            return alter.Count < 1 ? null : subjects;
+        }
+
+        public List<Subject> FindAlternative(int idClass, int idClassOld, Guid idSubject)
+        {
+            var alter = _db.AlternativeSubjects
+                .Where(x => x.IDClass == idClass && x.IDNew == idSubject)
+                .Select(x => x).ToList();
+
+            var subjects = alter.Select(item => _db.Subjects.FirstOrDefault(x => x.ID == item.IDOld)).Where(sub => sub != null).ToList();
+
+            return alter.Count < 1 ? null : subjects;
         }
     }
 }

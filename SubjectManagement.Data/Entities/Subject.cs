@@ -22,6 +22,7 @@ namespace SubjectManagement.Data.Entities
         public int IDClass { get; set; }
         public Guid? IDElectiveGroup { get; set; }
 
+        public bool IsPlan { get; set; } = false;
 
         public Class Class { get; set; }
         public List<AlternativeSubject> AlternativeSubjects{ get; set; }

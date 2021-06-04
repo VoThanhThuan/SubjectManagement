@@ -102,7 +102,7 @@
                 <DataGridTextColumn Header="Different"
                                     Width="100"
                                     Binding="{Binding Different}"
-                                    Visibility="Visible" />
+                                    Visibility="Collapsed" />
                 <DataGridTextColumn Header="Mã Môn"
                                     Width="Auto"
                                     Binding="{Binding CourseCode}" />

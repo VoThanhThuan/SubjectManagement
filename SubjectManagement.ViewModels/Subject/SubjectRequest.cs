@@ -21,6 +21,7 @@ namespace SubjectManagement.ViewModels.Subject
         public int? Parallel { get; set; } // Song Hành
         public int Semester { get; set; } //Học kỳ
         public string Details { get; set; }
+        public bool IsPlan { get; set; } = false;
 
         public int IDClass { get; set; }
 

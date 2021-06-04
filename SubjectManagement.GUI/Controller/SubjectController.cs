@@ -64,12 +64,17 @@ namespace SubjectManagement.GUI.Controller
             return _subjectService.GetSubjectWithGroup(idGroup, _Class.ID);
         }
 
-        public void AddSubject(SubjectRequest request)
+        public Result<Class> FindClassWithIdSubject(Guid idSubject)
+        {
+            return _subjectService.FindClassWithIdSubject(idSubject);
+        }
+
+        public Result<string> AddSubject(SubjectRequest request)
         {
              var result = _subjectService.AddSubject(request);
-             if (result.IsSuccessed) return;
-             MyCommonDialog.MessageDialog($"{result.Message}", $"{result.Message}");
-
+             if (result.IsSuccessed) return new ResultSuccess<string>();
+             MyCommonDialog.MessageDialog($"{result.Message}");
+             return new ResultError<string>($"{result.Message}");
         }
 
         public void EditWindow(string coursesCode)
@@ -82,11 +87,15 @@ namespace SubjectManagement.GUI.Controller
             }
 
             var knowledge = _subjectService.FindKnowledgeGroup(result.ResultObj.ID);
-
+            var idKnowLedge = Guid.Empty;
+            if (knowledge.ResultObj != null)
+            {
+                idKnowLedge = knowledge.ResultObj.ID;
+            }
             var oldValue = new Hashtable
             {
                 { "ID", result.ResultObj.ID },
-                { "IDKnowledgeGroupOld", knowledge.ResultObj.ID }
+                { "IDKnowledgeGroupOld",idKnowLedge }
             };
 
             var subject = new SubjectRequest()
@@ -104,7 +113,7 @@ namespace SubjectManagement.GUI.Controller
                 Semester = result.ResultObj.Semester,
                 Details = result.ResultObj.Details,
 
-                IDKnowledgeGroup = knowledge.ResultObj.ID,
+                IDKnowledgeGroup = idKnowLedge,
                 IdClass = _Class.ID
             };
 
@@ -165,18 +174,17 @@ namespace SubjectManagement.GUI.Controller
             var group = _subjectService.FindKnowledgeGroup(subject.ResultObj.ID);
             if (!group.IsSuccessed)
             {
-
                 MyCommonDialog.MessageDialog($"Lỗi tìm kiếm nhóm môn học", $"Đã có lỗi gì đó nhưng bạn yên tâm, phần mềm vẫn sẽ xử lý và xóa cho bạn môn học {subject.ResultObj.Name}");
-
-                return;
             }
 
             //Tiến hành xóa
             var request = new SubjectRequest()
             {
                 ID = subject.ResultObj.ID,
-                IDKnowledgeGroup = group.ResultObj.ID
+                IDClass = subject.ResultObj.IDClass
             };
+            if (group.ResultObj != null)
+                request.IDKnowledgeGroup = group.ResultObj.ID;
 
             var result = _subjectService.RemoveSubject(request);
             if (result.ResultObj is not null)

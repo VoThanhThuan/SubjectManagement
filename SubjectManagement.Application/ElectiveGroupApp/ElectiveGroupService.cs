@@ -51,7 +51,7 @@ namespace SubjectManagement.Application.ElectiveGroupApp
             if (subject == null) return new ResultError<string>("Lỗi tìm môn học");
 
             var group = _db.ElectiveGroups.Find(subject.IDElectiveGroup);
-
+            if (group == null) return new ResultError<string>("Nhóm tự chọn không tồn tại");
             subject.IDElectiveGroup = null;
             --group.TotalSubject;
             _db.SaveChanges();

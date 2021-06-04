@@ -35,8 +35,9 @@ namespace SubjectManagement.GUI.Controller
         }
         private readonly ISubjectService _subjectService;
         private readonly IAlternativeService _alternativeService;
-        private readonly ICompareService _compareService;
+        private readonly ICompareService _compareService; 
 
+        public Class _ClassOld { get; set; }
         private Class _Class { get; init; }
         private Class _ClassCompare { get; init; }
 
@@ -198,7 +199,7 @@ namespace SubjectManagement.GUI.Controller
                 worksheet.Cell($"F{cell}").Value = "Tên môn";
                 worksheet.Cell($"G{cell}").Value = "Tín chỉ";
                 worksheet.Cell($"H{cell}").Value = "Học kỳ";
-                var alterSubjects = _alternativeService.GetAlternative(_Class.ID, subject.ID);
+                var alterSubjects = _alternativeService.GetAlternative(_Class.ID, subject.ID, _ClassOld.ID);
                 if (alterSubjects == null) continue;
                 cell++;
 
@@ -237,7 +238,7 @@ namespace SubjectManagement.GUI.Controller
                 var content = new PrintAlternativeJSON();
                 content.Subject = subject;
 
-                var alterSubjects = _alternativeService.GetAlternative(_Class.ID, subject.ID);
+                var alterSubjects = _alternativeService.GetAlternative(_Class.ID, subject.ID, _ClassOld.ID);
                 if (alterSubjects == null) continue;
                 foreach (var alter in alterSubjects)
                 {
@@ -315,6 +316,12 @@ namespace SubjectManagement.GUI.Controller
                 var cell = 0;
                 string[] listName = { "Các môn không có thay đổi", "Các môn học có thay đổi", "Môn học gốc", "Các môn thêm mới", "Các môn xóa bỏ" };
 
+                //cell++;
+                //worksheet.Cell($"B{cell}").Value = $"{_listOriginal[0].CodeClass} sẽ không có màu";
+                //cell++;
+                //worksheet.Cell($"B{cell}").Value = $"{_listChange[0].CodeClass} sẽ có màu AntiqueBrass như thế này";
+                //worksheet.Range($"B{cell}").Style.Fill.BackgroundColor = XLColor.AntiqueBrass;
+
                 for (var i = 0; i < 5; i++)
                 {
                     cell++;
@@ -329,14 +336,11 @@ namespace SubjectManagement.GUI.Controller
                     worksheet.Cell($"F{cell}").Value = "Tiết thực hành";
                     worksheet.Cell($"G{cell}").Value = "Học kỳ";
                     worksheet.Cell($"H{cell}").Value = "Mô tả";
+                    worksheet.Cell($"I{cell}").Value = "Lớp";
 
                     if (i == 1)
                     {
-                        cell++;
-                        worksheet.Cell($"B{cell}").Value = $"{_listOriginal[0].CourseCode} sẽ không có màu";
-                        cell++;
-                        worksheet.Cell($"B{cell}").Value = $"{_listChange[0].CourseCode} sẽ có màu AntiqueBrass như thế này";
-                        worksheet.Range($"B{cell}").Style.Fill.BackgroundColor = XLColor.AntiqueBrass;
+                        
                         for (var j = 0; j < _listOriginal.Count; j++)
                         {
                             cell++;
@@ -348,6 +352,8 @@ namespace SubjectManagement.GUI.Controller
                             worksheet.Cell($"F{cell}").Value = _listOriginal[j].NumberOfPractice;
                             worksheet.Cell($"G{cell}").Value = _listOriginal[j].Semester;
                             worksheet.Cell($"H{cell}").Value = _listOriginal[j].Details;
+                            worksheet.Cell($"I{cell}").Value = _listOriginal[j].CodeClass;
+
                             cell++;
                             worksheet.Cell($"A{cell}").Value = _listChange[j].CourseCode;
                             worksheet.Cell($"B{cell}").Value = _listChange[j].Name;
@@ -357,7 +363,8 @@ namespace SubjectManagement.GUI.Controller
                             worksheet.Cell($"F{cell}").Value = _listChange[j].NumberOfPractice;
                             worksheet.Cell($"G{cell}").Value = _listChange[j].Semester;
                             worksheet.Cell($"H{cell}").Value = _listChange[j].Details;
-                            worksheet.Range($"A{cell}:H{cell}").Style.Fill.BackgroundColor = XLColor.AntiqueBrass;
+                            worksheet.Cell($"I{cell}").Value = _listChange[j].CodeClass;
+                            worksheet.Range($"A{cell}:I{cell}").Style.Fill.BackgroundColor = XLColor.MediumAquamarine;
                             cell++;
                         }
 
