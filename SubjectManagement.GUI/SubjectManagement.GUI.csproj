@@ -8,6 +8,11 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="Login\WallpaperLaptopLogo.png" />
     <None Remove="Main\Children\Common\LogoDH19PM.png" />

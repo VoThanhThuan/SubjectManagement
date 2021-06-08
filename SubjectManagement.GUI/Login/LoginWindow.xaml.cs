@@ -1,25 +1,14 @@
-﻿using SubjectManagement.Application.System.Users;
-using SubjectManagement.GUI.Member;
-using SubjectManagement.ViewModels.System.Users;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using DocumentFormat.OpenXml.VariantTypes;
-using MaterialDesignThemes.Wpf;
+﻿using MaterialDesignThemes.Wpf;
 using SubjectManagement.GUI.Controller;
 using SubjectManagement.GUI.Dialog;
-using SubjectManagement.GUI.Main;
+using SubjectManagement.ViewModels.System.Users;
+using System;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 
 namespace SubjectManagement.GUI.Login
 {
@@ -44,6 +33,9 @@ namespace SubjectManagement.GUI.Login
             var connect = new SettingController();
             IsConnected = connect.ReadConnectString().IsSuccessed;
             if (!IsConnected) return;
+            btn_Login.IsEnabled = true;
+            tbx_UserName.IsEnabled = true;
+            tbx_Password.IsEnabled = true;
         }
 
         private async void Login()
@@ -118,7 +110,7 @@ namespace SubjectManagement.GUI.Login
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.Enter && IsConnected)
             {
                 Login();
             }

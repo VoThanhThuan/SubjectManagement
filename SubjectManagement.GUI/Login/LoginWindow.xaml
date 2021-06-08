@@ -91,6 +91,7 @@
                                  CaretBrush="#FF2B5BEB"
                                  BorderBrush="#FF696FD0"
                                  Focusable="True"
+                                 IsEnabled="False"
                                  Padding="-1" />
 
                     </Grid>
@@ -113,6 +114,7 @@
                                        Margin="25,0,0,0"
                                        CaretBrush="#FF2B5BEB"
                                        BorderBrush="#FF696FD0"
+                                       IsEnabled="False"
                                        PasswordChanged="tbx_Password_PasswordChanged">
                         </PasswordBox>
 
@@ -233,6 +235,7 @@
                               Margin="114,303,502,85"
                               BorderBrush="Transparent"
                               Content="Login"
+                              IsEnabled="False"
                               Click="BtnLogin_Click">
 
                 </RepeatButton>

@@ -57,6 +57,7 @@ namespace SubjectManagement.Application.ConnectStringApp
                 };
                 using var createStream = File.Create("ConnectString.json");
                 JsonSerializer.SerializeAsync(createStream, infoDb, options);
+                createStream.Close();
             }
             catch (Exception e)
             {
@@ -93,7 +94,7 @@ namespace SubjectManagement.Application.ConnectStringApp
                     MyConnect.ConnectString = $@"Server ={items.ServerName}; Database={items.DatabaseName}; Trusted_Connection=True;";
                 else
                     MyConnect.ConnectString = $@"Server ={items.ServerName}; Database={items.DatabaseName}; User Id={items.Uid}; Password={items.Password}; MultipleActiveResultSets=true;";
-                
+               r.Close(); 
             }
             catch (Exception e)
             {
