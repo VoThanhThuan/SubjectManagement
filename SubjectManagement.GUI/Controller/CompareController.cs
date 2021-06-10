@@ -68,7 +68,7 @@ namespace SubjectManagement.GUI.Controller
             {
                 switch (list[i].Different)
                 {
-                    case Different.SubjectChange when yearCurent < yearCompare:
+                    case Different.SubjectChange or Different.SubjectNew when yearCurent < yearCompare:
                         list.Remove(list[i]);
                         i--;
                         countList--;

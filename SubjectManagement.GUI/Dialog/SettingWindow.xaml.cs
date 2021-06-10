@@ -275,6 +275,7 @@ namespace SubjectManagement.GUI.Dialog
 
         private void ModeCreate_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (tbx_Username == null) return;
             if (cbb_ModeCreate.SelectedIndex == 0)
             {
                 tbx_Username.IsEnabled = false;

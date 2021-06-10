@@ -1,23 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
-using System.Threading.Tasks;
-using System.Windows.Media;
-using SubjectManagement.Application;
-using SubjectManagement.Application.ConnectStringApp;
+﻿using SubjectManagement.Application.ConnectStringApp;
 using SubjectManagement.Common.InfoDatabase;
 using SubjectManagement.Common.Result;
 using SubjectManagement.GUI.Constant;
 using SubjectManagement.GUI.Dialog;
-using Color = DocumentFormat.OpenXml.Spreadsheet.Color;
-using ConnectString = DocumentFormat.OpenXml.Wordprocessing.ConnectString;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Text.Encodings.Web;
+using System.Text.Json;
+using System.Windows.Media;
 
 namespace SubjectManagement.GUI.Controller
 {

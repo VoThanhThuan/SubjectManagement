@@ -26,6 +26,7 @@
                                   Height="48"
                                   Margin="10"
                                   Padding="15"
+                                  SelectedIndex="0"
                                   materialDesign:HintAssist.Hint="Authentication"
                                   VerticalContentAlignment="Center"
                                   SelectionChanged="ModeCreate_OnSelectionChanged">
@@ -41,6 +42,7 @@
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                  VerticalAlignment="Stretch"
                                  Margin="10"
+                                 Text="SubjectDatabase"
                                  materialDesign:HintAssist.Hint="Database Name" />
                         <TextBox x:Name="tbx_Username"
                                  Style="{StaticResource MaterialDesignOutlinedTextBox}"

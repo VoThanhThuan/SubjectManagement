@@ -76,6 +76,7 @@ namespace SubjectManagement.Application.ConnectStringApp
                 using var r = new StreamReader("ConnectString.json");
                 var json = r.ReadToEnd();
                 items = JsonSerializer.Deserialize<InfoDb>(json);
+                r.Close();
 
                 items.Uid = Uncode(items.Uid);
                 items.Password = Uncode(items.Password);
@@ -94,7 +95,6 @@ namespace SubjectManagement.Application.ConnectStringApp
                     MyConnect.ConnectString = $@"Server ={items.ServerName}; Database={items.DatabaseName}; Trusted_Connection=True;";
                 else
                     MyConnect.ConnectString = $@"Server ={items.ServerName}; Database={items.DatabaseName}; User Id={items.Uid}; Password={items.Password}; MultipleActiveResultSets=true;";
-               r.Close(); 
             }
             catch (Exception e)
             {
